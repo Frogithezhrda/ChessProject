@@ -7,6 +7,7 @@ class Manager
 {
 public:
 	//need to be implemented
+	//coco
 private:
 	char _gameState; //d = draw, w = win, n = normal
 	Player _blackPlayer;

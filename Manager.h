@@ -1,13 +1,12 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
-enum ErrorCodes {}; // Error codes
+enum GameCodes {GoodMove = 0, CheckMove, NotPlayerPiece, AlreadyHasPiece, WillBeCheck, NotValidIndex, NotValidMove, SameDestSrc, CheckMate}; // Error codes
 
 class Manager
 {
 public:
 	//need to be implemented
-	//coco
 private:
 	char _gameState; //d = draw, w = win, n = normal
 	Player _blackPlayer;

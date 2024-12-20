@@ -28,7 +28,7 @@ public:
 	output: the current board
 	description: returns the current board
 	*/
-	Board getBoard() const;
+	Board& getBoard() const;
 
 	~Manager();
 private:

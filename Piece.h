@@ -41,6 +41,8 @@ public:
 	*/
 	char getPieceColor() const;
 
+	Place getCurrentPlace() const;
+
 	/*
 	name: getType
 	input: none

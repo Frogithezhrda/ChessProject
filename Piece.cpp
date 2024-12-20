@@ -12,6 +12,10 @@ Piece::~Piece()
 {
 }
 
+Place Piece::getCurrentPlace() const
+{
+	return this->_currentPlace;
+}
 
 char Piece::getPieceColor() const
 {

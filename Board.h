@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Place.h"
+#include "Piece.h"
 
 #define BOARD_SIZE 8
 #define A_ASCII_VALUE 97
@@ -29,14 +30,17 @@ public:
 	*/
 	void printBoard() const;
 
+
+
+	Piece* getPiece(const std::string& pieceLocation) const;
 	/*
 	name: getBoard
 	input: none
 	output: the board
 	description: this function returns the board (?)
 	*/
-	Place** getBoard() const;
+	Place* getBoard() const;
 
 private:
-	Place** _board; //the board(?)
+	Place* _board[BOARD_SIZE]; //the board(?)
 };

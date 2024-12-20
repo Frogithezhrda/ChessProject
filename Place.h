@@ -7,8 +7,28 @@ public:
 	Place(const std::string& location);
 	~Place();
 
+	/*
+	name:
+	input:
+	output:
+	description:
+	*/
 	bool hasPiece() const;
+
+	/*
+	name:
+	input:
+	output:
+	description:
+	*/
 	std::string& getLocation() const;
+
+	/*
+	name:
+	input:
+	output:
+	description:
+	*/
 	char getCurrentPiece() const;
 
 private:

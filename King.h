@@ -6,6 +6,8 @@ class King : Piece
 public:
 
 private:
+	King(const char pieceColor, const Place& firstPlace);
+
 	/*
 	name: move
 	input: a refrence to a place

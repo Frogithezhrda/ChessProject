@@ -1,7 +1,9 @@
 #include "King.h"
 
 
-
+King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, "King", firstPlace)
+{
+}
 /*
 	name: move
 	input: a refrence to a place
@@ -10,7 +12,7 @@
 */
 void King::move(const Place& dest) 
 {
-
+	this->setCurrentPlace(dest);
 }
 
 /*

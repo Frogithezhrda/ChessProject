@@ -22,5 +22,5 @@ int Rook::isValidMove(const Place& dest) const
 
 void Rook::move(const Place& dest)
 {
-
+	this->setCurrentPlace(dest);
 }

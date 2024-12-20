@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Place.h"
+#include "Place.h"
 
 class Piece//represents a piece on the board
 {
@@ -50,6 +51,14 @@ public:
 	description: this fyunction returns the type of the piece
 	*/
 	std::string getType() const;
+
+	/*
+	name: setCurrentPlace
+	input: the new location
+	output: none
+	description: this fyunction returns the type of the piece
+	*/
+	void setCurrentPlace(const Place& dest);
 
 private:
 	char _pieceColor;//the color of the piece

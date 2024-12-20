@@ -14,7 +14,6 @@ Manager::Manager(const std::string& initBoard)
 
 Manager::~Manager()
 {
-	delete this->_board;
 }
 
 //void Manager::initPieces(const Player& player)
@@ -37,7 +36,7 @@ Manager::~Manager()
 //	}
 //}
 
-Board Manager::getBoard() const
+Board& Manager::getBoard() const
 {
 	return *(this->_board);
 }

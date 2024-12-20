@@ -35,8 +35,8 @@ public:
 	output: the board
 	description: this function returns the board (?)
 	*/
-	Place** getBoard() const;
+	Place* getBoard() const;
 
 private:
-	Place** _board; //the board(?)
+	Place* _board[BOARD_SIZE]; //the board(?)
 };

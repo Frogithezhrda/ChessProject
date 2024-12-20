@@ -7,7 +7,6 @@ Board::Board(const std::string& initBoard)
 	// getting the last value of the board to go from a8 down
 	int i = BOARD_SIZE - 1;
 	int j = 0;
-	this->_board = new Place*[BOARD_SIZE];
 	//initialzing Places with correct locations
 	for (i; i >= 0; i--)
 	{
@@ -27,7 +26,6 @@ Board::~Board()
 	{
 		delete[] _board[i];
 	}
-	delete[] _board;
 }
 
 void Board::printBoard() const
@@ -45,7 +43,7 @@ void Board::printBoard() const
 	}
 }
 
-Place** Board::getBoard() const
+Place* Board::getBoard() const
 {
-	return this->_board;
+	return *(this->_board);
 }

@@ -58,7 +58,7 @@ void main()
 	{
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
-		(*manager).getBoard().printBoard();
+		manager->getBoard().printBoard();
 		// YOUR CODE
 		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
 
@@ -75,6 +75,6 @@ void main()
 		// get message from graphics
 		msgFromGraphics = p.getMessageFromGraphics();
 	}
-
+	free(manager);
 	p.close();
 }

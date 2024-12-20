@@ -14,40 +14,44 @@ class Player//represents the player
 public:
 	
 	/*
-	name: constructor
+	name: CONSTRUCTOR
 	input: a char that represents the players color (W/B)
 	*/
 	Player(const char playerColor);
+
+	/*
+	name: DESTRUCTOR
+	*/
 	~Player();
 
 	/*
-	name:
-	input:
-	output:
-	description:
+	name: getPlayerColor
+	input: none
+	output: a char that represenyts the players color (W/B)
+	description: this functions returns the players color (W/B)
 	*/
 	char getPlayerColor() const;
 
 	/*
-	name:
-	input:
-	output:
-	description:
+	name: isChecked
+	input: none
+	output: true is the player is checked, and false otherwise
+	description: this functions tells if the player is checked, or not.
 	*/
 	bool isChecked() const;
 
 	/*
-	name:
-	input:
-	output:
-	description:
+	name: getPieces
+	input: none
+	output: retuns a refrence to a vector that has the players pieces
+	description: this functions returns a reference to the players pieces
 	*/
 	std::vector<Piece*>& getPieces() const;
 
 private:
-	char _playerColor;
-	bool _isChecked;
-	std::vector<Piece*> _pieces;
-	King* _king;
+	char _playerColor;//the players color (W/B)
+	bool _isChecked;//is he checked or not (true == checked)
+	std::vector<Piece*> _pieces;//a vector that holds the players pieces
+	King* _king;//a pointer to DA king (tomking ofc)
 
 };

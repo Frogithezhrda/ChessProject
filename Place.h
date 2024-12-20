@@ -4,11 +4,13 @@
 class Place
 {
 public:
+
+	Place();
 	/*
 	name: CONSTRUCTOR
 	input: a refrense to a string that represents the location on the board
 	*/
-	Place(const std::string& location);
+	Place(const std::string& location, const char pieceName);
 
 	/*
 	name: DESTRUCTOR
@@ -29,8 +31,15 @@ public:
 	output: a refrence to a string that represents a location on the board
 	description: this functions returns the location of the current place
 	*/
-	std::string& getLocation() const;
+	std::string getLocation() const;
 
+	/*
+	name: setLocation
+	input: new location to set
+	output: none
+	description: sets a new location for the currentPlace
+	*/
+	void setPiece(const char pieceName);
 	/*
 	name: getCurrentPiece
 	input: none

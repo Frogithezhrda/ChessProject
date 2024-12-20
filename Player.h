@@ -2,6 +2,8 @@
 #include <vector>
 #include "Piece.h"
 #include "King.h"
+
+
 /*
 	name:
 	input:
@@ -12,7 +14,7 @@
 class Player//represents the player
 {
 public:
-	
+	Player();
 	/*
 	name: CONSTRUCTOR
 	input: a char that represents the players color (W/B)

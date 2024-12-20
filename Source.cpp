@@ -7,6 +7,7 @@ in order to read and write information from and to the Backend
 #include "Pipe.h"
 #include <iostream>
 #include <thread>
+#include "Manager.h"
 
 using std::cout;
 using std::endl;
@@ -16,8 +17,8 @@ using std::string;
 void main()
 {
 	srand(time_t(NULL));
-
-	
+	Manager manager;
+	manager.getBoard().printBoard();
 	Pipe p;
 	bool isConnect = p.connect();
 	

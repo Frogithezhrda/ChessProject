@@ -2,6 +2,11 @@
 #include <iostream>
 #include "Place.h"
 
+#define BOARD_SIZE 8
+#define A_ASCII_VALUE 97
+
+class Place;
+
 class Board//represents the gameboard
 {
 public:
@@ -33,5 +38,5 @@ public:
 	Place** getBoard() const;
 
 private:
-	Place** board; //the board(?)
+	Place** _board; //the board(?)
 };

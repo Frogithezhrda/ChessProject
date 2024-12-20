@@ -27,7 +27,30 @@ Board::~Board()
 		delete[] _board[i];
 	}
 }
+Piece* Board::getPiece(const std::string& pieceLocation) const
+{
+	int row = 0;
+	int line = 0;
+	int i = BOARD_SIZE - 1;
+	int j = 0;
+	Piece* piece = nullptr;
+	Place* place = NULL;
 
+	for (i; i >= 0; i--)
+	{
+		for (j = 0; j < BOARD_SIZE; j++)
+		{
+			if (this->_board[i][j].getLocation() == pieceLocation)
+			{
+				place = new Place();
+				row = j;
+				line = i;
+				break;
+			}
+		}
+	}
+
+}
 void Board::printBoard() const
 {
 	int i = BOARD_SIZE - 1;

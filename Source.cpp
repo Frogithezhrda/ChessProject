@@ -60,6 +60,8 @@ void main()
 		// according the protocol. Ex: e2e4           (move e2 to e4)
 		manager->getBoard().printBoard();
 		// YOUR CODE
+		//msgFromGraphics
+		int code;//manager->getBoard();
 		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
 
 		/******* JUST FOR EREZ DEBUGGING ******/

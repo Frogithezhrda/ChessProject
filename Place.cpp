@@ -37,3 +37,8 @@ void Place::setPiece(const char pieceName)
 {
 	this->_pieceName = pieceName;
 }
+
+bool Place::hasPiece() const
+{
+	return this->_hasPiece;
+}

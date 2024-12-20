@@ -4,9 +4,8 @@
 class Rook : Piece
 {
 public:
-
-private:
-	/*
+	Rook(const char pieceColor, const Place& firstPlace);
+		/*
 	name: move
 	input: a refrence to a place
 	output: none
@@ -21,5 +20,6 @@ private:
 	description: this function tells if the move is valid or not and why
 	*/
 	virtual int isValidMove(const Place& dest) const override;
+private:
 
 };

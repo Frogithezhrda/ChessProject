@@ -2,28 +2,36 @@
 #include <iostream>
 #include "Place.h"
 
-class Board
+class Board//represents the gameboard
 {
 public:
+	/*
+	name: CONSTRUCTOR
+	input: none
+	*/
 	Board();
+
+	/*
+	name: DESTRUCTOR
+	*/
 	~Board();
 	
 	/*
-	name:
-	input:
-	output:
-	description:
+	name: printBoard
+	input: none
+	output: none
+	description: this function print the gameboard :)
 	*/
 	void printBoard() const;
 
 	/*
-	name:
-	input:
-	output:
-	description:
+	name: getBoard
+	input: none
+	output: the board
+	description: this function returns the board (?)
 	*/
 	Place** getBoard() const;
 
 private:
-	Place** board;
+	Place** board; //the board(?)
 };

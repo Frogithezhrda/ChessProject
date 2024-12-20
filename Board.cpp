@@ -2,17 +2,19 @@
 #include <string>
 
 
-Board::Board()
+Board::Board(const std::string& initBoard)
 {
+	// getting the last value of the board to go from a8 down
 	int i = BOARD_SIZE - 1;
 	int j = 0;
 	this->_board = new Place*[BOARD_SIZE];
+	//initialzing Places with correct locations
 	for (i; i >= 0; i--)
 	{
 		this->_board[i] = new Place[BOARD_SIZE];
 		for(j = 0; j < BOARD_SIZE; j++)
 		{
-			this->_board[i][j] = Place(char(i + A_ASCII_VALUE) + std::to_string(j + 1), '#');
+			this->_board[i][j] = Place(char(i + A_ASCII_VALUE) + std::to_string(j + 1), initBoard[i * BOARD_SIZE + j]);
 		}
 	}
 }
@@ -20,6 +22,7 @@ Board::Board()
 Board::~Board()
 {
 	int i = 0;
+	//cleaning the board values of each part of the array
 	for (i; i < BOARD_SIZE; i++)
 	{
 		delete[] _board[i];
@@ -29,9 +32,10 @@ Board::~Board()
 
 void Board::printBoard() const
 {
-	int i = 0;
+	int i = BOARD_SIZE - 1;
 	int j = 0;
-	for (i; i < BOARD_SIZE; i++)
+	//going through each place in the board and printing it
+	for (i; i >= 0; i--)
 	{
 		for (j = 0; j < BOARD_SIZE; j++)
 		{

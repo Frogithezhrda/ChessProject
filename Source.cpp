@@ -17,8 +17,7 @@ using std::string;
 void main()
 {
 	srand(time_t(NULL));
-	Manager manager;
-	manager.getBoard().printBoard();
+	Manager* manager = NULL;
 	Pipe p;
 	bool isConnect = p.connect();
 	
@@ -48,7 +47,8 @@ void main()
 	// YOUR CODE
 
 	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"); // just example...
-	
+	manager = new Manager(msgToGraphics);
+
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
@@ -58,7 +58,7 @@ void main()
 	{
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
-		
+		(*manager).getBoard().printBoard();
 		// YOUR CODE
 		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
 

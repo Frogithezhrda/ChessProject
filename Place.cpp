@@ -3,6 +3,7 @@
 
 Place::Place()
 {
+	//defualt values
 	this->_hasPiece = false;
 	this->_location = "";
 	this->_pieceName = '#';
@@ -10,6 +11,7 @@ Place::Place()
 
 Place::Place(const std::string& location, const char pieceName)
 {
+	//defualt start as false and loc and piecename
 	this->_hasPiece = false;
 	this->_location = location;
 	this->_pieceName = pieceName;

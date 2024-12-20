@@ -2,6 +2,7 @@
 
 Player::Player()
 {
+	//default Player
 	this->_playerColor = ' ';
 	this->_king = NULL;
 	this->_isChecked = false;
@@ -10,6 +11,7 @@ Player::Player()
 
 Player::Player(const char color)
 {
+	//currently Player
 	this->_playerColor = color;
 	this->_king = NULL;
 	this->_isChecked = false;

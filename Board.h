@@ -14,7 +14,7 @@ public:
 	name: CONSTRUCTOR
 	input: none
 	*/
-	Board();
+	Board(const std::string& initBoard);
 
 	/*
 	name: DESTRUCTOR

@@ -4,7 +4,10 @@
 class Place
 {
 public:
-
+	/*
+	name: CONSTRUCTOR
+	input: none
+	*/
 	Place();
 	/*
 	name: CONSTRUCTOR

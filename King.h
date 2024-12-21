@@ -6,7 +6,6 @@ class King : public Piece
 public:
 	King(const char pieceColor, const Place& firstPlace);
 private:
-	King(const char pieceColor, const Place& firstPlace);
 
 	/*
 	name: move

@@ -1,11 +1,10 @@
 #include "King.h"
 
 
-
 King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, "King", firstPlace)
 {
-
 }
+
 
 /*
 	name: move

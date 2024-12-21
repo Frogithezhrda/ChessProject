@@ -28,6 +28,9 @@ public:
 	*/
 	bool hasPiece() const;
 
+	void activePiece();
+	void deactivePiece();
+
 	/*
 	name: getLocation 
 	input: none
@@ -35,6 +38,7 @@ public:
 	description: this functions returns the location of the current place
 	*/
 	std::string getLocation() const;
+
 
 	/*
 	name: setLocation
@@ -51,9 +55,9 @@ public:
 	*/
 	char getCurrentPiece() const;
 
-private:
-	bool _hasPiece;//is there a piece in the place or not
-	std::string _location;//the location of the place 
-	char _pieceName;//the name of the piece on the board . (# if there isnt)
 
+private:
+	bool _hasPiece; //is there a piece in the place or not
+	std::string _location; //the location of the place 
+	char _pieceName; //the name of the piece on the board . (# if there isnt)
 };

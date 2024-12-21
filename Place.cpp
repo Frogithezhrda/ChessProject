@@ -1,5 +1,5 @@
 #include "Place.h"
-
+#include <string>
 
 Place::Place()
 {
@@ -12,7 +12,7 @@ Place::Place()
 Place::Place(const std::string& location, const char pieceName)
 {
 	//defualt start as false and loc and piecename
-	this->_hasPiece = false;
+	(pieceName != '#') ? this->_hasPiece = true : this->_hasPiece = false;
 	this->_location = location;
 	this->_pieceName = pieceName;
 }
@@ -21,7 +21,14 @@ Place::~Place()
 {
 	
 }
-
+void Place::activePiece()
+{
+	this->_hasPiece = true;
+}
+void Place::deactivePiece()
+{
+	this->_hasPiece = false;
+}
 
 char Place::getCurrentPiece() const
 {

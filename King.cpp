@@ -2,6 +2,11 @@
 
 
 
+King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, "King", firstPlace)
+{
+
+}
+
 /*
 	name: move
 	input: a refrence to a place
@@ -10,7 +15,7 @@
 */
 void King::move(const Place& dest) 
 {
-
+	this->setCurrentPlace(dest);
 }
 
 /*
@@ -21,5 +26,5 @@ description: this function tells if the move is valid or not and why
 */
 int King::isValidMove(const Place& dest) const
 {
-
+	return 0;
 }

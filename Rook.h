@@ -1,7 +1,7 @@
 #pragma once
 #include "Piece.h"
 
-class Rook : Piece
+class Rook : public Piece
 {
 public:
 	Rook(const char pieceColor, const Place& firstPlace);

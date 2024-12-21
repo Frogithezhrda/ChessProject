@@ -2,8 +2,6 @@
 #include "Player.h"
 #include "Board.h"
 
-#define BLACK 'b'
-#define WHITE 'w'
 #define WHITE_PLAYER 1
 #define BLACK_PLAYER 0
 #define PLAYER_COUNT 2
@@ -29,6 +27,10 @@ public:
 	description: returns the current board
 	*/
 	Board& getBoard() const;
+
+	Player getBlackPlayer() const;
+
+	Player getWhitePlayer() const;
 
 	~Manager();
 private:

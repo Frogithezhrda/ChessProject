@@ -1,9 +1,9 @@
 #include "King.h"
 #include "Board.h"
-#include "Manager.h"
 
 King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? KingName : std::toupper(KingName)), firstPlace)
 {
+
 }
 
 void King::move(const Place& dest, const Board* board)

@@ -50,14 +50,7 @@ Console::Console(Board& board)
 		destPlace = Place(dest, pieceChar);
 
 		pieceAtSrc = board.getPiece(src);
-		if (pieceAtSrc != nullptr)
-		{
-			errorCode = pieceAtSrc->isValidMove(destPlace, &board);//gettiong the error code
-		}
-		else
-		{
-			errorCode = 2;
-		}
+		pieceAtSrc != nullptr ? ((isWhiteTurn && pieceAtSrc->getPieceColor() == 'b') || (!isWhiteTurn && pieceAtSrc->getPieceColor() == 'w')) ? errorCode = 2 : (errorCode = pieceAtSrc->isValidMove(destPlace, &board)) : (errorCode = 2);
 		if (errorCode == 0)
 		{
 			board.setBoard(src, destPlace);

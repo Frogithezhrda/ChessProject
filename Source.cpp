@@ -19,14 +19,7 @@ void main()
 	system("start chessGraphics.exe");
 	srand(time_t(NULL));
 	Manager* manager = NULL;
-	std::string moveTo = "";
-	std::string moveFrom = "";
-	int code = 0;
 	Board* board = nullptr;
-	Piece* pieceFrom = nullptr;
-	Piece* pieceTo = nullptr;
-	Place* destination = nullptr;
-	char destPieceChar = ' ';
 	Pipe p;
 	bool isConnect = p.connect();
 	
@@ -69,37 +62,38 @@ void main()
 		// according the protocol. Ex: e2e4           (move e2 to e4)
 		// YOUR CODE
 		//getting 2 where to go to
-		moveFrom = msgFromGraphics.substr(0, 2);
-		moveTo = msgFromGraphics.substr(2, 2);
+		//moveFrom = msgFromGraphics.substr(0, 2);
+		//moveTo = msgFromGraphics.substr(2, 2);
 
-		cout << "Processing move: " << moveFrom << " to " << moveTo << endl;
+		//cout << "Processing move: " << moveFrom << " to " << moveTo << endl;
 
-		pieceFrom = board->getPiece(moveFrom);
-		pieceTo = board->getPiece(moveTo);
-		destPieceChar = pieceTo ? pieceTo->getCurrentPlace().getCurrentPiece() : '#';
+		//pieceFrom = board->getPiece(moveFrom);
+		//pieceTo = board->getPiece(moveTo);
+		//destPieceChar = pieceTo ? pieceTo->getCurrentPlace().getCurrentPiece() : '#';
 
-		destination = new Place(moveTo, destPieceChar);
-		if(pieceFrom != nullptr)
-		{
-			code = pieceFrom->isValidMove(*destination);
-		}
-		else
-		{
-			code = 7;
-		}
-		if (code == 0 || code == 1)
-		{
-			board->setBoard(moveFrom, *destination);
+		//destination = new Place(moveTo, destPieceChar);
+		//if(pieceFrom != nullptr)
+		//{
+		//	code = pieceFrom->isValidMove(*destination);
+		//}
+		//else
+		//{
+		//	code = 7;
+		//}
+		//if (code == 0 || code == 1)
+		//{
+		//	board->setBoard(moveFrom, *destination);
 
-			cout << "Board state after move:" << endl;
-			board->printBoard();
-		}
-		else
-		{
-			cout << "Invalid move! Error code: " << code << endl;
-		}
-		delete destination;
-		strcpy_s(msgToGraphics, std::to_string(code).c_str()); // msgToGraphics should contain the result of the operation
+		//	cout << "Board state after move:" << endl;
+		//	board->printBoard();
+		//}
+		//else
+		//{
+		//	cout << "Invalid move! Error code: " << code << endl;
+		//}
+		
+		//delete destination;
+		strcpy_s(msgToGraphics, std::to_string(manager->getConsole()->getErrorCode()).c_str()); // msgToGraphics should contain the result of the operation
 		// return result to graphics		
 		p.sendMessageToGraphics(msgToGraphics);  
 		// get message from graphics

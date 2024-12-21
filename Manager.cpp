@@ -7,6 +7,7 @@ Manager::Manager(const std::string& initBoard)
 	this->_gameState = Normal;
 	this->_players[BLACK_PLAYER] = Player(BLACK);
 	this->_players[WHITE_PLAYER] = Player(WHITE);
+	this->_console = new Console(*this->_board);
 	//maybe Used Later
 	//initPieces(this->_players[BLACK_PLAYER]);
 	//initPieces(this->_players[WHITE_PLAYER]);
@@ -35,6 +36,10 @@ Manager::~Manager()
 //		this->_board.getBoard()[rowPiece][i].setPiece(currentPiece);
 //	}
 //}
+Console* Manager::getConsole() const
+{
+	return _console;
+}
 Player Manager::getBlackPlayer() const
 {
 	return this->_players[BLACK_PLAYER];

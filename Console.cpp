@@ -1,16 +1,5 @@
 //all of the files >:(
-#include "Bishop.h"
-#include "Board.h"
-#include "King.h"
-#include "Knight.h"
-#include "Manager.h"
-#include "Pawn.h"
-#include "Piece.h"
-#include "Place.h"
-#include "Player.h"
-#include "Queen.h"
-#include "Rook.h"
-
+#include "Console.h"
 /*
 	name: hasPiece
 	input: none
@@ -27,11 +16,10 @@ void displayError(int errorCode);
 */
 void printTurn(bool isWhiteTurn);
 
-void main()
+Console::Console(Board& board)
 {
 	bool isWhiteTurn = true;
 	int errorCode = 0;
-	std::string startBoard = "RNBKQBNRPPPPPPPP################################pppppppprnbkqbnr";
 	std::string move;
 	std::string src = " ";
 	std::string dest = " ";
@@ -40,14 +28,9 @@ void main()
 	Place destPlace;
 	Piece* pieceAtSrc = NULL;
 
-
-
-	//initializing board
-	Manager game(startBoard);
-
 	while (true)
 	{
-		game.getBoard().printBoard();
+		board.printBoard();
 		printTurn(isWhiteTurn);
 
 		std::cin >> move;//players input
@@ -62,13 +45,19 @@ void main()
 		src = move.substr(0, 2);
 		dest = move.substr(2, 2);
 
-		pieceAtDest = game.getBoard().getPiece(dest);
-		pieceChar = (pieceAtDest != NULL) ? pieceAtDest->getType()[0] : '#'; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
+		pieceAtDest = board.getPiece(dest);
+		pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : '#'; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
 		destPlace = Place(dest, pieceChar);
 
-		pieceAtSrc = game.getBoard().getPiece(src);
-		errorCode = pieceAtSrc->isValidMove(destPlace);//gettiong the error code
-
+		pieceAtSrc = board.getPiece(src);
+		if (pieceAtSrc != nullptr)
+		{
+			errorCode = pieceAtSrc->isValidMove(destPlace);//gettiong the error code
+		}
+		if (errorCode == 0)
+		{
+			board.setBoard(src, destPlace);
+		}
 		displayError(errorCode);
 
 		if (!(errorCode == 0 || errorCode == 1 || errorCode == 8))
@@ -79,17 +68,13 @@ void main()
 
 		pieceAtSrc->move(destPlace);
 		isWhiteTurn = !isWhiteTurn;
-	}
-
-
-		
-		
-
-		
-
+	}	
 }
 
-
+int Console::getErrorCode() const
+{
+	return _errorCode;
+}
 
 void displayError(int errorCode)
 {

@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
+#include "Console.h"
 
 #define WHITE_PLAYER 1
 #define BLACK_PLAYER 0
@@ -32,6 +33,8 @@ public:
 
 	Player getWhitePlayer() const;
 
+
+	Console* getConsole() const;
 	~Manager();
 private:
 	/*
@@ -45,4 +48,5 @@ private:
 	GameState _gameState; //d = draw, w = win, n = normal
 	Player _players[PLAYER_COUNT];
 	Board* _board;
+	Console* _console;
 };

@@ -2,7 +2,7 @@
 
 
 
-King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, "King", firstPlace)
+King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? KingName : std::toupper(KingName)), firstPlace)
 {
 
 }

@@ -79,16 +79,14 @@ void main()
 		destPieceChar = pieceTo ? pieceTo->getCurrentPlace().getCurrentPiece() : '#';
 
 		destination = new Place(moveTo, destPieceChar);
-
-		if (pieceFrom != nullptr)
+		if(pieceFrom != nullptr)
 		{
 			code = pieceFrom->isValidMove(*destination);
 		}
 		else
 		{
-			code = 5;
+			code = 7;
 		}
-
 		if (code == 0 || code == 1)
 		{
 			board->setBoard(moveFrom, *destination);

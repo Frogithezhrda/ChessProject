@@ -1,29 +1,30 @@
 #include "Rook.h"
 
-Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, "Rook", firstPlace)
+Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? RookName : std::toupper(RookName)), firstPlace)
 {
 
 }
 
 int Rook::isValidMove(const Place& dest) const
 {
-	char currentRow = this->getCurrentPlace().getLocation()[0];
-	char currentLine = this->getCurrentPlace().getLocation()[1];
-	if (this->getCurrentPlace().getCurrentPiece() == '#')
-	{
-		return 5;
-	}
-	// still didnt fix the after the piece problem will fix be smart(i know how i dont have the power)
-	if (!dest.hasPiece() && (currentRow == dest.getLocation()[0] || currentLine == dest.getLocation()[1]) && dest.getLocation() != this->getCurrentPlace().getLocation())
-	{
-		return 0;
-	}
-	else
-	{
-		return 2;
-	}
-}
+    // Get current position
+    char currentRow = this->getCurrentPlace().getLocation()[0];
+    char currentLine = this->getCurrentPlace().getLocation()[1];
+    char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
 
+    if (this->getCurrentPlace().getCurrentPiece() == '#')
+    {
+        return 2; 
+    }
+    if ((!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
+        (currentRow == dest.getLocation()[0] || currentLine == dest.getLocation()[1]) && 
+        dest.getLocation() != this->getCurrentPlace().getLocation()) 
+    {
+        return 0; // Valid move
+    }
+
+    return 6; 
+}
 void Rook::move(const Place& dest)
 {
 	if (!isValidMove(dest))

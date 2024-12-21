@@ -13,7 +13,7 @@ public:
 	name: CONSTRUCTOR
 	input: pieceColor - the color of the piece(B/W). type
 	*/
-	Piece(const char pieceColor, const std::string& type, const Place& firstPlace);
+	Piece(const char pieceColor, const char type, const Place& firstPlace);
 
 	/*
 	name: CONSTRUCTOR
@@ -53,7 +53,7 @@ public:
 	output: a string that represents a type
 	description: this fyunction returns the type of the piece
 	*/
-	std::string getType() const;
+	char getType() const;
 
 	/*
 	name: setCurrentPlace
@@ -65,7 +65,7 @@ public:
 
 private:
 	char _pieceColor;//the color of the piece
-	std::string _type;//the type of piece
+	char _type;//the type of piece
 	Place _currentPlace;//the current location of the piece
 
 };

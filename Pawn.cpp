@@ -1,6 +1,6 @@
 #include "Pawn.h"
 
-Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, "Pawn", firstPlace)
+Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? 'p' : 'P'), firstPlace)
 {
 
 }

@@ -45,16 +45,16 @@ Piece* Board::getPiece(const std::string& pieceLocation) const
 				switch (std::tolower(pieceLetter))
 				{
 					case PawnName:
-						piece = new Pawn(std::islower(pieceLetter) ? BLACK : WHITE, this->_board[i][j]);
+						piece = new Pawn(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
 						break;
 					case KnightName:
 
 						break;
 					case RookName:
-						piece = new Rook(std::islower(pieceLetter) ? BLACK : WHITE, this->_board[i][j]);
+						piece = new Rook(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
 						break;
 					case KingName:
-						piece = new King(std::islower(pieceLetter) ? BLACK : WHITE, this->_board[i][j]);
+						piece = new King(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
 						break;
 					case QueenName:
 

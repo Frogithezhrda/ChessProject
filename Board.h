@@ -16,6 +16,7 @@
 #define BOARD_SIZE 8
 #define A_ASCII_VALUE 97
 
+
 class Board//represents the gameboard
 {
 public:

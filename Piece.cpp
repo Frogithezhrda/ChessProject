@@ -26,7 +26,6 @@ char Piece::getType() const
 {
 	return this->_type;
 }
-
 void Piece::setCurrentPlace(const Place& dest)
 {
 	this->_currentPlace = dest;

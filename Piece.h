@@ -4,7 +4,7 @@
 
 enum Pieces {PawnName = 'p', RookName = 'r', QueenName = 'q', KingName = 'k', KnightName = 'n', BishopName = 'b' };
 
-class Place;
+class Board;
 
 class Piece//represents a piece on the board
 {
@@ -27,7 +27,7 @@ public:
 	output: none
 	description: this function moves the piece to the given dest
 	*/
-	virtual void move(const Place& dest) = 0;
+	virtual void move(const Place& dest, const Board* board) = 0;
 
 	/*
 	name: isValidMove
@@ -35,7 +35,7 @@ public:
 	output: a num that represents the validility
 	description: this function tells if the move is valid or not and why
 	*/
-	virtual int isValidMove(const Place& dest) const = 0;
+	virtual int isValidMove(const Place& dest, const Board* board) const = 0;
 
 	/*
 	name: getPieceColor
@@ -67,5 +67,4 @@ private:
 	char _pieceColor;//the color of the piece
 	char _type;//the type of piece
 	Place _currentPlace;//the current location of the piece
-
 };

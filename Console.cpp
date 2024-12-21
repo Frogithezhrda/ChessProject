@@ -40,7 +40,7 @@ Console::Console(Board& board)
 			std::cout << "invalid input format." << std::endl;
 			continue;
 		}
-
+		//errorCode = 2;
 		//splitting input into src and dest
 		src = move.substr(0, 2);
 		dest = move.substr(2, 2);
@@ -52,11 +52,17 @@ Console::Console(Board& board)
 		pieceAtSrc = board.getPiece(src);
 		if (pieceAtSrc != nullptr)
 		{
-			errorCode = pieceAtSrc->isValidMove(destPlace);//gettiong the error code
+			errorCode = pieceAtSrc->isValidMove(destPlace, &board);//gettiong the error code
+		}
+		else
+		{
+			errorCode = 2;
 		}
 		if (errorCode == 0)
 		{
 			board.setBoard(src, destPlace);
+			pieceAtSrc->move(destPlace, &board);
+			isWhiteTurn = !isWhiteTurn;
 		}
 		displayError(errorCode);
 
@@ -65,9 +71,6 @@ Console::Console(Board& board)
 			std::cout << "pls do a diffrent move instead!" << std::endl;
 			continue;
 		}
-
-		pieceAtSrc->move(destPlace);
-		isWhiteTurn = !isWhiteTurn;
 	}	
 }
 

@@ -6,41 +6,32 @@ King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 {
 }
 
-void King::move(const Place& dest) 
+void King::move(const Place& dest, const Board* board)
 {
-	this->setCurrentPlace(dest);
+	if (isValidMove(dest, board))
+	{
+		this->setCurrentPlace(dest);
+	}
 }
 
-int King::isValidMove(const Place& dest) const
+int King::isValidMove(const Place& dest, const Board* board) const
 {
-	std::string currentLocation = this->getCurrentPlace().getLocation();
-	std::string destinationLocation = dest.getLocation();
-
-	if (currentLocation == destinationLocation) 
+	char currentRow = this->getCurrentPlace().getLocation()[0];
+	int currentLine = int(this->getCurrentPlace().getLocation()[1]);
+	char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
+	int differenceVertical = currentLine - int(dest.getLocation()[1]);
+	int differenceHorizontal = int(currentRow) - int(dest.getLocation()[0]);
+	if (dest.getLocation() == this->getCurrentPlace().getLocation())
 	{
 		return 7; //src and dst are the same
 	}
-
-	int currentRow = currentLocation[0] - '1'; // '1' -> 0, '2' -> 1, etc.
-	int currentCol = currentLocation[1] - 'A'; // 'A' -> 0, 'B' -> 1, etc.
-
-	int destRow = destinationLocation[0] - '1';// '1' -> 0, '2' -> 1, etc.
-	int destCol = destinationLocation[1] - 'A';// '1' -> 0, '2' -> 1, etc.
-
-	if (destRow < 0 || destRow >= BOARD_SIZE || destCol < 0 || destCol >= BOARD_SIZE) 
+	
+	if (differenceVertical > 1 || differenceVertical < -1 || differenceHorizontal > 1 || differenceHorizontal < -1)
 	{
-		return 6; //invalid move for the King
-	}
-
-	int rowDiff = (destRow > currentRow) ? (destRow - currentRow) : (currentRow - destRow);
-	int colDiff = (destCol > currentCol) ? (destCol - currentCol) : (currentCol - destCol);
-
-	if (rowDiff > 1 || colDiff > 1) 
-	{
-		return 6; //invalid move for the King
+		return 6;
 	}
 	
-	if (dest.hasPiece() && dest.getCurrentPiece() == this->getPieceColor()) 
+	if (dest.hasPiece() && pieceColor == this->getPieceColor())
 	{
 		return 3; //cant eat its own piece
 	}

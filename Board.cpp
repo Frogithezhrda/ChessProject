@@ -96,6 +96,7 @@ void Board::setBoard(const std::string& src, const Place& dest)
 	{
 		for (j = 0; j < BOARD_SIZE; j++)
 		{
+			this->_board[i][j];
 			if (src == this->_board[i][j].getLocation())
 			{
 				movingPieceChar = this->_board[i][j].getCurrentPiece();

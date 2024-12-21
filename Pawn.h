@@ -1,10 +1,10 @@
 #pragma once
 #include "Piece.h"
 
-class Pawn : Piece
+class Pawn : public Piece
 {
 public:
-
+	Pawn(const char pieceColor, const Place& firstPlace);
 private:
 	/*
 	name: move

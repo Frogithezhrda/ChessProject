@@ -16,8 +16,17 @@ using std::string;
 
 void main()
 {
+	system("start chessGraphics.exe");
 	srand(time_t(NULL));
 	Manager* manager = NULL;
+	std::string moveTo = "";
+	std::string moveFrom = "";
+	int code = 0;
+	Board* board = nullptr;
+	Piece* pieceFrom = nullptr;
+	Piece* pieceTo = nullptr;
+	Place* destination = nullptr;
+	char destPieceChar = ' ';
 	Pipe p;
 	bool isConnect = p.connect();
 	
@@ -48,7 +57,7 @@ void main()
 
 	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"); // just example...
 	manager = new Manager(msgToGraphics);
-
+	board = &manager->getBoard();
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
@@ -58,25 +67,46 @@ void main()
 	{
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
-		manager->getBoard().printBoard();
 		// YOUR CODE
-		//msgFromGraphics
-		int code;//manager->getBoard();
-		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
+		//getting 2 where to go to
+		moveFrom = msgFromGraphics.substr(0, 2);
+		moveTo = msgFromGraphics.substr(2, 2);
 
-		/******* JUST FOR EREZ DEBUGGING ******/
-		int r = rand() % 10; // just for debugging......
-		msgToGraphics[0] = (char)(1 + '0');
-		msgToGraphics[1] = 0;
-		/******* JUST FOR EREZ DEBUGGING ******/
+		cout << "Processing move: " << moveFrom << " to " << moveTo << endl;
 
+		pieceFrom = board->getPiece(moveFrom);
+		pieceTo = board->getPiece(moveTo);
+		destPieceChar = pieceTo ? pieceTo->getCurrentPlace().getCurrentPiece() : '#';
 
+		destination = new Place(moveTo, destPieceChar);
+
+		if (pieceFrom != nullptr)
+		{
+			code = pieceFrom->isValidMove(*destination);
+		}
+		else
+		{
+			code = 5;
+		}
+
+		if (code == 0 || code == 1)
+		{
+			board->setBoard(moveFrom, *destination);
+
+			cout << "Board state after move:" << endl;
+			board->printBoard();
+		}
+		else
+		{
+			cout << "Invalid move! Error code: " << code << endl;
+		}
+		delete destination;
+		strcpy_s(msgToGraphics, std::to_string(code).c_str()); // msgToGraphics should contain the result of the operation
 		// return result to graphics		
-		p.sendMessageToGraphics(msgToGraphics);   
-
+		p.sendMessageToGraphics(msgToGraphics);  
 		// get message from graphics
 		msgFromGraphics = p.getMessageFromGraphics();
 	}
-	free(manager);
+	delete manager;
 	p.close();
 }

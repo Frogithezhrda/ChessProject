@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
 #include "Place.h"
-#include "Place.h"
+
+enum Pieces {PawnName = 'p', RookName = 'r', QueenName = 'q', KingName = 'k', KnightName = 'n', BishopName = 'b' };
+
+class Place;
 
 class Piece//represents a piece on the board
 {
@@ -64,4 +67,5 @@ private:
 	char _pieceColor;//the color of the piece
 	std::string _type;//the type of piece
 	Place _currentPlace;//the current location of the piece
+
 };

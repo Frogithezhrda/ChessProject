@@ -35,7 +35,15 @@ Manager::~Manager()
 //		this->_board.getBoard()[rowPiece][i].setPiece(currentPiece);
 //	}
 //}
+Player Manager::getBlackPlayer() const
+{
+	return this->_players[BLACK_PLAYER];
+}
 
+Player Manager::getWhitePlayer() const
+{
+	return this->_players[WHITE_PLAYER];
+}
 Board& Manager::getBoard() const
 {
 	return *(this->_board);

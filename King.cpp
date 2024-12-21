@@ -16,6 +16,11 @@ int King::isValidMove(const Place& dest) const
 	std::string currentLocation = this->getCurrentPlace().getLocation();
 	std::string destinationLocation = dest.getLocation();
 
+	if (currentLocation == destinationLocation) 
+	{
+		return 7; //src and dst are the same
+	}
+
 	int currentRow = currentLocation[0] - '1'; // '1' -> 0, '2' -> 1, etc.
 	int currentCol = currentLocation[1] - 'A'; // 'A' -> 0, 'B' -> 1, etc.
 

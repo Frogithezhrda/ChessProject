@@ -68,67 +68,49 @@ void Console::displayError(int errorCode)
 {
 	switch (errorCode)
 	{
-	case 0:
-	{
-		std::cout << "valud  move !" << std::endl;
+	case ErrorCode::VALID_MOVE:
+		std::cout << "valid move!" << std::endl;
 		break;
-	}
 
-	case 1:
-	{
-		std::cout << " valid move! opp is checked!" << std::endl;
+	case ErrorCode::VALID_MOVE_OPPONENT_CHECKED:
+		std::cout << "valid move! opponent is checked!" << std::endl;
 		break;
-	}
 
-	case 2:
-	{
-		std::cout << "invalid move ! there is no players piece in src block!" << std::endl;
+	case ErrorCode::NO_PLAYER_PIECE_AT_SRC:
+		std::cout << "invalid move! there is no player's piece in src block!" << std::endl;
 		break;
-	}
 
-	case 3:
-	{
-		std::cout << "invalid move ! there is players piece in dst block!" << std::endl;
+	case ErrorCode::PLAYER_PIECE_AT_DEST:
+		std::cout << "invalid move! there is a player's piece in dst block!" << std::endl;
 		break;
-	}
 
-	case 4:
-	{
+	case ErrorCode::MOVE_CAUSES_CHECK:
 		std::cout << "invalid move! will make check on current player!" << std::endl;
 		break;
-	}
 
-	case 5:
-	{
-		std::cout << "invalid move ! invalid index!" << std::endl;
+	case ErrorCode::INVALID_INDEX:
+		std::cout << "invalid move! invalid index!" << std::endl;
 		break;
-	}
 
-	case 6:
-	{
-		std::cout << "invalid move ! this piece DOES NOT! move like this!" << std::endl;
+	case ErrorCode::INVALID_PIECE_MOVE:
+		std::cout << "invalid move! this piece DOES NOT move like this!" << std::endl;
 		break;
-	}
 
-	case 7:
-	{
-		std::cout << "invalid move! dst and serc are the same!" << std::endl;
+	case ErrorCode::SAME_SRC_AND_DEST:
+		std::cout << "invalid move! dst and src are the same!" << std::endl;
 		break;
-	}
 
-	case 8:
-	{
-		std::cout << "valid move! CHECKMATEEE!" << std::endl;
+	case ErrorCode::CHECKMATE:
+		std::cout << "valid move! CHECKMATE!" << std::endl;
 		break;
-	}
 
 	default:
-	{
 		std::cout << "unknown error :(" << std::endl;
 		break;
 	}
-	}
 }
+
+
 
 void Console::printTurn(bool isWhiteTurn)
 {

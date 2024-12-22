@@ -17,7 +17,7 @@ void displayError(int errorCode);
 */
 void printTurn(bool isWhiteTurn);
 
-Console::Console(Board& board)
+Console::Console(Board& board, Player players[])
 {
 	bool isWhiteTurn = true;
 	int errorCode = 0;
@@ -61,7 +61,7 @@ Console::Console(Board& board)
 		{
 			board.setBoard(src, destPlace);
 			pieceAtSrc->move(destPlace, &board);
-			isWhiteTurn = !isWhiteTurn;
+			//isWhiteTurn = !isWhiteTurn;
 		}
 		displayError(errorCode);
 

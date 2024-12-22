@@ -7,7 +7,6 @@ Piece::Piece(const char pieceColor, const char type, const Place& firstPlace)
 	this->_currentPlace = firstPlace;
 }
 
-
 Piece::~Piece()
 {
 }

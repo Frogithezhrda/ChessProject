@@ -12,20 +12,15 @@ int Rook::isValidMove(const Place& dest, const Board* board) const
     char currentRow = this->getCurrentPlace().getLocation()[0];
     char currentLine = this->getCurrentPlace().getLocation()[1];
     char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
-
+    
     if (this->getCurrentPlace().getCurrentPiece() == '#')
     {
         return 2; 
     }
-    if (isClearPath(dest, board))
-    {
-        return 0;
-    }
-
 
     if ((!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
         (currentRow == dest.getLocation()[0] || currentLine == dest.getLocation()[1]) && 
-        dest.getLocation() != this->getCurrentPlace().getLocation())
+        dest.getLocation() != this->getCurrentPlace().getLocation() && isClearPath(dest, board))
     {
         return 0; 
     }
@@ -45,6 +40,8 @@ bool Rook::isClearPath(const Place& dest, const Board* board) const
     int i = 0;
     int startRow = std::min(this->getCurrentPlace().getLocation()[1] - '1', dest.getLocation()[1] - '1');
     int endRow = std::max(this->getCurrentPlace().getLocation()[1] - '1', dest.getLocation()[1] - '1');
+    char startLine = std::min(this->getCurrentPlace().getLocation()[0], dest.getLocation()[0]);
+    char endLine = std::max(this->getCurrentPlace().getLocation()[0], dest.getLocation()[0]);
     char currentRow = this->getCurrentPlace().getLocation()[0];
     std::string currentPos = "";
     
@@ -59,17 +56,16 @@ bool Rook::isClearPath(const Place& dest, const Board* board) const
             }
         }
     }
-    else if (this->getCurrentPlace().getLocation()[0] == dest.getLocation()[0])  // horizontal movement
+    else if (this->getCurrentPlace().getLocation()[1] == dest.getLocation()[1])  // horizontal movement
     {
-        for (i = startRow + 1; i < endRow; i++)
+        for (i = startLine + 1; i < endLine; i++)
         {
-            currentPos = std::string(std::to_string(i + 1) + currentRow);
-            if (board->getPiece(currentPos) != nullptr) 
+            currentPos = std::string(std::string(1, (char)i) + this->getCurrentPlace().getLocation()[1]);  // Construct the position string correctly
+            if (board->getPiece(currentPos) != nullptr)
             {
                 return false;
             }
         }
     }
-
     return true; 
 }

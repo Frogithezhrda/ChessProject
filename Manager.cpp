@@ -1,5 +1,6 @@
 #include "Manager.h"
 
+
 Manager::Manager(const std::string& initBoard)
 {
 	//initalizing board and players
@@ -7,7 +8,7 @@ Manager::Manager(const std::string& initBoard)
 	this->_gameState = Normal;
 	this->_players[BLACK_PLAYER] = Player(BLACK);
 	this->_players[WHITE_PLAYER] = Player(WHITE);
-	this->_console = new Console(*this->_board);
+	this->_console = new Console(*this->_board, this->_players);
 	//maybe Used Later
 }
 

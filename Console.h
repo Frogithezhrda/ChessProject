@@ -4,7 +4,7 @@
 class Console
 {
 public:
-	Console(Board& board);
+	Console(Board& board, Player players[]);
 	int getErrorCode() const;
 private:
 	int _errorCode;

@@ -5,6 +5,7 @@
 enum Pieces {PawnName = 'p', RookName = 'r', QueenName = 'q', KingName = 'k', KnightName = 'n', BishopName = 'b' };
 
 class Board;
+class Player;
 
 class Piece//represents a piece on the board
 {

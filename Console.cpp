@@ -69,43 +69,43 @@ void Console::displayError(int errorCode)
 	switch (errorCode)
 	{
 	case ErrorCode::VALID_MOVE:
-		std::cout << "valid move!" << std::endl;
+		std::cout << "Valid move!" << std::endl;
 		break;
 
 	case ErrorCode::VALID_MOVE_OPPONENT_CHECKED:
-		std::cout << "valid move! opponent is checked!" << std::endl;
+		std::cout << "Valid move! opponent is checked!" << std::endl;
 		break;
 
 	case ErrorCode::NO_PLAYER_PIECE_AT_SRC:
-		std::cout << "invalid move! there is no player's piece in src block!" << std::endl;
+		std::cout << "Invalid move! there is no player's piece in src block!" << std::endl;
 		break;
 
 	case ErrorCode::PLAYER_PIECE_AT_DEST:
-		std::cout << "invalid move! there is a player's piece in dst block!" << std::endl;
+		std::cout << "Invalid move! there is a player's piece in dst block!" << std::endl;
 		break;
 
 	case ErrorCode::MOVE_CAUSES_CHECK:
-		std::cout << "invalid move! will make check on current player!" << std::endl;
+		std::cout << "Invalid move! will make check on current player!" << std::endl;
 		break;
 
 	case ErrorCode::INVALID_INDEX:
-		std::cout << "invalid move! invalid index!" << std::endl;
+		std::cout << "Invalid move! invalid index!" << std::endl;
 		break;
 
 	case ErrorCode::INVALID_PIECE_MOVE:
-		std::cout << "invalid move! this piece DOES NOT move like this!" << std::endl;
+		std::cout << "Invalid move! this piece DOES NOT move like this!" << std::endl;
 		break;
 
 	case ErrorCode::SAME_SRC_AND_DEST:
-		std::cout << "invalid move! dst and src are the same!" << std::endl;
+		std::cout << "Invalid move! dst and src are the same!" << std::endl;
 		break;
 
 	case ErrorCode::CHECKMATE:
-		std::cout << "valid move! CHECKMATE!" << std::endl;
+		std::cout << "Valid move! CHECKMATE!" << std::endl;
 		break;
 
 	default:
-		std::cout << "unknown error :(" << std::endl;
+		std::cout << "Unknown error :(" << std::endl;
 		break;
 	}
 }
@@ -116,10 +116,10 @@ void Console::printTurn(bool isWhiteTurn) const
 {
 	if (isWhiteTurn)
 	{
-		std::cout << "whites turn! " << std::endl;
+		std::cout << "Whites turn! " << std::endl;
 	}
 	else
 	{
-		std::cout << "balcks turn! " << std::endl;
+		std::cout << "Blacks turn! " << std::endl;
 	}
 }

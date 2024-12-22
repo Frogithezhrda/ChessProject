@@ -36,11 +36,12 @@ public:
 
 	/*
 	name: isChecked
-	input: none
+	input: a refrence to the src, a refrence to the dest, a pointer to the board, and a pointer to the opp
 	output: true is the player is checked, and false otherwise
 	description: this functions tells if the player is checked, or not.
 	*/
-	bool isChecked() const;
+	bool isCheckAfterMove(const std::string& src, const std::string& dest, Board* board);
+
 
 	/*
 	name: getPieces

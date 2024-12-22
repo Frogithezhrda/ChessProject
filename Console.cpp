@@ -1,5 +1,6 @@
 //all of the files >:(
 #include "Console.h"
+#include "Player.h"
 /*
 	name: hasPiece
 	input: none
@@ -27,6 +28,8 @@ Console::Console(Board& board)
 	char pieceChar = ' ';
 	Place destPlace;
 	Piece* pieceAtSrc = NULL;
+	
+	
 
 	while (true)
 	{
@@ -51,6 +54,9 @@ Console::Console(Board& board)
 
 		pieceAtSrc = board.getPiece(src);
 		pieceAtSrc != nullptr ? ((isWhiteTurn && pieceAtSrc->getPieceColor() == 'b') || (!isWhiteTurn && pieceAtSrc->getPieceColor() == 'w')) ? errorCode = 2 : (errorCode = pieceAtSrc->isValidMove(destPlace, &board)) : (errorCode = 2);
+		
+		
+
 		if (errorCode == 0)
 		{
 			board.setBoard(src, destPlace);

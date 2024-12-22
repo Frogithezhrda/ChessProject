@@ -9,6 +9,7 @@
 #include "Bishop.h"
 #include "King.h"
 #include "Queen.h"
+#include "Player.h"
 
 
 #define BLACK 'b'
@@ -40,7 +41,7 @@ public:
 	void printBoard() const;
 
 
-	void setBoard(const std::string& src, const Place& dest);
+	void setBoard(const std::string& src, const Place& dest, Player* player );
 
 	Piece* getPiece(const std::string& pieceLocation) const;
 	/*

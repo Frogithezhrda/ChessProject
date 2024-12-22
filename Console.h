@@ -5,8 +5,18 @@ class Console
 {
 public:
 
+	/*
+	name: CONSTRUCTOR
+	input: a refrence to a board
+	*/
 	Console(Board& board);
-
+	
+	/*
+	name: geterrorcode
+	input: none
+	output: the error code
+	description: this functions returns the error code
+	*/
 	int getErrorCode() const;
 
 private:
@@ -18,8 +28,14 @@ private:
     */
 	void printTurn(bool isWhiteTurn);
 
+	/*
+	name: displayErorr
+	input: an error code
+	output: none
+	description: this functions prints the error by given error code :)
+	*/
 	void displayError(int errorCode);
 
 
-	int _errorCode;
+	int _errorCode;//the current error code
 };

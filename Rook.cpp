@@ -37,6 +37,7 @@ void Rook::move(const Place& dest, const Board* board)
 
 bool Rook::isClearPath(const Place& dest, const Board* board) const
 {
+    //code not nice
     int i = 0;
     int startRow = std::min(this->getCurrentPlace().getLocation()[1] - '1', dest.getLocation()[1] - '1');
     int endRow = std::max(this->getCurrentPlace().getLocation()[1] - '1', dest.getLocation()[1] - '1');
@@ -60,7 +61,7 @@ bool Rook::isClearPath(const Place& dest, const Board* board) const
     {
         for (i = startLine + 1; i < endLine; i++)
         {
-            currentPos = std::string(std::string(1, (char)i) + this->getCurrentPlace().getLocation()[1]);  // Construct the position string correctly
+            currentPos = std::string(std::string(1, (char)i) + this->getCurrentPlace().getLocation()[1]);  // hell
             if (board->getPiece(currentPos) != nullptr)
             {
                 return false;

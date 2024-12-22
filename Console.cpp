@@ -1,21 +1,7 @@
 //all of the files >:(
 #include "Console.h"
 #include "Player.h"
-/*
-	name: hasPiece
-	input: none
-	output: true if there is a piece in that place, false otherwise
-	description: this functions tell if there is a piece in the current place
-*/
-void displayError(int errorCode);
 
-/*
-	name: printturn
-	input: a book that represents if its whites turn
-	output: none
-	description: this functions prints whos turn it is
-*/
-void printTurn(bool isWhiteTurn);
 
 Console::Console(Board& board)
 {
@@ -78,7 +64,7 @@ int Console::getErrorCode() const
 	return _errorCode;
 }
 
-void displayError(int errorCode)
+void Console::displayError(int errorCode)
 {
 	switch (errorCode)
 	{
@@ -144,7 +130,7 @@ void displayError(int errorCode)
 	}
 }
 
-void printTurn(bool isWhiteTurn)
+void Console::printTurn(bool isWhiteTurn)
 {
 	if (isWhiteTurn)
 	{

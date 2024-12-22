@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Manager.h" />
@@ -145,7 +144,6 @@
   <ItemGroup>
     <ClCompile Include="Bishop.h" />
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="Console.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Pawn.cpp" />

@@ -50,7 +50,7 @@ void main()
 
 	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"); // just example...
 	manager = new Manager(msgToGraphics);
-	board = &manager->getBoard();
+	manager->handleConsole();
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
@@ -64,7 +64,7 @@ void main()
 		//getting 2 where to go to
 		
 		//delete destination;
-		strcpy_s(msgToGraphics, std::to_string(manager->getConsole()->getErrorCode()).c_str()); // msgToGraphics should contain the result of the operation
+		strcpy_s(msgToGraphics, std::to_string(manager->getErrorCode()).c_str()); // msgToGraphics should contain the result of the operation
 		// return result to graphics		
 		p.sendMessageToGraphics(msgToGraphics);  
 		// get message from graphics

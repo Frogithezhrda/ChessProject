@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
-#include "Console.h"
 
 #define WHITE_PLAYER 1
 #define BLACK_PLAYER 0
@@ -16,6 +15,9 @@ class Manager
 {
 public:
 	//need to be implemented
+	void handleConsole();
+
+	void printTurn(bool isWhiteTurn) const;
 	/*
 	name: CONSTRUCTOR
 	input: none
@@ -33,8 +35,8 @@ public:
 
 	Player getWhitePlayer() const;
 
+	int getErrorCode() const;
 
-	Console* getConsole() const;
 	~Manager();
 private:
 	/*
@@ -43,10 +45,11 @@ private:
 	output: none
 	description: initializes pieces on the board for the players
 	*/
-	//void initPieces(const Player& currentPlayer);
+	void displayError(int errorCode);
+
 
 	GameState _gameState; //d = draw, w = win, n = normal
 	Player _players[PLAYER_COUNT];
 	Board* _board;
-	Console* _console;
+	int _errorCode;
 };

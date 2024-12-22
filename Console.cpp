@@ -112,7 +112,7 @@ void Console::displayError(int errorCode)
 
 
 
-void Console::printTurn(bool isWhiteTurn)
+void Console::printTurn(bool isWhiteTurn) const
 {
 	if (isWhiteTurn)
 	{

@@ -19,26 +19,21 @@ enum ErrorCode
 class Console
 {
 public:
-<<<<<<< HEAD
 	Console(Board& board, Player players[]);
 	int getErrorCode() const;
-=======
 
     /*
     name: CONSTRUCTOR
     input: a reference to a board
     */
     Console(Board& board);
-
     /*
     name: geterrorcode
     input: none
     output: the error code
     description: this functions returns the error code
     */
-    int getErrorCode() const;
-
->>>>>>> 1e9f13a854f487763c211ff45bf427167287b828
+    void printTurn(bool isWhiteTurn) const;
 private:
     /*
     name: printturn
@@ -46,7 +41,6 @@ private:
     output: none
     description: this functions prints whose turn it is
     */
-    void printTurn(bool isWhiteTurn);
 
     /*
     name: displayError

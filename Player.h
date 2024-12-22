@@ -19,7 +19,7 @@ public:
 	name: CONSTRUCTOR
 	input: a char that represents the players color (W/B)
 	*/
-	Player(const char playerColor);
+	Player(const char playerColor, const Board* board);
 
 	/*
 	name: DESTRUCTOR
@@ -42,19 +42,23 @@ public:
 	*/
 	bool isCheckAfterMove(const std::string& src, const std::string& dest, Board* board);
 
+	bool isChecked() const;
 
+	void activateCheck();
+
+	void deactivateCheck();
+
+	std::vector<Piece*> getPieces() const;
 	/*
 	name: getPieces
 	input: none
 	output: retuns a refrence to a vector that has the players pieces
 	description: this functions returns a reference to the players pieces
 	*/
-	std::vector<Piece*>& getPieces() const;
-
+	King* getKing() const;
 private:
 	char _playerColor;//the players color (W/B)
 	bool _isChecked;//is he checked or not (true == checked)
-	std::vector<Piece*> _pieces;//a vector that holds the players pieces
 	King* _king;//a pointer to DA king (tomking ofc)
-
+	std::vector <Piece*> _pieces;
 };

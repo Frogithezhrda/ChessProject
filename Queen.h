@@ -12,7 +12,6 @@ private:
 	output: none
 	description: this function moves the piece to the given dest
 	*/
-	virtual void move(const Place& dest, const Board* board) override;
 
 	/*
 	name: isValidMove
@@ -20,6 +19,6 @@ private:
 	output: a num that represents the validility
 	description: this function tells if the move is valid or not and why
 	*/
-	virtual int isValidMove(const Place& dest, const Board* board) const override;
+	virtual int isValidMove(const Place& dest, const Board* board, Player* player, Player* opponentPlayer) const override;
 
 };

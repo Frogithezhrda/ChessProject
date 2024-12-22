@@ -37,32 +37,34 @@ void Manager::handleConsole()
 		destPlace = Place(dest, pieceChar);
 
 		pieceAtSrc = (*this->_board).getPiece(src);
-		pieceAtSrc != nullptr ? ((isWhiteTurn && pieceAtSrc->getPieceColor() == 'b') || (!isWhiteTurn && pieceAtSrc->getPieceColor() == 'w')) ? errorCode = 2 : (errorCode = pieceAtSrc->isValidMove(destPlace, this->_board)) : (errorCode = 2);
-
-		if ((errorCode == 0 && isWhiteTurn && getWhitePlayer().isCheckAfterMove(src, dest, this->_board)) || (errorCode == 0 && !isWhiteTurn && getBlackPlayer().isCheckAfterMove(src, dest, this->_board)))//the white/black player did a check on itself
+		pieceAtSrc != nullptr ? ((isWhiteTurn && pieceAtSrc->getPieceColor() == 'b') || (!isWhiteTurn && pieceAtSrc->getPieceColor() == 'w')) ? (errorCode = 2) : (errorCode = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn))) : (errorCode = 2);
+		if (this->getCurrentPlayer(isWhiteTurn)->isChecked())
 		{
 			errorCode = 4;
 		}
-		if ((errorCode == 0 && isWhiteTurn && getBlackPlayer().isCheckAfterMove(src, dest, this->_board)) || (errorCode == 0 && !isWhiteTurn && getWhitePlayer().isCheckAfterMove(src, dest, this->_board)))//the white/black player did a check on the opp
-		{
-			errorCode = 1;
-		}
-		
-
-		if (errorCode == 0 || errorCode == 1 || errorCode == 8)
+		else if (errorCode == GoodMove || errorCode == CheckMove || errorCode == CheckMate)
 		{
 			this->_board->setBoard(src, destPlace);
-			pieceAtSrc->move(destPlace, this->_board);
 			isWhiteTurn = !isWhiteTurn;
 		}
 		displayError(errorCode);
+	}
+}
 
-		if (!(errorCode == 0 || errorCode == 1 || errorCode == 8))
+bool Manager::isStillChecked(bool isWhiteMove)
+{
+	int i = 0;
+	Place kingPlace = this->getCurrentPlayer(isWhiteMove)->getKing()->getCurrentPlace();
+
+	for (i; i < this->getOpponentPlayer(isWhiteMove)->getPieces().size(); i++)
+	{
+		if (this->getOpponentPlayer(isWhiteMove)->getPieces()[i]->isValidMove(kingPlace, &this->getBoard(), getCurrentPlayer(isWhiteMove), getOpponentPlayer(isWhiteMove)))
 		{
-			std::cout << "pls do a diffrent move instead!" << std::endl;
-			continue;
+			return true; 
 		}
 	}
+
+	return false; 
 }
 int Manager::getErrorCode() const
 {
@@ -79,14 +81,22 @@ void Manager::printTurn(bool isWhiteTurn) const
 		std::cout << "Blacks turn! " << std::endl;
 	}
 }
+Player* Manager::getCurrentPlayer(bool isWhiteTurn)
+{
+	return isWhiteTurn ? &this->_players[WHITE_PLAYER] : &this->_players[BLACK_PLAYER];
+}
 
+Player* Manager::getOpponentPlayer(bool isWhiteTurn)
+{
+	return this->getCurrentPlayer(!isWhiteTurn);
+}
 Manager::Manager(const std::string& initBoard)
 {
 	//initalizing board and players
 	this->_board = new Board(initBoard);
 	this->_gameState = Normal;
-	this->_players[BLACK_PLAYER] = Player(BLACK);
-	this->_players[WHITE_PLAYER] = Player(WHITE);
+	this->_players[BLACK_PLAYER] = Player(BLACK, this->_board);
+	this->_players[WHITE_PLAYER] = Player(WHITE, this->_board);
 	//maybe Used Later
 }
 

@@ -29,3 +29,13 @@ void Piece::setCurrentPlace(const Place& dest)
 {
 	this->_currentPlace = dest;
 }
+
+int Piece::move(const Place& dest, const Board* board, Player* player, Player* opponentPlayer)
+{
+	int moveCode = isValidMove(dest, board, player, opponentPlayer);
+	if (moveCode == 1 || moveCode == 0)
+	{
+		this->setCurrentPlace(dest);
+	}
+	return moveCode;
+}

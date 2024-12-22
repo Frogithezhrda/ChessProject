@@ -17,6 +17,7 @@ public:
 	//need to be implemented
 	void handleConsole();
 
+
 	void printTurn(bool isWhiteTurn) const;
 	/*
 	name: CONSTRUCTOR
@@ -33,7 +34,13 @@ public:
 
 	Player getBlackPlayer() const;
 
+	Player* getCurrentPlayer(bool isWhiteTurn);
+
+	Player* getOpponentPlayer(bool isWhiteTurn);
+
 	Player getWhitePlayer() const;
+
+	bool isStillChecked(bool isWhiteMove);
 
 	int getErrorCode() const;
 

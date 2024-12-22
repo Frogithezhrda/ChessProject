@@ -5,7 +5,7 @@ Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 
 }
 
-int Pawn::isValidMove(const Place& dest, const Board* board) const
+int Pawn::isValidMove(const Place& dest, const Board* board, Player* player, Player* opponentPlayer) const
 {
 	char currentRow = this->getCurrentPlace().getLocation()[0];
 	char currentLine = this->getCurrentPlace().getLocation()[1];
@@ -20,10 +20,3 @@ int Pawn::isValidMove(const Place& dest, const Board* board) const
 	}
 }
 
-void Pawn::move(const Place& dest, const Board* board)
-{
-	if (!isValidMove(dest, board))
-	{
-		this->setCurrentPlace(dest);
-	}
-}

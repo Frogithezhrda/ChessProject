@@ -1,5 +1,6 @@
 #include "Rook.h"
 #include "Board.h"
+#include "Player.h"
 
 Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? RookName : std::toupper(RookName)), firstPlace)
 {
@@ -7,32 +8,37 @@ Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 }
 
 
-int Rook::isValidMove(const Place& dest, const Board* board) const
+int Rook::isValidMove(const Place& dest, const Board* board, Player* currentPlayer, Player* opponentPlayer) const
 {
     char currentRow = this->getCurrentPlace().getLocation()[0];
     char currentLine = this->getCurrentPlace().getLocation()[1];
     char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
-    
+
+
+    if (dest.getLocation() == this->getCurrentPlace().getLocation())
+    {
+        return 7; //src and dst are the same
+    }
+
     if (this->getCurrentPlace().getCurrentPiece() == '#')
     {
         return 2; 
     }
-
+    
     if ((!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
         (currentRow == dest.getLocation()[0] || currentLine == dest.getLocation()[1]) && 
         dest.getLocation() != this->getCurrentPlace().getLocation() && isClearPath(dest, board))
     {
+        if(dest.getLocation()[0] == currentPlayer->getKing()->getCurrentPlace().getLocation()[0] || dest.getLocation()[1] == currentPlayer->getKing()->getCurrentPlace().getLocation()[1])
+        {
+            return 1;
+            opponentPlayer->activateCheck();
+        }
+
         return 0; 
     }
 
     return 6; 
-}
-void Rook::move(const Place& dest, const Board* board)
-{
-	if (!isValidMove(dest, board))
-	{
-		this->setCurrentPlace(dest);
-	}
 }
 
 bool Rook::isClearPath(const Place& dest, const Board* board) const

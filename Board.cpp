@@ -84,7 +84,7 @@ void Board::printBoard() const
 	}
 }
 
-void setBoard(const std::string& src, const Place& dest, Player* player)
+void Board::setBoard(const std::string& src, const Place& dest)
 {
 	int i = 0;
 	int j = 0;

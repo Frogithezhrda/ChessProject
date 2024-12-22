@@ -17,11 +17,15 @@ int Rook::isValidMove(const Place& dest, const Board* board) const
     {
         return 2; 
     }
+    if (isClearPath(dest, board))
+    {
+        return 0;
+    }
 
 
     if ((!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
         (currentRow == dest.getLocation()[0] || currentLine == dest.getLocation()[1]) && 
-        dest.getLocation() != this->getCurrentPlace().getLocation() && isClearPath(dest, board))
+        dest.getLocation() != this->getCurrentPlace().getLocation())
     {
         return 0; 
     }
@@ -43,18 +47,19 @@ bool Rook::isClearPath(const Place& dest, const Board* board) const
     int endRow = std::max(this->getCurrentPlace().getLocation()[1] - '1', dest.getLocation()[1] - '1');
     char currentRow = this->getCurrentPlace().getLocation()[0];
     std::string currentPos = "";
-    if (currentRow == dest.getLocation()[0])  // Vertical movement
+    
+    if (currentRow == dest.getLocation()[0])  // vertical movement
     {
         for (i = startRow + 1; i < endRow; i++)
         {
             currentPos = std::string(currentRow + std::to_string(i + 1));
-            if (board->getPiece(currentPos) != nullptr)  // Check if the square is occupied
+            if (board->getPiece(currentPos) != nullptr)  // check if the square is occupied
             {
                 return false;
             }
         }
     }
-    else if (this->getCurrentPlace().getLocation()[0] == dest.getLocation()[0])  // Horizontal movement
+    else if (this->getCurrentPlace().getLocation()[0] == dest.getLocation()[0])  // horizontal movement
     {
         for (i = startRow + 1; i < endRow; i++)
         {

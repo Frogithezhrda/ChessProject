@@ -54,7 +54,7 @@ bool Player::isCheckAfterMove(const std::string& src, const std::string& dest, B
     originalDestPiece = board->getPiece(dest);
 
     //simulate the move
-    board->setBoard(src, Place(dest, movingPiece->getType()), this);
+    board->setBoard(src, Place(dest, movingPiece->getType()));
     movingPiece->setCurrentPlace(Place(dest, movingPiece->getType()));
 
     //get the kings position
@@ -84,10 +84,10 @@ bool Player::isCheckAfterMove(const std::string& src, const std::string& dest, B
     }
 
     //restore the board to its original state
-    board->setBoard(src, Place(src, movingPiece->getType()), this);
+    board->setBoard(src, Place(src, movingPiece->getType()));
     if (originalDestPiece) 
     {
-        board->setBoard(dest, Place(dest, originalDestPiece->getType()), this);
+        board->setBoard(dest, Place(dest, originalDestPiece->getType()));
     }
     else 
     {

@@ -39,9 +39,17 @@ void Manager::handleConsole()
 		pieceAtSrc = (*this->_board).getPiece(src);
 		pieceAtSrc != nullptr ? ((isWhiteTurn && pieceAtSrc->getPieceColor() == 'b') || (!isWhiteTurn && pieceAtSrc->getPieceColor() == 'w')) ? errorCode = 2 : (errorCode = pieceAtSrc->isValidMove(destPlace, this->_board)) : (errorCode = 2);
 
+		if ((errorCode == 0 && isWhiteTurn && getWhitePlayer().isCheckAfterMove(src, dest, this->_board)) || (errorCode == 0 && !isWhiteTurn && getBlackPlayer().isCheckAfterMove(src, dest, this->_board)))//the white/black player did a check on itself
+		{
+			errorCode = 4;
+		}
+		if ((errorCode == 0 && isWhiteTurn && getBlackPlayer().isCheckAfterMove(src, dest, this->_board)) || (errorCode == 0 && !isWhiteTurn && getWhitePlayer().isCheckAfterMove(src, dest, this->_board)))//the white/black player did a check on the opp
+		{
+			errorCode = 1;
+		}
+		
 
-
-		if (errorCode == 0)
+		if (errorCode == 0 || errorCode == 1 || errorCode == 8)
 		{
 			this->_board->setBoard(src, destPlace);
 			pieceAtSrc->move(destPlace, this->_board);

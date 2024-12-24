@@ -49,3 +49,12 @@ bool Place::hasPiece() const
 {
 	return this->_hasPiece;
 }
+
+char Place::getRow() const
+{
+	return this->_location[0];
+}
+char Place::getLine() const
+{
+	return this->_location[1];
+}

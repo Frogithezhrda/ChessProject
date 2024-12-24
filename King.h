@@ -20,6 +20,6 @@ private:
 	output: a num that represents the validility
 	description: this function tells if the move is valid or not and why
 	*/
-	virtual int isValidMove(const Place& dest, const Board* board, Player* player, Player* opponentPlayer) const override;
+	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 
 };

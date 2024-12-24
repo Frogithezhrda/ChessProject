@@ -31,6 +31,9 @@ public:
 	void activePiece();
 	void deactivePiece();
 
+
+	char getRow() const;
+	char getLine() const;
 	/*
 	name: getLocation 
 	input: none

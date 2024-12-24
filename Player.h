@@ -40,7 +40,6 @@ public:
 	output: true is the player is checked, and false otherwise
 	description: this functions tells if the player is checked, or not.
 	*/
-	bool isCheckAfterMove(const std::string& src, const std::string& dest, Board* board);
 
 	bool isChecked() const;
 
@@ -48,7 +47,6 @@ public:
 
 	void deactivateCheck();
 
-	std::vector<Piece*> getPieces() const;
 	/*
 	name: getPieces
 	input: none
@@ -60,5 +58,4 @@ private:
 	char _playerColor;//the players color (W/B)
 	bool _isChecked;//is he checked or not (true == checked)
 	King* _king;//a pointer to DA king (tomking ofc)
-	std::vector <Piece*> _pieces;
 };

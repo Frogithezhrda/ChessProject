@@ -8,10 +8,6 @@ void Manager::handleConsole()
 	std::string move;
 	std::string src = " ";
 	std::string dest = " ";
-	Piece* pieceAtDest = NULL;
-	char pieceChar = ' ';
-	Place destPlace;
-	Piece* pieceAtSrc = NULL;
 
 
 
@@ -22,55 +18,62 @@ void Manager::handleConsole()
 
 		std::cin >> move;//players input
 
-		if (move.length() != 4) //suppose to be only 4 char length
+		if (isValidMoveInput(move))
 		{
-			std::cout << "invalid input format." << std::endl;
-			continue;
-		}
-		//errorCode = 2;
-		//splitting input into src and dest
-		src = move.substr(0, 2);
-		dest = move.substr(2, 2);
+			//errorCode = 2;
+			//splitting input into src and dest
+			src = move.substr(0, 2);
+			dest = move.substr(2, 2);
 
-		pieceAtDest = (*this->_board).getPiece(dest);
-		pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : '#'; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
-		destPlace = Place(dest, pieceChar);
-
-		pieceAtSrc = (*this->_board).getPiece(src);
-		pieceAtSrc != nullptr ? ((isWhiteTurn && pieceAtSrc->getPieceColor() == 'b') || (!isWhiteTurn && pieceAtSrc->getPieceColor() == 'w')) ? (errorCode = 2) : (errorCode = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn))) : (errorCode = 2);
-		if (this->getCurrentPlayer(isWhiteTurn)->isChecked())
-		{
-			errorCode = 4;
+			errorCode = manageMove(src, dest, isWhiteTurn);
+			if (errorCode == GoodMove || errorCode == CheckMove)
+			{
+				isWhiteTurn = !isWhiteTurn;
+			}
+			else if (errorCode == CheckMate)
+			{
+				std::cout << getCurrentPlayer(isWhiteTurn)->getPlayerColor() << " Won!";
+			}
+			displayError(errorCode);
 		}
-		else if (errorCode == GoodMove || errorCode == CheckMove || errorCode == CheckMate)
+		else
 		{
-			this->_board->setBoard(src, destPlace);
-			isWhiteTurn = !isWhiteTurn;
+			std::cerr << "Invalid Move!" << std::endl;
 		}
-		displayError(errorCode);
 	}
 }
 
 bool Manager::isStillChecked(bool isWhiteMove)
 {
 	int i = 0;
+	int j = 0;
 	Place kingPlace = this->getCurrentPlayer(isWhiteMove)->getKing()->getCurrentPlace();
-
-	for (i; i < this->getOpponentPlayer(isWhiteMove)->getPieces().size(); i++)
+	std::string position = "";
+	Piece* piece = nullptr;
+	for (i; i < BOARD_SIZE; i++)
 	{
-		if (this->getOpponentPlayer(isWhiteMove)->getPieces()[i]->isValidMove(kingPlace, &this->getBoard(), getCurrentPlayer(isWhiteMove), getOpponentPlayer(isWhiteMove)))
+		for (j = 0; j < BOARD_SIZE; j++)
 		{
-			return true; 
+			position = std::string(1, 'a' + j) + std::to_string(i + 1);
+			piece = this->_board->getPiece(position);
+
+			if (piece && piece->getPieceColor() != (isWhiteMove ? 'w' : 'b'))
+			{
+				if (piece->isValidMove(kingPlace, this->_board, getCurrentPlayer(isWhiteMove), getOpponentPlayer(isWhiteMove)) == CheckMove)
+				{
+					return true;
+				}
+			}
 		}
 	}
 
-	return false; 
+	return false;
 }
 int Manager::getErrorCode() const
 {
 	return this->_errorCode;
 }
-void Manager::printTurn(bool isWhiteTurn) const
+void Manager::printTurn(const bool isWhiteTurn) const
 {
 	if (isWhiteTurn)
 	{
@@ -81,12 +84,12 @@ void Manager::printTurn(bool isWhiteTurn) const
 		std::cout << "Blacks turn! " << std::endl;
 	}
 }
-Player* Manager::getCurrentPlayer(bool isWhiteTurn)
+Player* Manager::getCurrentPlayer(const bool isWhiteTurn)
 {
 	return isWhiteTurn ? &this->_players[WHITE_PLAYER] : &this->_players[BLACK_PLAYER];
 }
 
-Player* Manager::getOpponentPlayer(bool isWhiteTurn)
+Player* Manager::getOpponentPlayer(const bool isWhiteTurn)
 {
 	return this->getCurrentPlayer(!isWhiteTurn);
 }
@@ -162,4 +165,57 @@ Player Manager::getWhitePlayer() const
 Board& Manager::getBoard() const
 {
 	return *(this->_board);
+}
+
+int Manager::manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn)
+{
+	Piece* pieceAtDest = (*this->_board).getPiece(dest);
+	Piece* pieceAtSrc = _board->getPiece(src);
+	char pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : '#'; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
+	Place destPlace = Place(dest, pieceChar);
+	Place srcPlace = (pieceAtSrc != nullptr) ? pieceAtSrc->getCurrentPlace() : Place();
+	int code = 0;
+
+
+	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (isWhiteTurn ? 'w' : 'b'))
+	{
+		return NotPlayerPiece;
+	}
+
+	code = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
+	if (code == GoodMove || code == CheckMove)
+	{
+		this->_board->setBoard(src, destPlace);
+	}
+	if (isStillChecked(isWhiteTurn))
+	{
+		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
+		this->_board->setBoard(dest, srcPlace);
+		return WillBeCheck;
+	}
+	else
+	{
+		getCurrentPlayer(isWhiteTurn)->deactivateCheck();
+	}
+	if (getCurrentPlayer(isWhiteTurn)->isChecked())
+	{
+		return CheckMove;
+	}
+
+	return code;
+
+}
+
+bool Manager::isValidMoveInput(const std::string& move)
+{
+	char srcRow = move[0];
+	char destRow = move[2];
+	char srcLine = move[3];
+	char destLine = move[1];
+
+	if (move.length() != 4)
+	{
+		return false;
+	}
+	return isalpha(srcRow) && isalpha(destRow) && isdigit(srcLine) && isdigit(destLine);
 }

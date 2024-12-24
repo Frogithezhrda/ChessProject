@@ -128,3 +128,18 @@ Place* Board::getBoard() const
 {
 	return *(this->_board);
 }
+
+bool Board::isValidPosition(const std::string& position) const
+{
+	char row = position[0];
+	char column = position[1];
+
+
+
+	if ((row >= 'a' && row <= 'h') && (column >= '1' && column <= '8'))
+	{
+		return true; 
+	}
+
+	return false; 
+}

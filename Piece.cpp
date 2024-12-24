@@ -1,4 +1,6 @@
 #include "Piece.h"
+#include "Player.h"
+#include "Board.h"
 
 Piece::Piece(const char pieceColor, const char type, const Place& firstPlace)
 {
@@ -30,12 +32,37 @@ void Piece::setCurrentPlace(const Place& dest)
 	this->_currentPlace = dest;
 }
 
-int Piece::move(const Place& dest, const Board* board, Player* player, Player* opponentPlayer)
+int Piece::move(const Place& dest, Board* board, Player* player, Player* opponentPlayer)
 {
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
 	if (moveCode == 1 || moveCode == 0)
 	{
 		this->setCurrentPlace(dest);
+		if (std::tolower(this->_type) == 'k')
+		{
+			player->getKing()->setCurrentPlace(dest);
+		}
 	}
 	return moveCode;
+}
+
+int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
+{
+	if (dest.getLocation() == this->getCurrentPlace().getLocation())
+	{
+		return 7; 
+	}
+	if (!board->isValidPosition(dest.getLocation()))
+	{
+		return 5;
+	}
+	if (this->getCurrentPlace().getCurrentPiece() == '#')
+	{
+		return 2;
+	}
+	if (std::tolower(dest.getCurrentPiece()) ? 'w' : 'b' == player->getPlayerColor())
+	{
+		return 3;
+	}
+	return 0;
 }

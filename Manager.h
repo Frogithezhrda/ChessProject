@@ -34,13 +34,16 @@ public:
 
 	Player getBlackPlayer() const;
 
-	Player* getCurrentPlayer(bool isWhiteTurn);
+	Player* getCurrentPlayer(const bool isWhiteTurn);
 
-	Player* getOpponentPlayer(bool isWhiteTurn);
+	Player* getOpponentPlayer(const bool isWhiteTurn);
 
 	Player getWhitePlayer() const;
 
-	bool isStillChecked(bool isWhiteMove);
+	bool isStillChecked(const bool isWhiteMove);
+
+	int manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn);
+	bool isValidMoveInput(const std::string& move);
 
 	int getErrorCode() const;
 

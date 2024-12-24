@@ -51,6 +51,8 @@ public:
 	*/
 	Place* getBoard() const;
 
+	bool isValidPosition(const std::string& position) const;
+
 private:
 	Place* _board[BOARD_SIZE]; //the board(?)
 };

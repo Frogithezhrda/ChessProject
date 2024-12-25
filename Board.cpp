@@ -151,17 +151,14 @@ void Board::setPieceAtBoard(const std::string& dest, Piece* piece)
 		return;
 	}
 
-	// Locate the destination position on the board
 	for (int i = 0; i < BOARD_SIZE; ++i)
 	{
 		for (int j = 0; j < BOARD_SIZE; ++j)
 		{
 			if (this->_board[i][j].getLocation() == dest)
 			{
-				// Set the piece's character representation at the destination
-				this->_board[i][j].setPiece(piece->getType()); // Assuming getType() returns the piece character
+				this->_board[i][j].setPiece(piece->getType()); 
 
-				// Activate the destination place (indicating it's occupied)
 				this->_board[i][j].activePiece();
 
 				return;

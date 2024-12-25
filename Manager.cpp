@@ -193,6 +193,10 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 		{
 			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(destPlace);
 		}
+		if (isDiscoveredAttack(src, dest, isWhiteTurn))
+		{
+			code = 1;
+		}
 	}
 	//if is still in check
 	if (isStillChecked(isWhiteTurn))
@@ -238,4 +242,29 @@ bool Manager::isValidMoveInput(const std::string& move)
 		return false;
 	}
 	return isalpha(srcRow) && isalpha(destRow) && isdigit(srcLine) && isdigit(destLine);
+}
+bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn)
+{
+	Piece* srcPiece = this->_board->getPiece(src);
+	Piece* destPiece = this->_board->getPiece(dest);
+	Place srcPlace = srcPiece ? srcPiece->getCurrentPlace() : Place();
+	Place destPlace(dest, destPiece ? destPiece->getType() : '#');
+	bool discoveredAttack = false;
+	this->_board->setBoard(src, destPlace);
+	if (srcPiece)
+	{
+		srcPiece->setCurrentPlace(destPlace);
+	}
+	discoveredAttack = isStillChecked(!isWhiteTurn);
+	this->_board->setBoard(dest, srcPlace);
+	if (srcPiece)
+	{
+		srcPiece->setCurrentPlace(srcPlace);
+	}
+	if (destPiece)
+	{
+		this->_board->setPieceAtBoard(dest, destPiece);
+	}
+
+	return discoveredAttack;
 }

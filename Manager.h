@@ -45,6 +45,8 @@ public:
 	int manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn);
 	bool isValidMoveInput(const std::string& move);
 
+	bool isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn);
+
 	int getErrorCode() const;
 
 	~Manager();

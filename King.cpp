@@ -2,6 +2,8 @@
 #include "Board.h"
 #include "Player.h"
 
+
+
 King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? KingName : std::toupper(KingName)), firstPlace)
 {
 

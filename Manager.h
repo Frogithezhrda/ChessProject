@@ -7,7 +7,6 @@
 #define PLAYER_COUNT 2
 
 enum GameState {Normal='n', StaleMate='s', Mate='w' };
-enum GameCodes {GoodMove = 0, CheckMove, NotPlayerPiece, AlreadyHasPiece, WillBeCheck, NotValidIndex, NotValidMove, SameDestSrc, CheckMate}; // Error codes
 //enum PieceTypes {Pawn='p', Rook='r', Knight='n', Bishop='b', King='k', Queen='q'};
 
 

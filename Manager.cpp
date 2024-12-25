@@ -1,5 +1,17 @@
 #include "Manager.h"
+#define ROW_INDEX 1
+#define COLUM_INDEX 0
+#define EMPTY_PLACE '#'
 
+#define DEST_INDEX 0
+#define SRC_INDEX 2
+
+#define NUM_OF_CHARS_IN_LOCATION 2
+
+#define SRC_ROW_INDEX 0
+#define DEST_ROW 2
+#define SRC_LINE 3
+#define DEST_LINE 1
 
 void Manager::handleConsole()
 {
@@ -22,8 +34,8 @@ void Manager::handleConsole()
 		{
 			//errorCode = 2;
 			//splitting input into src and dest
-			src = move.substr(0, 2);
-			dest = move.substr(2, 2);
+			src = move.substr(DEST_INDEX, NUM_OF_CHARS_IN_LOCATION);
+			dest = move.substr(SRC_INDEX, NUM_OF_CHARS_IN_LOCATION);
 
 			errorCode = manageMove(src, dest, isWhiteTurn);
 			if (errorCode == GoodMove || errorCode == CheckMove)
@@ -171,7 +183,7 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 {
 	Piece* pieceAtDest = this->_board->getPiece(dest);
 	Piece* pieceAtSrc = _board->getPiece(src);
-	char pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : '#'; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
+	char pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : EMPTY_PLACE; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
 	Place destPlace = Place(dest, pieceChar);
 	Place srcPlace = (pieceAtSrc != nullptr) ? pieceAtSrc->getCurrentPlace() : Place();
 	int code = 0;
@@ -232,10 +244,10 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 
 bool Manager::isValidMoveInput(const std::string& move)
 {
-	char srcRow = move[0];
-	char destRow = move[2];
-	char srcLine = move[3];
-	char destLine = move[1];
+	char srcRow = move[SRC_ROW_INDEX];
+	char destRow = move[DEST_ROW];
+	char srcLine = move[SRC_LINE];
+	char destLine = move[DEST_LINE];
 
 	if (move.length() != 4)
 	{

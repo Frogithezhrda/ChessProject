@@ -20,14 +20,13 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 	{
 		return code;
 	}
-
+	if (differenceHorizontal == 1 || differenceHorizontal == -1)
+	{
+		return 1;
+	}
 	if ((this->getPieceColor() == 'w' && differenceVertical == -1) ||
 		(this->getPieceColor() == 'b' && differenceVertical == 1))
 	{
-		if (dest.getCurrentPiece() == 'k' && differenceHorizontal == 1 || differenceHorizontal == -1)
-		{
-			return 1;
-		}
 		if (!dest.hasPiece() && differenceHorizontal == 1 || differenceHorizontal == -1)
 		{
 			return 6;

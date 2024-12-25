@@ -39,6 +39,7 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
 	if (moveCode == 1 || moveCode == 0)
 	{
+		//cant eat the king
 		if (std::tolower(dest.getCurrentPiece()) != 'k')
 		{
 			this->setCurrentPlace(dest);

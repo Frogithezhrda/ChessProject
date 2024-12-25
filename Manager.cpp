@@ -59,7 +59,7 @@ bool Manager::isStillChecked(bool isWhiteMove)
 
 			if (piece && piece->getPieceColor() != (isWhiteMove ? 'w' : 'b'))
 			{
-				if (piece->isValidMove(kingPlace, this->_board, getCurrentPlayer(isWhiteMove), getOpponentPlayer(isWhiteMove)) == CheckMove)
+				if (piece->isValidMove(kingPlace, this->_board, getOpponentPlayer(isWhiteMove), getCurrentPlayer(isWhiteMove)) == CheckMove)
 				{
 					return true;
 				}
@@ -186,15 +186,19 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 	if (code == GoodMove || code == CheckMove)
 	{
 		this->_board->setBoard(src, destPlace);
+		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		{
+			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(destPlace);
+		}
 	}
 	if (isStillChecked(isWhiteTurn))
 	{
+		if (code != GoodMove && code != CheckMove)
+		{
+			this->_board->setBoard(src, destPlace);
+		}
 		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 		this->_board->setBoard(dest, srcPlace);
-		if (std::tolower(pieceAtSrc->getType()) == 'k')
-		{
-			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(srcPlace);
-		}
 		return WillBeCheck;
 	}
 	else

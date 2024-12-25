@@ -54,6 +54,10 @@ char Place::getRow() const
 {
 	return this->_location[0];
 }
+void Place::setLocation(const std::string& location)
+{
+	this->_location = location;
+}
 char Place::getLine() const
 {
 	return this->_location[1];

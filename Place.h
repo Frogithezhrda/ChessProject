@@ -31,6 +31,7 @@ public:
 	void activePiece();
 	void deactivePiece();
 
+	void setLocation(const std::string& location);
 
 	char getRow() const;
 	char getLine() const;

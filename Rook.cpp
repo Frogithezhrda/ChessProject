@@ -26,9 +26,9 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
         {
             board->setBoard(dest.getLocation(), Place(dest.getLocation(), '#'));
         }
-        if (dest.getRow() == currentPlayer->getKing()->getCurrentPlace().getRow() || dest.getLine() == currentPlayer->getKing()->getCurrentPlace().getLine())
+        if (dest.getRow() == opponentPlayer->getKing()->getCurrentPlace().getRow() || dest.getLine() == opponentPlayer->getKing()->getCurrentPlace().getLine())
         {
-            if (isClearPath(currentPlayer->getKing()->getCurrentPlace(), dest, board))
+            if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(), dest, board))
             {
                 opponentPlayer->activateCheck();
                 return 1;

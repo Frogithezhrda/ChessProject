@@ -18,6 +18,7 @@ Place Piece::getCurrentPlace() const
 	return this->_currentPlace;
 }
 
+
 char Piece::getPieceColor() const
 {
 	return this->_pieceColor;
@@ -29,7 +30,8 @@ char Piece::getType() const
 }
 void Piece::setCurrentPlace(const Place& dest)
 {
-	this->_currentPlace = dest;
+	this->_currentPlace.setLocation(dest.getLocation());
+	this->_currentPlace.activePiece();
 }
 
 int Piece::move(const Place& dest, Board* board, Player* player, Player* opponentPlayer)
@@ -37,10 +39,18 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
 	if (moveCode == CheckMove || moveCode == GoodMove)
 	{
-		this->setCurrentPlace(dest);
-		if (std::tolower(this->_type) == 'k')
+		if (std::tolower(dest.getCurrentPiece()) != 'k')
 		{
-			player->getKing()->setCurrentPlace(dest);
+			this->setCurrentPlace(dest);
+
+			if (std::tolower(this->_type) == 'k' && this->getPieceColor() == player->getPlayerColor())
+			{
+				player->getKing()->setCurrentPlace(dest);
+			}
+		}
+		else
+		{
+			moveCode = 6;
 		}
 	}
 	return moveCode;
@@ -48,6 +58,7 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 
 int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 {
+	char destPieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
 	if (dest.getLocation() == this->getCurrentPlace().getLocation())
 	{
 		return SameDestSrc; 
@@ -60,7 +71,7 @@ int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 	{
 		return NotPlayerPiece;
 	}
-	if (std::tolower(dest.getCurrentPiece()) ? 'w' : 'b' == player->getPlayerColor())
+	if (dest.hasPiece() && destPieceColor == this->getPieceColor())
 	{
 		return AlreadyHasPiece;
 	}

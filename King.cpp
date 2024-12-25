@@ -17,6 +17,9 @@ int King::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 	char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
 	int differenceVertical = currentLine - int(dest.getLine());
 	int differenceHorizontal = int(currentRow) - int(dest.getRow());
+	Place opponentKingPlace = opponentPlayer->getKing()->getCurrentPlace();
+	int opponentKingRow = opponentKingPlace.getRow();
+	int opponentKingLine = opponentKingPlace.getLine();
 	int i = 0;
 	int code = isBasicValid(dest, board, player);
 	if (code)
@@ -28,6 +31,12 @@ int King::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 	{
 		return 6;
 	}
+	if (abs(dest.getRow() - opponentKingRow) <= 1 && abs(dest.getLine() - opponentKingLine) <= 1)
+	{
+		return 6;
+	}
+
+
 
 	return 0;
 

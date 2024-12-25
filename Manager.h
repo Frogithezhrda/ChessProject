@@ -2,8 +2,8 @@
 #include "Player.h"
 #include "Board.h"
 
-#define WHITE_PLAYER 1
-#define BLACK_PLAYER 0
+#define WHITE_PLAYER 0
+#define BLACK_PLAYER 1
 #define PLAYER_COUNT 2
 
 enum GameState {Normal='n', StaleMate='s', Mate='w' };
@@ -44,6 +44,8 @@ public:
 
 	int manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn);
 	bool isValidMoveInput(const std::string& move);
+
+	bool isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn);
 
 	int getErrorCode() const;
 

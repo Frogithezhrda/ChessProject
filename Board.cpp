@@ -151,3 +151,26 @@ bool Board::isValidPosition(const std::string& position) const
 
 	return false; 
 }
+
+void Board::setPieceAtBoard(const std::string& dest, Piece* piece)
+{
+	if (!isValidPosition(dest))
+	{
+		return;
+	}
+
+	for (int i = 0; i < BOARD_SIZE; ++i)
+	{
+		for (int j = 0; j < BOARD_SIZE; ++j)
+		{
+			if (this->_board[i][j].getLocation() == dest)
+			{
+				this->_board[i][j].setPiece(piece->getType()); 
+
+				this->_board[i][j].activePiece();
+
+				return;
+			}
+		}
+	}
+}

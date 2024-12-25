@@ -42,6 +42,8 @@ public:
 
 	void setBoard(const std::string& src, const Place& dest);
 
+	void setPieceAtBoard(const std::string& dest, Piece* piece);
+
 	Piece* getPiece(const std::string& pieceLocation) const;
 	/*
 	name: getBoard

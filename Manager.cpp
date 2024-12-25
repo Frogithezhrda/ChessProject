@@ -71,7 +71,7 @@ bool Manager::isStillChecked(bool isWhiteMove)
 
 			if (piece && piece->getPieceColor() != (isWhiteMove ? 'w' : 'b'))
 			{
-				if (piece->isValidMove(kingPlace, this->_board, getCurrentPlayer(isWhiteMove), getOpponentPlayer(isWhiteMove)) == CheckMove)
+				if (piece->isValidMove(kingPlace, this->_board, getOpponentPlayer(isWhiteMove), getCurrentPlayer(isWhiteMove)) == CheckMove)
 				{
 					return true;
 				}
@@ -181,7 +181,7 @@ Board& Manager::getBoard() const
 
 int Manager::manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn)
 {
-	Piece* pieceAtDest = (*this->_board).getPiece(dest);
+	Piece* pieceAtDest = this->_board->getPiece(dest);
 	Piece* pieceAtSrc = _board->getPiece(src);
 	char pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : EMPTY_PLACE; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
 	Place destPlace = Place(dest, pieceChar);
@@ -193,22 +193,46 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 	{
 		return NotPlayerPiece;
 	}
-
+	//d6 to d5
+	char pieceTemp = pieceAtSrc->getType();
 	code = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 	if (code == GoodMove || code == CheckMove)
 	{
+		//setting the board
 		this->_board->setBoard(src, destPlace);
+		//setting if its the king d6 d5
+		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		{
+			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(destPlace);
+		}
+		if (isDiscoveredAttack(src, dest, isWhiteTurn))
+		{
+			code = 1;
+		}
 	}
+	//if is still in check
 	if (isStillChecked(isWhiteTurn))
 	{
+		if (code != GoodMove && code != CheckMove)
+		{
+			this->_board->setBoard(src, destPlace);
+		}
+		//
+
+		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		{
+			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(srcPlace);
+		}
 		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 		this->_board->setBoard(dest, srcPlace);
+		if (pieceChar != '#')
+		{
+			this->_board->setPieceAtBoard(dest, pieceAtDest);
+		}
 		return WillBeCheck;
 	}
-	else
-	{
-		getCurrentPlayer(isWhiteTurn)->deactivateCheck();
-	}
+	//deactivating check
+	getCurrentPlayer(isWhiteTurn)->deactivateCheck();
 	if (getCurrentPlayer(isWhiteTurn)->isChecked())
 	{
 		return CheckMove;
@@ -230,4 +254,29 @@ bool Manager::isValidMoveInput(const std::string& move)
 		return false;
 	}
 	return isalpha(srcRow) && isalpha(destRow) && isdigit(srcLine) && isdigit(destLine);
+}
+bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn)
+{
+	Piece* srcPiece = this->_board->getPiece(src);
+	Piece* destPiece = this->_board->getPiece(dest);
+	Place srcPlace = srcPiece ? srcPiece->getCurrentPlace() : Place();
+	Place destPlace(dest, destPiece ? destPiece->getType() : '#');
+	bool discoveredAttack = false;
+	this->_board->setBoard(src, destPlace);
+	if (srcPiece)
+	{
+		srcPiece->setCurrentPlace(destPlace);
+	}
+	discoveredAttack = isStillChecked(!isWhiteTurn);
+	this->_board->setBoard(dest, srcPlace);
+	if (srcPiece)
+	{
+		srcPiece->setCurrentPlace(srcPlace);
+	}
+	if (destPiece)
+	{
+		this->_board->setPieceAtBoard(dest, destPiece);
+	}
+
+	return discoveredAttack;
 }

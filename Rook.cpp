@@ -14,6 +14,7 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
     char currentLine = this->getCurrentPlace().getLocation()[1];
     char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
     int code = isBasicValid(dest, board, currentPlayer);
+
     if (dest.getCurrentPiece() == EMPTY_PLACE)
     {
         pieceColor = EMPTY_PLACE;
@@ -31,14 +32,14 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
             if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(), dest, board))
             {
                 opponentPlayer->activateCheck();
-                return 1;
+                return CheckMove;
             }
         }
-        return 0; 
+        return GoodMove; 
     }
     else if(!code)
     {
-        code = 6;
+        code = NotValidMove;
     }
 
     return code;

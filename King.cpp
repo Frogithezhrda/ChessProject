@@ -29,15 +29,11 @@ int King::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 	
 	if (differenceVertical > 1 || differenceVertical < -1 || differenceHorizontal > 1 || differenceHorizontal < -1)
 	{
-		return 6;
+		return NotValidMove;
 	}
 	if (abs(dest.getRow() - opponentKingRow) <= 1 && abs(dest.getLine() - opponentKingLine) <= 1)
 	{
-		return 6;
+		return NotValidMove;
 	}
-
-
-
-	return 0;
-
+	return GoodMove;
 }

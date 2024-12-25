@@ -1,5 +1,9 @@
 #include "Pawn.h"
 #include "Board.h"
+
+#define ROW_INDEX 1
+#define COLUM_INDEX 0
+
 Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? PawnName : std::toupper(PawnName)), firstPlace)
 {
 
@@ -10,7 +14,7 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 	char currentRow = this->getCurrentPlace().getRow();
 	char currentLine = this->getCurrentPlace().getLine();
 	// still didnt fix the after the piece problem will fix be smart(i know how i dont have the power)
-	if (!dest.hasPiece() && (currentRow == dest.getLocation()[0] || currentLine == dest.getLocation()[1]) && dest.getLocation() != this->getCurrentPlace().getLocation())
+	if (!dest.hasPiece() && (currentRow == dest.getLocation()[COLUM_INDEX] || currentLine == dest.getLocation()[ROW_INDEX]) && dest.getLocation() != this->getCurrentPlace().getLocation())
 	{
 		return 0;
 	}

@@ -1,4 +1,12 @@
 #include "Board.h"
+#define LAST_ROW_INDEX '8'
+#define FIRST_ROW_INDEX '1'
+#define LAST_COLUM_INDEX 'h'
+#define FIRST_COLUM_INDEX 'a'
+
+#define ROW_INDEX 1
+#define COLUM_INDEX 0
+
 
 Board::Board(const std::string& initBoard)
 {
@@ -131,12 +139,12 @@ Place* Board::getBoard() const
 
 bool Board::isValidPosition(const std::string& position) const
 {
-	char row = position[0];
-	char column = position[1];
+	char row = position[COLUM_INDEX];
+	char column = position[ROW_INDEX];
 
 
 
-	if ((row >= 'a' && row <= 'h') && (column >= '1' && column <= '8'))
+	if ((row >= FIRST_COLUM_INDEX && row <= LAST_COLUM_INDEX) && (column >= FIRST_ROW_INDEX && column <= LAST_ROW_INDEX))
 	{
 		return true; 
 	}

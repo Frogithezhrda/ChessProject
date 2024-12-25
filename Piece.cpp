@@ -35,7 +35,7 @@ void Piece::setCurrentPlace(const Place& dest)
 int Piece::move(const Place& dest, Board* board, Player* player, Player* opponentPlayer)
 {
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
-	if (moveCode == 1 || moveCode == 0)
+	if (moveCode == CheckMove || moveCode == GoodMove)
 	{
 		this->setCurrentPlace(dest);
 		if (std::tolower(this->_type) == 'k')
@@ -50,19 +50,19 @@ int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 {
 	if (dest.getLocation() == this->getCurrentPlace().getLocation())
 	{
-		return 7; 
+		return SameDestSrc; 
 	}
 	if (!board->isValidPosition(dest.getLocation()))
 	{
-		return 5;
+		return NotValidIndex;
 	}
-	if (this->getCurrentPlace().getCurrentPiece() == '#')
+	if (this->getCurrentPlace().getCurrentPiece() == EMPTY_PLACE)
 	{
-		return 2;
+		return NotPlayerPiece;
 	}
 	if (std::tolower(dest.getCurrentPiece()) ? 'w' : 'b' == player->getPlayerColor())
 	{
-		return 3;
+		return AlreadyHasPiece;
 	}
-	return 0;
+	return GoodMove;
 }

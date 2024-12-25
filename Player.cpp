@@ -1,6 +1,9 @@
 #include "Player.h"
 #include "Board.h"
 
+#define LAST_ROW_INDEX '8'
+#define FIRST_ROW_INDEX '1'
+
 Player::Player()
 {
 	//default Player
@@ -12,7 +15,7 @@ Player::Player()
 Player::Player(const char color, const Board* board)
 {
 	//currently Player
-    char row = (this->_playerColor == 'w') ? '1' : '8';
+    char row = (this->_playerColor == 'w') ? FIRST_ROW_INDEX : LAST_ROW_INDEX;
     int pawnRow = (this->_playerColor == 'w') ? 2 : 7; 
     Piece* piece = this->_playerColor == 'w' ? board->getPiece("d1") : board->getPiece("d8");
 	this->_playerColor = color;

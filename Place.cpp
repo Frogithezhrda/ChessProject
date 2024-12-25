@@ -1,18 +1,21 @@
 #include "Place.h"
 #include <string>
+#define EMPTY_PLACE '#'
+#define ROW_INDEX 1
+#define COLUM_INDEX 0
 
 Place::Place()
 {
 	//defualt values
 	this->_hasPiece = false;
 	this->_location = "";
-	this->_pieceName = '#';
+	this->_pieceName = EMPTY_PLACE;
 }
 
 Place::Place(const std::string& location, const char pieceName)
 {
 	//defualt start as false and loc and piecename
-	(pieceName != '#') ? this->_hasPiece = true : this->_hasPiece = false;
+	(pieceName != EMPTY_PLACE) ? this->_hasPiece = true : this->_hasPiece = false;
 	this->_location = location;
 	this->_pieceName = pieceName;
 }
@@ -52,9 +55,9 @@ bool Place::hasPiece() const
 
 char Place::getRow() const
 {
-	return this->_location[0];
+	return this->_location[COLUM_INDEX];
 }
 char Place::getLine() const
 {
-	return this->_location[1];
+	return this->_location[ROW_INDEX];
 }

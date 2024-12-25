@@ -1,6 +1,7 @@
 #include "Pawn.h"
 #include "Board.h"
 #include "Player.h"
+enum GameCodes { GoodMove = 0, CheckMove, NotPlayerPiece, AlreadyHasPiece, WillBeCheck, NotValidIndex, NotValidMove, SameDestSrc, CheckMate };
 
 Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? PawnName : std::toupper(PawnName)), firstPlace)
 {
@@ -26,17 +27,17 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 	{
 		if (dest.getCurrentPiece() == 'k' && differenceHorizontal == 1 || differenceHorizontal == -1)
 		{
-			return 1;
+			return CheckMove;
 		}
 		if (!dest.hasPiece() && differenceHorizontal == 1 || differenceHorizontal == -1)
 		{
-			return 6;
+			return NotValidMove;
 		}
-		return 0;
+		return GoodMove;
 	}
 	if (dest.hasPiece())
 	{
-		return 0;
+		return GoodMove;
 	}
 	if ((this->getPieceColor() == 'w' && this->getCurrentPlace().getLine() == '2') || (this->getPieceColor() == 'b' && this->getCurrentPlace().getLine() == '7'))
 	{
@@ -47,10 +48,10 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 			middlePosition = std::string(1, currentRow) + std::to_string(middleRow);
 			if (board->getPiece(middlePosition) != nullptr)
 			{
-				return 6; 
+				return NotValidMove;
 			}
-			return 0;
+			return GoodMove;
 		}
 	}
-	return 6;
+	return NotValidMove;
 }

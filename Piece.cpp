@@ -48,6 +48,7 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 
 int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 {
+	char destPieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
 	if (dest.getLocation() == this->getCurrentPlace().getLocation())
 	{
 		return 7; 
@@ -60,7 +61,7 @@ int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 	{
 		return 2;
 	}
-	if (std::tolower(dest.getCurrentPiece()) ? 'w' : 'b' == player->getPlayerColor())
+	if (dest.hasPiece() && destPieceColor == this->getPieceColor())
 	{
 		return 3;
 	}

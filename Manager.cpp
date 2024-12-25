@@ -191,6 +191,10 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 	{
 		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 		this->_board->setBoard(dest, srcPlace);
+		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		{
+			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(srcPlace);
+		}
 		return WillBeCheck;
 	}
 	else

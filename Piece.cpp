@@ -38,14 +38,11 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
 	if (moveCode == 1 || moveCode == 0)
 	{
-		std::cout << "Current Place before move: " << this->getCurrentPlace().getLocation() << std::endl;
 		this->setCurrentPlace(dest);
-		std::cout << "Current Place after move: " << this->getCurrentPlace().getLocation() << std::endl;
 
 		if (std::tolower(this->_type) == 'k' && this->getPieceColor() == player->getPlayerColor())
 		{
 			player->getKing()->setCurrentPlace(dest);
-			std::cout << "Player's King Position Updated to: " << player->getKing()->getCurrentPlace().getLocation() << std::endl;
 		}
 	}
 	return moveCode;

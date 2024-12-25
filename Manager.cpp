@@ -169,7 +169,7 @@ Board& Manager::getBoard() const
 
 int Manager::manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn)
 {
-	Piece* pieceAtDest = (*this->_board).getPiece(dest);
+	Piece* pieceAtDest = this->_board->getPiece(dest);
 	Piece* pieceAtSrc = _board->getPiece(src);
 	char pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : '#'; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
 	Place destPlace = Place(dest, pieceChar);
@@ -181,30 +181,42 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 	{
 		return NotPlayerPiece;
 	}
-
+	//d6 to d5
+	char pieceTemp = pieceAtSrc->getType();
 	code = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 	if (code == GoodMove || code == CheckMove)
 	{
+		//setting the board
 		this->_board->setBoard(src, destPlace);
+		//setting if its the king d6 d5
 		if (std::tolower(pieceAtSrc->getType()) == 'k')
 		{
 			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(destPlace);
 		}
 	}
+	//if is still in check
 	if (isStillChecked(isWhiteTurn))
 	{
 		if (code != GoodMove && code != CheckMove)
 		{
 			this->_board->setBoard(src, destPlace);
 		}
+		//
+
+		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		{
+			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(srcPlace);
+		}
 		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 		this->_board->setBoard(dest, srcPlace);
+		if (pieceChar != '#')
+		{
+			this->_board->setPieceAtBoard(dest, pieceAtDest);
+		}
 		return WillBeCheck;
 	}
-	else
-	{
-		getCurrentPlayer(isWhiteTurn)->deactivateCheck();
-	}
+	//deactivating check
+	getCurrentPlayer(isWhiteTurn)->deactivateCheck();
 	if (getCurrentPlayer(isWhiteTurn)->isChecked())
 	{
 		return CheckMove;

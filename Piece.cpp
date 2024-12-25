@@ -18,6 +18,7 @@ Place Piece::getCurrentPlace() const
 	return this->_currentPlace;
 }
 
+
 char Piece::getPieceColor() const
 {
 	return this->_pieceColor;
@@ -38,11 +39,18 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
 	if (moveCode == 1 || moveCode == 0)
 	{
-		this->setCurrentPlace(dest);
-
-		if (std::tolower(this->_type) == 'k' && this->getPieceColor() == player->getPlayerColor())
+		if (std::tolower(dest.getCurrentPiece()) != 'k')
 		{
-			player->getKing()->setCurrentPlace(dest);
+			this->setCurrentPlace(dest);
+
+			if (std::tolower(this->_type) == 'k' && this->getPieceColor() == player->getPlayerColor())
+			{
+				player->getKing()->setCurrentPlace(dest);
+			}
+		}
+		else
+		{
+			moveCode = 6;
 		}
 	}
 	return moveCode;

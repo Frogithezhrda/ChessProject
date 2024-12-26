@@ -1,6 +1,4 @@
 #include "Rook.h"
-#include "Board.h"
-#include "Player.h"
 
 Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? RookName : std::toupper(RookName)), firstPlace)
 {

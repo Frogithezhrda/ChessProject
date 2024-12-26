@@ -1,7 +1,6 @@
 #include "King.h"
-#include "Board.h"
 #include "Player.h"
-
+#include "Board.h"
 
 
 King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? KingName : std::toupper(KingName)), firstPlace)
@@ -14,7 +13,7 @@ int King::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 {
 	char currentRow = this->getCurrentPlace().getRow();
 	int currentLine = int(this->getCurrentPlace().getLine());
-	char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
+	char pieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
 	int differenceVertical = currentLine - int(dest.getLine());
 	int differenceHorizontal = int(currentRow) - int(dest.getRow());
 	Place opponentKingPlace = opponentPlayer->getKing()->getCurrentPlace();

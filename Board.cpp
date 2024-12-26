@@ -1,11 +1,4 @@
 #include "Board.h"
-#define LAST_ROW_INDEX '8'
-#define FIRST_ROW_INDEX '1'
-#define LAST_COLUM_INDEX 'h'
-#define FIRST_COLUM_INDEX 'a'
-
-#define ROW_INDEX 1
-#define COLUM_INDEX 0
 
 
 Board::Board(const std::string& initBoard)

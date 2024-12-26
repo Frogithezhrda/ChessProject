@@ -5,6 +5,8 @@
 enum GameCodes { GoodMove = 0, CheckMove, NotPlayerPiece, AlreadyHasPiece, WillBeCheck, NotValidIndex, NotValidMove, SameDestSrc, CheckMate };
 enum Pieces {PawnName = 'p', RookName = 'r', QueenName = 'q', KingName = 'k', KnightName = 'n', BishopName = 'b' };
 #define EMPTY_PLACE '#'
+#define BLACK 'b'
+#define WHITE 'w'
 
 class Board;
 class Player;

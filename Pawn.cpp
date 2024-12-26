@@ -1,6 +1,4 @@
 #include "Pawn.h"
-#include "Board.h"
-#include "Player.h"
 
 Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? PawnName : std::toupper(PawnName)), firstPlace)
 {

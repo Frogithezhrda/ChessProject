@@ -1,6 +1,4 @@
-#include "Rook.h"
-#include "Board.h"
-#include "Player.h"
+#include "Bishop.h"
 
 Bishop::Bishop(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? BishopName : std::toupper(BishopName)), firstPlace)
 {
@@ -10,13 +8,13 @@ Bishop::Bishop(const char pieceColor, const Place& firstPlace) : Piece(pieceColo
 
 int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Player* opponentPlayer) const
 {
-    int currentRow = this->getCurrentPlace().getRow() - 'a';  // Convert 'a'-'h' to 0-7
-    int currentColumn = this->getCurrentPlace().getLine() - '1';  // Convert '1'-'8' to 0-7
+    int currentRow = this->getCurrentPlace().getRow() - 'a';  
+    int currentColumn = this->getCurrentPlace().getLine() - '1'; 
     int destRow = dest.getRow() - 'a';
     int destColumn = dest.getLine() - '1';
     int kingRow = opponentPlayer->getKing()->getCurrentPlace().getRow() - 'a';
     int kingColumn = opponentPlayer->getKing()->getCurrentPlace().getLine() - '1';
-    char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
+    char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : BLACK;
     int code = isBasicValid(dest, board, currentPlayer);
 
     if (dest.getCurrentPiece() == EMPTY_PLACE)
@@ -54,23 +52,23 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
 
 bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board) const
 {
+    //getting rows and colums
     int srcRow = src.getRow() - 'a';    
     int srcCol = src.getLine() - '1';  
     int destRow = dest.getRow() - 'a';
     int destCol = dest.getLine() - '1';
+    int rowStep = (destRow > srcRow) ? 1 : -1;
+    int colStep = (destCol > srcCol) ? 1 : -1;
+    std::string currentPos = "";
+    int currentRow = srcRow + rowStep;
+    int currentCol = srcCol + colStep;
 
     if (abs(srcRow - destRow) != abs(srcCol - destCol)) {
         return false;  
     }
-
-    int rowStep = (destRow > srcRow) ? 1 : -1;  
-    int colStep = (destCol > srcCol) ? 1 : -1;  
-
-    int currentRow = srcRow + rowStep;
-    int currentCol = srcCol + colStep;
     while (currentRow != destRow && currentCol != destCol) 
     {
-        std::string currentPos = std::string(1, currentRow + 'a') + std::to_string(currentCol + 1);
+        currentPos = std::string(1, currentRow + 'a') + std::to_string(currentCol + 1);
         if (board->getPiece(currentPos) != nullptr) 
         {  
             return false;

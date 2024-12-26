@@ -20,7 +20,16 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
     {
         return code;
     }
-
+    int first = std::abs(int(dest.getRow()) - int(kingRow));
+    int second = std::abs(int(dest.getLine()) - int(kingLine));
+    if ((std::abs(int(dest.getRow()) - int(kingRow)) == 1) && (std::abs(int(dest.getLine()) - int(kingLine)) == 1))
+    {
+        return CheckMove;
+    }
+    else if ((std::abs(int(this->getCurrentPlace().getRow()) - int(kingRow)) == 1) && (std::abs(int(this->getCurrentPlace().getLine()) - int(kingLine)) == 1))
+    {
+        return CheckMove;
+    }
     if (differenceHorizontal == 1 || differenceHorizontal == -1)
     {
         if ((this->getPieceColor() == 'w' && differenceVertical == -1) ||
@@ -63,9 +72,6 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
             return GoodMove; 
         }
     }
-    //if ((std::abs(int(currentRow) - int(kingRow)) == 1) && (std::abs(int(currentLine) - int(kingLine)) == 1))
-    //{
-    //    return CheckMove;
-    //}
+
     return NotValidMove; 
 }

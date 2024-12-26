@@ -1,17 +1,5 @@
 #include "Manager.h"
-#define ROW_INDEX 1
-#define COLUM_INDEX 0
-#define EMPTY_PLACE '#'
 
-#define DEST_INDEX 0
-#define SRC_INDEX 2
-
-#define NUM_OF_CHARS_IN_LOCATION 2
-
-#define SRC_ROW_INDEX 0
-#define DEST_ROW 2
-#define SRC_LINE 3
-#define DEST_LINE 1
 
 void Manager::handleConsole()
 {
@@ -69,7 +57,7 @@ bool Manager::isStillChecked(bool isWhiteMove)
 			position = std::string(1, 'a' + j) + std::to_string(i + 1);
 			piece = this->_board->getPiece(position);
 
-			if (piece && piece->getPieceColor() != (isWhiteMove ? 'w' : 'b'))
+			if (piece && piece->getPieceColor() != (isWhiteMove ? WHITE : BLACK))
 			{
 				if (piece->isValidMove(kingPlace, this->_board, getOpponentPlayer(isWhiteMove), getCurrentPlayer(isWhiteMove)) == CheckMove)
 				{
@@ -188,20 +176,23 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 	Place srcPlace = (pieceAtSrc != nullptr) ? pieceAtSrc->getCurrentPlace() : Place();
 	int code = 0;
 
+	if (!this->_board->isValidPosition(src))
+	{
+		return NotValidIndex;
+	}
 
-	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (isWhiteTurn ? 'w' : 'b'))
+	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (isWhiteTurn ? WHITE : BLACK))
 	{
 		return NotPlayerPiece;
 	}
 	//d6 to d5
-	char pieceTemp = pieceAtSrc->getType();
 	code = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 	if (code == GoodMove || code == CheckMove)
 	{
 		//setting the board
 		this->_board->setBoard(src, destPlace);
 		//setting if its the king d6 d5
-		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		if (std::tolower(pieceAtSrc->getType()) == KING)
 		{
 			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(destPlace);
 		}
@@ -219,13 +210,13 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 		}
 		//
 
-		if (std::tolower(pieceAtSrc->getType()) == 'k')
+		if (std::tolower(pieceAtSrc->getType()) == KING)
 		{
 			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(srcPlace);
 		}
 		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
 		this->_board->setBoard(dest, srcPlace);
-		if (pieceChar != '#')
+		if (pieceChar != EMPTY_PLACE)
 		{
 			this->_board->setPieceAtBoard(dest, pieceAtDest);
 		}
@@ -260,7 +251,7 @@ bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest
 	Piece* srcPiece = this->_board->getPiece(src);
 	Piece* destPiece = this->_board->getPiece(dest);
 	Place srcPlace = srcPiece ? srcPiece->getCurrentPlace() : Place();
-	Place destPlace(dest, destPiece ? destPiece->getType() : '#');
+	Place destPlace(dest, destPiece ? destPiece->getType() : EMPTY_PLACE);
 	bool discoveredAttack = false;
 	this->_board->setBoard(src, destPlace);
 	if (srcPiece)

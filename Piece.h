@@ -7,7 +7,7 @@ enum Pieces {PawnName = 'p', RookName = 'r', QueenName = 'q', KingName = 'k', Kn
 #define EMPTY_PLACE '#'
 #define BLACK 'b'
 #define WHITE 'w'
-
+#define KING 'k'
 class Board;
 class Player;
 

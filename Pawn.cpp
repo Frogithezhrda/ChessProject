@@ -65,10 +65,9 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
             return GoodMove; 
         }
     }
-    if ((std::abs(int(currentRow) - int(kingRow)) == 1) && (std::abs(int(currentLine) - int(kingLine)) == 1))
-    {
-        return CheckMove;
-    }
-
+    //if ((std::abs(int(currentRow) - int(kingRow)) == 1) && (std::abs(int(currentLine) - int(kingLine)) == 1))
+    //{
+    //    return CheckMove;
+    //}
     return NotValidMove; 
 }

@@ -4,7 +4,8 @@
 class Queen : public Piece
 {
 public:
-
+	Queen(const char pieceColor, const Place& firstPlace);
+	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 private:
 	/*
 	name: move
@@ -19,6 +20,5 @@ private:
 	output: a num that represents the validility
 	description: this function tells if the move is valid or not and why
 	*/
-	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 
 };

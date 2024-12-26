@@ -10,8 +10,8 @@ Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 
 int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Player* opponentPlayer) const
 {
-    char currentRow = this->getCurrentPlace().getLocation()[0];
-    char currentLine = this->getCurrentPlace().getLocation()[1];
+    char currentRow = this->getCurrentPlace().getRow();
+    char currentLine = this->getCurrentPlace().getLine();
     char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
     int code = isBasicValid(dest, board, currentPlayer);
 

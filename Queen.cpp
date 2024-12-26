@@ -1,6 +1,4 @@
 #include "Queen.h"
-#include "Board.h"
-#include "Player.h"
 
 Queen::Queen(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? QueenName : std::toupper(QueenName)), firstPlace)
 {
@@ -13,7 +11,7 @@ int Queen::isValidMove(const Place& dest, Board* board, Player* player, Player* 
 	Bishop bishop = Bishop(this->getPieceColor(), this->getCurrentPlace());
 	int rookCode = rook.isValidMove(dest, board, player, opponentPlayer);
 	int bishopCode = bishop.isValidMove(dest, board, player, opponentPlayer);
-	if (rookCode == GoodMove && bishopCode == CheckMove || rookCode == GoodMove && bishopCode == CheckMove)
+	if (bishopCode == CheckMove || rookCode == CheckMove)
 	{
 		return CheckMove;
 	}

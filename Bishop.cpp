@@ -52,30 +52,31 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
 
 bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board) const
 {
-    //getting rows and colums
-    int srcRow = src.getRow() - 'a';    
-    int srcCol = src.getLine() - '1';  
+    int srcRow = src.getRow() - 'a';  
+    int srcCol = src.getLine() - '1';   
     int destRow = dest.getRow() - 'a';
     int destCol = dest.getLine() - '1';
-    int rowStep = (destRow > srcRow) ? 1 : -1;
-    int colStep = (destCol > srcCol) ? 1 : -1;
-    std::string currentPos = "";
-    int currentRow = srcRow + rowStep;
-    int currentCol = srcCol + colStep;
 
-    if (abs(srcRow - destRow) != abs(srcCol - destCol)) {
-        return false;  
-    }
-    while (currentRow != destRow && currentCol != destCol) 
+    if (abs(srcRow - destRow) != abs(srcCol - destCol))
     {
-        currentPos = std::string(1, currentRow + 'a') + std::to_string(currentCol + 1);
-        if (board->getPiece(currentPos) != nullptr) 
-        {  
-            return false;
+        return false; 
+    }
+    int rowDirection = (destRow > srcRow) ? 1 : -1;
+    int colDirection = (destCol > srcCol) ? 1 : -1;
+
+    int row = srcRow + rowDirection;
+    int col = srcCol + colDirection;
+
+    while (row != destRow && col != destCol) {
+        std::string currentPos = std::string(1, row + 'a') + std::to_string(col + 1);
+
+        if (board->getPiece(currentPos) != nullptr)
+        {
+            return false;  
         }
-        currentRow += rowStep;
-        currentCol += colStep;
+        row += rowDirection;
+        col += colDirection;
     }
 
-    return true;  
+    return true; 
 }

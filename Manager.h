@@ -46,11 +46,11 @@ public:
 
 	/*
 	name: handleConsole
-	input: none
+	input: move to handle
 	output:none
 	description: this function is habdeling the function (console loop)
 	*/
-	void handleConsole();
+	void handleConsole(const std::string& move);
 
 	/*
 	name: printTurn
@@ -123,7 +123,7 @@ public:
 
 	int getErrorCode() const;
 
-	
+	bool isWhiteTurn() const;
 
 private:
 	/*
@@ -139,4 +139,5 @@ private:
 	Player _players[PLAYER_COUNT];
 	Board* _board;
 	int _errorCode;
+	bool _isWhiteTurn;
 };

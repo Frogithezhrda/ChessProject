@@ -28,7 +28,7 @@ public:
 	name: CONSTRUCTOR
 	input: a refrense to a string that represents the location on the board
 	*/
-	~Piece();
+	virtual ~Piece();
 
 	/*
 	name: move
@@ -37,6 +37,7 @@ public:
 	description: this function moves the piece to the given dest
 	*/
 	int move(const Place& dest, Board* board, Player* player, Player* opponentPlayer);
+
 	/*
 	name: isValidMove
 	input: a refrence to a place
@@ -45,6 +46,12 @@ public:
 	*/
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const = 0;
 
+	/*
+	name: isBasicValid
+	input: a refrence to place(the destination), a pointer to the board, and a pointer to a player
+	output: an error code
+	description: this function returns basic error codes
+	*/
 	int isBasicValid(const Place& dest, Board* board, Player* player) const;
 
 	/*
@@ -55,6 +62,12 @@ public:
 	*/
 	char getPieceColor() const;
 
+	/*
+	name: getCurrentPlace
+	input: none
+	output:a place
+	description: this function returns the place of the piece
+	*/
 	Place getCurrentPlace() const;
 
 	/*

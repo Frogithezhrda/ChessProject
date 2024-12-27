@@ -54,6 +54,6 @@ char Player::getPlayerColor() const
 
 bool Player::isMate() const
 {
-
+    return false;
 }
 

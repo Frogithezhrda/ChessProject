@@ -22,6 +22,8 @@ public:
 	description: this function tells if the move is valid or not and why
 	*/
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
+
+	virtual ~Rook();
 private:
 
 };

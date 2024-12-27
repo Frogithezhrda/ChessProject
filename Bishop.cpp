@@ -5,7 +5,7 @@ Bishop::Bishop(const char pieceColor, const Place& firstPlace) : Piece(pieceColo
 
 }
 
-
+Bishop::~Bishop() {}
 int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Player* opponentPlayer) const
 {
     int currentRow = this->getCurrentPlace().getRow() - BASE_LETTER_ASCII_VALUE;
@@ -29,13 +29,13 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
     if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) && isClearPath(dest, this->getCurrentPlace(), board))
     {
 
-        if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != 'k')
+        if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != KING)
         {
             board->setBoard(dest.getLocation(), Place(dest.getLocation(), EMPTY_PLACE));
         }
         if (abs(destRow - kingRow) == abs(destColumn - kingColumn))
         {
-            if (std::tolower(dest.getCurrentPiece()) == 'k')
+            if (std::tolower(dest.getCurrentPiece()) == KING)
             {
                 if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(),  this->getCurrentPlace(), board))
                 {
@@ -71,7 +71,7 @@ bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board
     std::string currentPos = "";
     int currentRow = srcRow + rowStep;
     int currentCol = srcCol + colStep;
-
+    Piece* piece = nullptr;
     if (abs(srcRow - destRow) != abs(srcCol - destCol)) 
     {
         return false;  
@@ -79,10 +79,12 @@ bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board
     while (currentRow != destRow && currentCol != destCol) 
     {
         currentPos = std::string(1, currentRow + BASE_LETTER_ASCII_VALUE) + std::to_string(currentCol + 1);
-        if (board->getPiece(currentPos) != nullptr) 
+        piece = board->getPiece(currentPos);
+        if (piece != nullptr) 
         {  
             return false;
         }
+        delete piece;
         currentRow += rowStep;
         currentCol += colStep;
     }

@@ -15,30 +15,30 @@ in order to read and write information from and to the Backend
 #define CONSOLE 'c'
 #define GRAPHICS 'g'
 #define INIT_STRING "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"
+#define TRY_AGAIN "0"
 
-void handleMainGame(Manager*& manager);
+void handleMainGame(Manager* manager);
 void handleGraphics(Manager* manager);
 
 void main()
 {
 	srand(time_t(NULL));
-	Manager* manager = nullptr;
-	//handleMainGame(manager);
+	Manager* manager = new Manager(INIT_STRING);
+	handleMainGame(manager);
 	delete manager;
 	manager = nullptr;
 	printf("%d", _CrtDumpMemoryLeaks());
 }
 
 
-void handleMainGame(Manager*& manager)
+void handleMainGame(Manager* manager)
 {
 	char type = ' ';
 	std::cout << "For Console Game - 'c', For Graphic Game 'g': " << std::endl;
 	std::cin >> type;
 	if (std::tolower(type) == CONSOLE)
 	{
-		manager = new Manager(INIT_STRING);
-		//manager->handleConsoleMode();
+		manager->handleConsoleMode();
 	}
 	else if (std::tolower(type) == GRAPHICS)
 	{
@@ -66,7 +66,7 @@ void handleGraphics(Manager* manager)
 		std::cout << "Do you try to connect again or exit? (0-try again, 1-exit)" << std::endl;
 		std::cin >> ans;
 
-		if (ans == "0")
+		if (ans == TRY_AGAIN)
 		{
 			std::cout << "trying connect again.." << std::endl;
 			Sleep(DELAY);
@@ -84,7 +84,6 @@ void handleGraphics(Manager* manager)
 
 	strcpy_s(msgToGraphics, INIT_STRING); // just example...
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
-	manager = new Manager(msgToGraphics);
 	// get message from graphics
 	manager->handleGraphicsMode(p);
 	p.close();

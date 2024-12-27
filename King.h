@@ -6,6 +6,7 @@ class King : public Piece
 public:
 	King(const char pieceColor, const Place& firstPlace);
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
+	virtual ~King();
 private:
 
 	/*

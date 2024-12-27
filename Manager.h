@@ -11,6 +11,8 @@
 #define COLUM_INDEX 0
 #define EMPTY_PLACE '#'
 
+#define QUIT "quit"
+
 #define DEST_INDEX 0
 #define SRC_INDEX 2
 
@@ -22,6 +24,7 @@
 #define DEST_ROW 2
 #define SRC_LINE 3
 #define DEST_LINE 1
+#define LENGTH 4
 
 #define BASE_LETTER_ASCII_VALUE 'a'
 

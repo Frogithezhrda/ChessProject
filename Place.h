@@ -19,7 +19,7 @@ public:
 	/*
 	name: DESTRUCTOR
 	*/
-	~Place();
+	virtual ~Place();
 
 	/*
 	name: hasPiece

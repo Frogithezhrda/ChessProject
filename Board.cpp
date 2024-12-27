@@ -13,7 +13,7 @@ Board::Board(const std::string& initBoard)
 		for(j = 0; j < BOARD_SIZE; j++)
 		{
 			this->_board[i][j] = Place(char(j + A_ASCII_VALUE) + std::to_string(i + 1), initBoard[i * BOARD_SIZE + j]);
-			if (initBoard[i * BOARD_SIZE + j] != '#')
+			if (initBoard[i * BOARD_SIZE + j] != EMPTY_PLACE)
 			{
 				this->_board[i][j].activePiece();
 			}
@@ -29,7 +29,6 @@ Board::~Board()
 	{
 		delete[] _board[i];
 	}
-	delete[] _board; //cleaning the rest of the board
 }
 Piece* Board::getPiece(const std::string& pieceLocation) const
 {

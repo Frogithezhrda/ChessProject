@@ -12,7 +12,7 @@ void Manager::handleGraphicsMode(Pipe& pipe)
 	char msgToGraphics[BUFFER];
 	std::string msgFromGraphics = "";
 	msgFromGraphics = pipe.getMessageFromGraphics();
-	while (msgFromGraphics != "quit")
+	while (msgFromGraphics != QUIT)
 	{
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
@@ -31,7 +31,7 @@ void Manager::handleGraphicsMode(Pipe& pipe)
 void Manager::handleConsoleMode()
 {
 	std::string move = "";
-	while (move != "quit")
+	while (move != QUIT)
 	{
 		printTurn();
 		this->_board->printBoard();
@@ -88,12 +88,13 @@ bool Manager::isStillChecked()
 			{
 				if (piece->isValidMove(kingPlace, this->_board, getOpponentPlayer(), getCurrentPlayer()) == CheckMove)
 				{
+					delete piece;
 					return true;
 				}
 			}
+			delete piece;
 		}
 	}
-
 	return false;
 }
 
@@ -209,7 +210,7 @@ Board& Manager::getBoard() const
 int Manager::manageMove(const std::string& src, const std::string& dest)
 {
 	Piece* pieceAtDest = this->_board->getPiece(dest);
-	Piece* pieceAtSrc = _board->getPiece(src);
+	Piece* pieceAtSrc = this->_board->getPiece(src);
 	char pieceChar = (pieceAtDest != nullptr) ? pieceAtDest->getType() : EMPTY_PLACE; //if there is a piece at dest, piecechar will hold oit type. other wise it will hole # cuz its empty
 	Place destPlace = Place(dest, pieceChar);
 	Place srcPlace = (pieceAtSrc != nullptr) ? pieceAtSrc->getCurrentPlace() : Place();
@@ -217,11 +218,15 @@ int Manager::manageMove(const std::string& src, const std::string& dest)
 
 	if (!this->_board->isValidPosition(src))
 	{
+		delete pieceAtDest;
+		delete pieceAtSrc;
 		return NotValidIndex;
 	}
 
 	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (_isWhiteTurn ? WHITE : BLACK))
 	{
+		delete pieceAtDest;
+		delete pieceAtSrc;
 		return NotPlayerPiece;
 	}
 	//d6 to d5
@@ -259,30 +264,37 @@ int Manager::manageMove(const std::string& src, const std::string& dest)
 		{
 			this->_board->setPieceAtBoard(dest, pieceAtDest);
 		}
-		return WillBeCheck;
+		code = WillBeCheck;
 	}
-	//deactivating check
-	getCurrentPlayer()->deactivateCheck();
-	if (getCurrentPlayer()->isChecked())
+	else
 	{
-		return CheckMove;
+		//deactivating check
+		getCurrentPlayer()->deactivateCheck();
+		if (getCurrentPlayer()->isChecked())
+		{
+			code = CheckMove;
+		}
 	}
 
+	delete pieceAtDest;
+	delete pieceAtSrc;
 	return code;
-
 }
 
 bool Manager::isValidMoveInput(const std::string& move)
 {
-	char srcRow = move[SRC_ROW_INDEX];
-	char destRow = move[DEST_ROW];
-	char srcLine = move[SRC_LINE];
-	char destLine = move[DEST_LINE];
-
-	if (move.length() != 4)
+	char srcRow = ' ';
+	char destRow = ' ';
+	char srcLine = ' ';
+	char destLine = ' ';
+	if (move.length() != LENGTH)
 	{
 		return false;
 	}
+	srcRow = move[SRC_ROW_INDEX];
+	destRow = move[DEST_ROW];
+	srcLine = move[SRC_LINE];
+	destLine = move[DEST_LINE];
 	return isalpha(srcRow) && isalpha(destRow) && isdigit(srcLine) && isdigit(destLine);
 }
 bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest)
@@ -309,6 +321,7 @@ bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest
 	{
 		this->_board->setPieceAtBoard(dest, destPiece);
 	}
-
+	delete destPiece;
+	delete srcPiece;
 	return discoveredAttack;
 }

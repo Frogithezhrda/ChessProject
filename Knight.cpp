@@ -6,7 +6,10 @@ Knight::Knight(const char pieceColor, const Place& firstPlace) : Piece(pieceColo
 
 }
 
+Knight::~Knight()
+{
 
+}
 int Knight::isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const
 {
     char currentRow = this->getCurrentPlace().getRow();
@@ -41,7 +44,7 @@ int Knight::isValidMove(const Place& dest, Board* board, Player* player, Player*
     {
         return CheckMove;
     }
-    if (std::tolower(dest.getCurrentPiece()) == 'k')
+    if (std::tolower(dest.getCurrentPiece()) == KING)
     {
         if ((rowKingCheckDiff == 2 && lineKingCheckDiff == 1) || (rowKingCheckDiff == 1 && lineKingCheckDiff == 2))
         {

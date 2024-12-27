@@ -4,7 +4,7 @@ Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 {
 
 }
-
+Rook::~Rook() {}
 
 int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Player* opponentPlayer) const
 {
@@ -65,6 +65,7 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
             {
                 return false;
             }
+            delete currentPiece;
         }
     }
     else if (src.getLine() == dest.getLine())  // horizontal movement
@@ -72,10 +73,12 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
         for (i = startLine + 1; i < endLine; i++)
         {
             currentPos = std::string(std::string(1, (char)i) + src.getLine());  // hell
-            if (board->getPiece(currentPos) != nullptr)
+            currentPiece = board->getPiece(currentPos);
+            if (currentPiece != nullptr)
             {
                 return false;
             }
+            delete currentPiece;
         }
     }
     return true; 

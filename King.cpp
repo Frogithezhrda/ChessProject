@@ -7,7 +7,10 @@ King::King(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 {
 
 }
+King::~King()
+{
 
+}
 
 int King::isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const
 {

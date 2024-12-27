@@ -15,9 +15,9 @@ Player::Player(const char color, const Board* board)
 {
 	//currently Player
     this->_playerColor = color;
-    char row = (this->_playerColor == 'w') ? FIRST_ROW_INDEX : LAST_ROW_INDEX;
-    int pawnRow = (this->_playerColor == 'w') ? 2 : 7; 
-    Piece* piece = this->_playerColor == 'w' ? board->getPiece("d1") : board->getPiece("d8");
+    char row = (this->_playerColor == WHITE) ? FIRST_ROW_INDEX : LAST_ROW_INDEX;
+    int pawnRow = (this->_playerColor == WHITE) ? 2 : 7;
+    Piece* piece = this->_playerColor == WHITE ? board->getPiece("d1") : board->getPiece("d8");
     this->_king = (King*)(piece);
 	this->_isChecked = false;
 
@@ -25,7 +25,7 @@ Player::Player(const char color, const Board* board)
 
 Player::~Player()
 {
-
+    delete this->_king;
 }
 
 void Player::activateCheck()

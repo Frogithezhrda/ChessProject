@@ -102,6 +102,7 @@ Manager::Manager(const std::string& initBoard)
 
 Manager::~Manager()
 {
+	delete this->_board;
 }
 
 void Manager::displayError(int errorCode)

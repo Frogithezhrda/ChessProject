@@ -29,6 +29,7 @@ Board::~Board()
 	{
 		delete[] _board[i];
 	}
+	delete[] _board; //cleaning the rest of the board
 }
 Piece* Board::getPiece(const std::string& pieceLocation) const
 {

@@ -49,7 +49,7 @@ Piece* Board::getPiece(const std::string& pieceLocation) const
 						piece = new Pawn(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
 						break;
 					case KnightName:
-
+						piece = new Knight(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
 						break;
 					case RookName:
 						piece = new Rook(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);

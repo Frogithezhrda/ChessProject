@@ -7,6 +7,7 @@ Queen::Queen(const char pieceColor, const Place& firstPlace) : Piece(pieceColor,
 
 int Queen::isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const
 {
+	//small problem with check
 	Rook rook = Rook(this->getPieceColor(), this->getCurrentPlace());
 	Bishop bishop = Bishop(this->getPieceColor(), this->getCurrentPlace());
 	int rookCode = rook.isValidMove(dest, board, player, opponentPlayer);
@@ -15,7 +16,7 @@ int Queen::isValidMove(const Place& dest, Board* board, Player* player, Player* 
 	{
 		return CheckMove;
 	}
-	if (rookCode == GoodMove && bishopCode == NotValidMove || rookCode == NotValidMove && bishopCode == GoodMove)
+	if (rookCode == GoodMove || bishopCode == GoodMove)
 	{
 		return GoodMove;
 	}

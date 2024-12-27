@@ -6,6 +6,20 @@
 #define BLACK_PLAYER 1
 #define PLAYER_COUNT 2
 
+#define ROW_INDEX 1
+#define COLUM_INDEX 0
+#define EMPTY_PLACE '#'
+
+#define DEST_INDEX 0
+#define SRC_INDEX 2
+
+#define NUM_OF_CHARS_IN_LOCATION 2
+
+#define SRC_ROW_INDEX 0
+#define DEST_ROW 2
+#define SRC_LINE 3
+#define DEST_LINE 1
+
 enum GameState {Normal='n', StaleMate='s', Mate='w' };
 //enum PieceTypes {Pawn='p', Rook='r', Knight='n', Bishop='b', King='k', Queen='q'};
 

@@ -14,7 +14,7 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
     int destColumn = dest.getLine() - '1';
     int kingRow = opponentPlayer->getKing()->getCurrentPlace().getRow() - 'a';
     int kingColumn = opponentPlayer->getKing()->getCurrentPlace().getLine() - '1';
-    char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : BLACK;
+    char pieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
     int code = isBasicValid(dest, board, currentPlayer);
 
     if (dest.getCurrentPiece() == EMPTY_PLACE)
@@ -28,13 +28,22 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
     }
     if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) && isClearPath(dest, this->getCurrentPlace(), board))
     {
+
         if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != 'k')
         {
             board->setBoard(dest.getLocation(), Place(dest.getLocation(), EMPTY_PLACE));
         }
         if (abs(destRow - kingRow) == abs(destColumn - kingColumn))
         {
-            if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(), dest, board))
+            if (std::tolower(dest.getCurrentPiece()) == 'k')
+            {
+                if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(),  this->getCurrentPlace(), board))
+                {
+                    opponentPlayer->activateCheck();
+                    return CheckMove;
+                }
+            }
+            else if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(), dest, board))
             {
                 opponentPlayer->activateCheck();
                 return CheckMove;
@@ -52,31 +61,31 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
 
 bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board) const
 {
-    int srcRow = src.getRow() - 'a';  
-    int srcCol = src.getLine() - '1';   
+    //getting rows and colums
+    int srcRow = src.getRow() - 'a';    
+    int srcCol = src.getLine() - '1';
     int destRow = dest.getRow() - 'a';
     int destCol = dest.getLine() - '1';
+    int rowStep = (destRow > srcRow) ? 1 : -1;
+    int colStep = (destCol > srcCol) ? 1 : -1;
+    std::string currentPos = "";
+    int currentRow = srcRow + rowStep;
+    int currentCol = srcCol + colStep;
 
-    if (abs(srcRow - destRow) != abs(srcCol - destCol))
+    if (abs(srcRow - destRow) != abs(srcCol - destCol)) 
     {
-        return false; 
+        return false;  
     }
-    int rowDirection = (destRow > srcRow) ? 1 : -1;
-    int colDirection = (destCol > srcCol) ? 1 : -1;
-
-    int row = srcRow + rowDirection;
-    int col = srcCol + colDirection;
-
-    while (row != destRow && col != destCol) {
-        std::string currentPos = std::string(1, row + 'a') + std::to_string(col + 1);
-
-        if (board->getPiece(currentPos) != nullptr)
-        {
-            return false;  
+    while (currentRow != destRow && currentCol != destCol) 
+    {
+        currentPos = std::string(1, currentRow + 'a') + std::to_string(currentCol + 1);
+        if (board->getPiece(currentPos) != nullptr) 
+        {  
+            return false;
         }
-        row += rowDirection;
-        col += colDirection;
+        currentRow += rowStep;
+        currentCol += colStep;
     }
 
-    return true; 
+    return true;  
 }

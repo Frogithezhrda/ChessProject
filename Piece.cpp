@@ -40,18 +40,18 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 	if (moveCode == CheckMove || moveCode == GoodMove)
 	{
 		//cant eat the king
-		if (std::tolower(dest.getCurrentPiece()) != 'k')
+		if (std::tolower(dest.getCurrentPiece()) != KING)
 		{
 			this->setCurrentPlace(dest);
 
-			if (std::tolower(this->_type) == 'k' && this->getPieceColor() == player->getPlayerColor())
+			if (std::tolower(this->_type) == KING && this->getPieceColor() == player->getPlayerColor())
 			{
 				player->getKing()->setCurrentPlace(dest);
 			}
 		}
 		else
 		{
-			moveCode = 6;
+			moveCode = NotValidMove;
 		}
 	}
 	return moveCode;
@@ -59,7 +59,7 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 
 int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 {
-	char destPieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
+	char destPieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
 	if (dest.getLocation() == this->getCurrentPlace().getLocation())
 	{
 		return SameDestSrc; 

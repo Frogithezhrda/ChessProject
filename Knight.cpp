@@ -1,7 +1,7 @@
 #include "Knight.h"
 
 
-Knight::Knight(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? KingName : std::toupper(KingName)), firstPlace)
+Knight::Knight(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == WHITE ? KnightName : std::toupper(KnightName)), firstPlace)
 {
 
 }

@@ -6,6 +6,41 @@ bool Manager::isWhiteTurn() const
 {
 	return _isWhiteTurn;
 }
+
+void Manager::handleGraphicsMode(Pipe& pipe)
+{
+	char msgToGraphics[BUFFER];
+	std::string msgFromGraphics = "";
+	msgFromGraphics = pipe.getMessageFromGraphics();
+	while (msgFromGraphics != "quit")
+	{
+		// should handle the string the sent from graphics
+		// according the protocol. Ex: e2e4           (move e2 to e4)
+		// YOUR CODE
+		handleConsole(msgFromGraphics);
+		printTurn();
+		this->_board->printBoard();
+		strcpy_s(msgToGraphics, std::to_string(getErrorCode()).c_str()); // msgToGraphics should contain the result of the operation
+		// return result to graphics		
+		pipe.sendMessageToGraphics(msgToGraphics);
+		// get message from graphics
+		msgFromGraphics = pipe.getMessageFromGraphics();
+	}
+}
+
+void Manager::handleConsoleMode()
+{
+	std::string move = "";
+	while (move != "quit")
+	{
+		printTurn();
+		this->_board->printBoard();
+		std::cout << "Enter your move or type 'quit' to exit: ";
+		std::cin >> move; //players input
+		handleConsole(move);
+	}
+}
+
 void Manager::handleConsole(const std::string& move)
 {
 	std::string src = " ";
@@ -18,16 +53,16 @@ void Manager::handleConsole(const std::string& move)
 			src = move.substr(DEST_INDEX, NUM_OF_CHARS_IN_LOCATION);
 			dest = move.substr(SRC_INDEX, NUM_OF_CHARS_IN_LOCATION);
 
-			_errorCode = manageMove(src, dest, _isWhiteTurn);
-			if (_errorCode == GoodMove || _errorCode == CheckMove)
+			this->_errorCode = manageMove(src, dest);
+			if (this->_errorCode == GoodMove || this->_errorCode == CheckMove)
 			{
-				_isWhiteTurn = !_isWhiteTurn;
+				this->_isWhiteTurn = !this->_isWhiteTurn;
 			}
-			else if (_errorCode == CheckMate)
+			else if (this->_errorCode == CheckMate)
 			{
-				std::cout << getCurrentPlayer(_isWhiteTurn)->getPlayerColor() << " Won!";
+				std::cout << getCurrentPlayer()->getPlayerColor() << " Won!";
 			}
-			displayError(_errorCode);
+			displayError(this->_errorCode);
 		}
 		else
 		{
@@ -35,11 +70,11 @@ void Manager::handleConsole(const std::string& move)
 		}
 }
 
-bool Manager::isStillChecked(bool isWhiteMove)
+bool Manager::isStillChecked()
 {
 	int i = 0;
 	int j = 0;
-	Place kingPlace = this->getCurrentPlayer(isWhiteMove)->getKing()->getCurrentPlace();
+	Place kingPlace = this->getCurrentPlayer()->getKing()->getCurrentPlace();
 	std::string position = "";
 	Piece* piece = nullptr;
 	for (i; i < BOARD_SIZE; i++)
@@ -49,9 +84,9 @@ bool Manager::isStillChecked(bool isWhiteMove)
 			position = std::string(1, 'a' + j) + std::to_string(i + 1);
 			piece = this->_board->getPiece(position);
 
-			if (piece && piece->getPieceColor() != (isWhiteMove ? WHITE : BLACK))
+			if (piece && piece->getPieceColor() != (_isWhiteTurn ? WHITE : BLACK))
 			{
-				if (piece->isValidMove(kingPlace, this->_board, getOpponentPlayer(isWhiteMove), getCurrentPlayer(isWhiteMove)) == CheckMove)
+				if (piece->isValidMove(kingPlace, this->_board, getOpponentPlayer(), getCurrentPlayer()) == CheckMove)
 				{
 					return true;
 				}
@@ -67,9 +102,9 @@ int Manager::getErrorCode() const
 	return this->_errorCode;
 }
 
-void Manager::printTurn(const bool isWhiteTurn) const
+void Manager::printTurn() const
 {
-	if (isWhiteTurn)
+	if (_isWhiteTurn)
 	{
 		std::cout << "Whites turn! " << std::endl;
 	}
@@ -79,14 +114,18 @@ void Manager::printTurn(const bool isWhiteTurn) const
 	}
 }
 
-Player* Manager::getCurrentPlayer(const bool isWhiteTurn)
+Player* Manager::getCurrentPlayer()
 {
-	return isWhiteTurn ? &this->_players[WHITE_PLAYER] : &this->_players[BLACK_PLAYER];
+	return _isWhiteTurn ? &this->_players[WHITE_PLAYER] : &this->_players[BLACK_PLAYER];
 }
 
-Player* Manager::getOpponentPlayer(const bool isWhiteTurn)
+Player* Manager::getOpponentPlayer()
 {
-	return this->getCurrentPlayer(!isWhiteTurn);
+	Player* player = nullptr;
+	_isWhiteTurn = !_isWhiteTurn;
+	player = this->getCurrentPlayer();
+	_isWhiteTurn = !_isWhiteTurn;
+	return player;
 }
 
 Manager::Manager(const std::string& initBoard)
@@ -103,9 +142,11 @@ Manager::Manager(const std::string& initBoard)
 Manager::~Manager()
 {
 	delete this->_board;
+	delete this->_players[BLACK_PLAYER].getKing();
+	delete this->_players[WHITE_PLAYER].getKing();
 }
 
-void Manager::displayError(int errorCode)
+void Manager::displayError(const int errorCode)
 {
 	switch (errorCode)
 	{
@@ -165,7 +206,7 @@ Board& Manager::getBoard() const
 	return *(this->_board);
 }
 
-int Manager::manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn)
+int Manager::manageMove(const std::string& src, const std::string& dest)
 {
 	Piece* pieceAtDest = this->_board->getPiece(dest);
 	Piece* pieceAtSrc = _board->getPiece(src);
@@ -179,12 +220,12 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 		return NotValidIndex;
 	}
 
-	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (isWhiteTurn ? WHITE : BLACK))
+	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (_isWhiteTurn ? WHITE : BLACK))
 	{
 		return NotPlayerPiece;
 	}
 	//d6 to d5
-	code = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
+	code = pieceAtSrc->move(destPlace, this->_board, getCurrentPlayer(), getOpponentPlayer());
 	if (code == GoodMove || code == CheckMove)
 	{
 		//setting the board
@@ -192,15 +233,15 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 		//setting if its the king d6 d5
 		if (std::tolower(pieceAtSrc->getType()) == KING)
 		{
-			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(destPlace);
+			getCurrentPlayer()->getKing()->setCurrentPlace(destPlace);
 		}
-		if (isDiscoveredAttack(src, dest, isWhiteTurn))
+		if (isDiscoveredAttack(src, dest))
 		{
-			code = 1;
+			code = CheckMove;
 		}
 	}
 	//if is still in check
-	if (isStillChecked(isWhiteTurn))
+	if (isStillChecked())
 	{
 		if (code != GoodMove && code != CheckMove)
 		{
@@ -210,9 +251,9 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 
 		if (std::tolower(pieceAtSrc->getType()) == KING)
 		{
-			getCurrentPlayer(isWhiteTurn)->getKing()->setCurrentPlace(srcPlace);
+			getCurrentPlayer()->getKing()->setCurrentPlace(srcPlace);
 		}
-		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(isWhiteTurn), getOpponentPlayer(isWhiteTurn));
+		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(), getOpponentPlayer());
 		this->_board->setBoard(dest, srcPlace);
 		if (pieceChar != EMPTY_PLACE)
 		{
@@ -221,8 +262,8 @@ int Manager::manageMove(const std::string& src, const std::string& dest, const b
 		return WillBeCheck;
 	}
 	//deactivating check
-	getCurrentPlayer(isWhiteTurn)->deactivateCheck();
-	if (getCurrentPlayer(isWhiteTurn)->isChecked())
+	getCurrentPlayer()->deactivateCheck();
+	if (getCurrentPlayer()->isChecked())
 	{
 		return CheckMove;
 	}
@@ -244,7 +285,7 @@ bool Manager::isValidMoveInput(const std::string& move)
 	}
 	return isalpha(srcRow) && isalpha(destRow) && isdigit(srcLine) && isdigit(destLine);
 }
-bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn)
+bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest)
 {
 	Piece* srcPiece = this->_board->getPiece(src);
 	Piece* destPiece = this->_board->getPiece(dest);
@@ -256,7 +297,9 @@ bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest
 	{
 		srcPiece->setCurrentPlace(destPlace);
 	}
-	discoveredAttack = isStillChecked(!isWhiteTurn);
+	_isWhiteTurn = !_isWhiteTurn;
+	discoveredAttack = isStillChecked();
+	_isWhiteTurn = !_isWhiteTurn;
 	this->_board->setBoard(dest, srcPlace);
 	if (srcPiece)
 	{

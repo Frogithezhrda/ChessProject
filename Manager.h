@@ -29,42 +29,102 @@ enum GameState {Normal='n', StaleMate='s', Mate='w' };
 class Manager
 {
 public:
-	//need to be implemented
-	void handleConsole();
 
 
-	void printTurn(bool isWhiteTurn) const;
+
 	/*
 	name: CONSTRUCTOR
 	input: none
 	*/
 	Manager(const std::string& initBoard);
+
+	/*
+	name: DESTRUCTOR
+	input: a refrense to a string that represents the location on the board
+	*/
+	virtual ~Manager();
+
+	/*
+	name: handleConsole
+	input: none
+	output:none
+	description: this function is habdeling the function (console loop)
+	*/
+	void handleConsole();
+
+	/*
+	name: printTurn
+	input: a bool that tells if it whites turn
+	output: none
+	description: this function prints whos turn it is 
+	*/
+	void printTurn(bool isWhiteTurn) const;
+
 	/*
 	name: getBoard
 	input: none
-	output: the current board
-	description: returns the current board
+	output: a refrence to the current board
+	description: returns a refrennce to  current board
 	*/
 	Board& getBoard() const;
 
-	Player getBlackPlayer() const;
 
+	/*
+	name: getCurrentPlayer
+	input: a bool that represents whos turn it is
+	output: a pointer to a player
+	description: this function returuns a pointer to the current player
+	*/
 	Player* getCurrentPlayer(const bool isWhiteTurn);
 
+	/*
+	name: getOpponentPlayer
+	input: a bool that represents whos turn it is
+	output: a pointer to the opp player
+	description: this function returuns a pointer to the opp player
+	*/
 	Player* getOpponentPlayer(const bool isWhiteTurn);
 
+	/*
+	name: getWhitePlayer
+	input: none
+	output: a player
+	description: this function resturns the white player
+	*/
 	Player getWhitePlayer() const;
 
+	/*
+	name: getBlackPlayer
+	input: none
+	output: a player
+	description: this function resturns the black player
+	*/
+	Player getBlackPlayer() const;
+
+	/*
+	name: isStillChecked
+	input: na bool that represents if its whites move
+	output: a player
+	description: this function resturns if a player is  checked
+	*/
 	bool isStillChecked(const bool isWhiteMove);
 
+	/*
+	name: manageMove
+	input: a refrence to a string (src), a refrence to a string (dest), and a bool that tells whos turn it is
+	output: a player
+	description: this function resturns if a player is  checked
+	*/
 	int manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn);
+
 	bool isValidMoveInput(const std::string& move);
 
 	bool isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn);
 
 	int getErrorCode() const;
 
-	~Manager();
+	
+
 private:
 	/*
 	name: initPieces

@@ -25,7 +25,7 @@ public:
 	Piece(const char pieceColor, const char type, const Place& firstPlace);
 
 	/*
-	name: CONSTRUCTOR
+	name: DESTRUCTOR
 	input: a refrense to a string that represents the location on the board
 	*/
 	virtual ~Piece();

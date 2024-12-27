@@ -69,10 +69,12 @@ bool Manager::isStillChecked(bool isWhiteMove)
 
 	return false;
 }
+
 int Manager::getErrorCode() const
 {
 	return this->_errorCode;
 }
+
 void Manager::printTurn(const bool isWhiteTurn) const
 {
 	if (isWhiteTurn)
@@ -84,6 +86,7 @@ void Manager::printTurn(const bool isWhiteTurn) const
 		std::cout << "Blacks turn! " << std::endl;
 	}
 }
+
 Player* Manager::getCurrentPlayer(const bool isWhiteTurn)
 {
 	return isWhiteTurn ? &this->_players[WHITE_PLAYER] : &this->_players[BLACK_PLAYER];
@@ -93,6 +96,7 @@ Player* Manager::getOpponentPlayer(const bool isWhiteTurn)
 {
 	return this->getCurrentPlayer(!isWhiteTurn);
 }
+
 Manager::Manager(const std::string& initBoard)
 {
 	//initalizing board and players

@@ -1,22 +1,15 @@
 #include "Manager.h"
 
 
-void Manager::handleConsole()
+
+bool Manager::isWhiteTurn() const
 {
-	bool isWhiteTurn = true;
-	int errorCode = 0;
-	std::string move;
+	return _isWhiteTurn;
+}
+void Manager::handleConsole(const std::string& move)
+{
 	std::string src = " ";
 	std::string dest = " ";
-
-
-
-	while (true)
-	{
-		(*this->_board).printBoard();
-		printTurn(isWhiteTurn);
-
-		std::cin >> move;//players input
 
 		if (isValidMoveInput(move))
 		{
@@ -25,22 +18,21 @@ void Manager::handleConsole()
 			src = move.substr(DEST_INDEX, NUM_OF_CHARS_IN_LOCATION);
 			dest = move.substr(SRC_INDEX, NUM_OF_CHARS_IN_LOCATION);
 
-			errorCode = manageMove(src, dest, isWhiteTurn);
-			if (errorCode == GoodMove || errorCode == CheckMove)
+			_errorCode = manageMove(src, dest, _isWhiteTurn);
+			if (_errorCode == GoodMove || _errorCode == CheckMove)
 			{
-				isWhiteTurn = !isWhiteTurn;
+				_isWhiteTurn = !_isWhiteTurn;
 			}
-			else if (errorCode == CheckMate)
+			else if (_errorCode == CheckMate)
 			{
-				std::cout << getCurrentPlayer(isWhiteTurn)->getPlayerColor() << " Won!";
+				std::cout << getCurrentPlayer(_isWhiteTurn)->getPlayerColor() << " Won!";
 			}
-			displayError(errorCode);
+			displayError(_errorCode);
 		}
 		else
 		{
 			std::cerr << "Invalid Move!" << std::endl;
 		}
-	}
 }
 
 bool Manager::isStillChecked(bool isWhiteMove)
@@ -100,6 +92,7 @@ Manager::Manager(const std::string& initBoard)
 	this->_gameState = Normal;
 	this->_players[BLACK_PLAYER] = Player(BLACK, this->_board);
 	this->_players[WHITE_PLAYER] = Player(WHITE, this->_board);
+	this->_isWhiteTurn = true;
 	//maybe Used Later
 }
 

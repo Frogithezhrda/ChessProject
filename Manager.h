@@ -30,7 +30,7 @@ class Manager
 {
 public:
 	//need to be implemented
-	void handleConsole();
+	void handleConsole(const std::string& move);
 
 
 	void printTurn(bool isWhiteTurn) const;
@@ -62,6 +62,8 @@ public:
 
 	bool isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn);
 
+	bool isWhiteTurn() const;
+
 	int getErrorCode() const;
 
 	~Manager();
@@ -79,4 +81,5 @@ private:
 	Player _players[PLAYER_COUNT];
 	Board* _board;
 	int _errorCode;
+	bool _isWhiteTurn;
 };

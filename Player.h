@@ -43,6 +43,8 @@ public:
 
 	bool isChecked() const;
 
+	bool isMate() const;
+
 	void activateCheck();
 
 	void deactivateCheck();

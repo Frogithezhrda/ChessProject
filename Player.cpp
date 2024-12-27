@@ -52,4 +52,8 @@ char Player::getPlayerColor() const
 	return this->_playerColor;
 }
 
+bool Player::isMate() const
+{
+
+}
 

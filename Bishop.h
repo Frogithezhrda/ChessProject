@@ -16,7 +16,8 @@ public:
 	description: this function tells if the move is valid or not and why
 	*/
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
-private:
+
 	bool isClearPath(const Place& dest, const Place& src, const Board* board) const;
+private:
 };
 #endif

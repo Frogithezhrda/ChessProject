@@ -20,6 +20,8 @@
 #define SRC_LINE 3
 #define DEST_LINE 1
 
+#define BASE_LETTER_ASCII_VALUE 'a'
+
 enum GameState {Normal='n', StaleMate='s', Mate='w' };
 //enum PieceTypes {Pawn='p', Rook='r', Knight='n', Bishop='b', King='k', Queen='q'};
 

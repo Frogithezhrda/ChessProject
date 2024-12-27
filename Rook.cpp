@@ -21,7 +21,7 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
     if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
         (currentRow == dest.getRow() || currentLine == dest.getLine()) && isClearPath(dest, this->getCurrentPlace(), board))
     {
-        if (pieceColor != '#' && std::tolower(dest.getCurrentPiece()) != 'k')
+        if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != 'k')
         {
             board->setBoard(dest.getLocation(), Place(dest.getLocation(), EMPTY_PLACE));
         }
@@ -47,8 +47,8 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
 {
     //code not nice
     int i = 0;
-    int startRow = std::min(src.getLine() - '1', dest.getLine() - '1');
-    int endRow = std::max(src.getLine() - '1', dest.getLine() - '1');
+    int startRow = std::min(src.getLine() - BASE_NUM_ASCII_VALUE, dest.getLine() - BASE_NUM_ASCII_VALUE);
+    int endRow = std::max(src.getLine() - BASE_NUM_ASCII_VALUE, dest.getLine() - BASE_NUM_ASCII_VALUE);
     char startLine = std::min(src.getRow(), dest.getRow());
     char endLine = std::max(src.getRow(), dest.getRow());
     char currentRow = src.getRow();

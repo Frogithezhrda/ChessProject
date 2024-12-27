@@ -8,12 +8,12 @@ Bishop::Bishop(const char pieceColor, const Place& firstPlace) : Piece(pieceColo
 
 int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Player* opponentPlayer) const
 {
-    int currentRow = this->getCurrentPlace().getRow() - 'a';  
-    int currentColumn = this->getCurrentPlace().getLine() - '1'; 
-    int destRow = dest.getRow() - 'a';
-    int destColumn = dest.getLine() - '1';
-    int kingRow = opponentPlayer->getKing()->getCurrentPlace().getRow() - 'a';
-    int kingColumn = opponentPlayer->getKing()->getCurrentPlace().getLine() - '1';
+    int currentRow = this->getCurrentPlace().getRow() - BASE_LETTER_ASCII_VALUE;
+    int currentColumn = this->getCurrentPlace().getLine() - BASE_NUM_ASCII_VALUE;
+    int destRow = dest.getRow() - BASE_LETTER_ASCII_VALUE;
+    int destColumn = dest.getLine() - BASE_NUM_ASCII_VALUE;
+    int kingRow = opponentPlayer->getKing()->getCurrentPlace().getRow() - BASE_LETTER_ASCII_VALUE;
+    int kingColumn = opponentPlayer->getKing()->getCurrentPlace().getLine() - BASE_NUM_ASCII_VALUE;
     char pieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
     int code = isBasicValid(dest, board, currentPlayer);
 
@@ -62,10 +62,10 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
 bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board) const
 {
     //getting rows and colums
-    int srcRow = src.getRow() - 'a';    
-    int srcCol = src.getLine() - '1';
-    int destRow = dest.getRow() - 'a';
-    int destCol = dest.getLine() - '1';
+    int srcRow = src.getRow() - BASE_LETTER_ASCII_VALUE;
+    int srcCol = src.getLine() - BASE_NUM_ASCII_VALUE;
+    int destRow = dest.getRow() - BASE_LETTER_ASCII_VALUE;
+    int destCol = dest.getLine() - BASE_NUM_ASCII_VALUE;
     int rowStep = (destRow > srcRow) ? 1 : -1;
     int colStep = (destCol > srcCol) ? 1 : -1;
     std::string currentPos = "";
@@ -78,7 +78,7 @@ bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board
     }
     while (currentRow != destRow && currentCol != destCol) 
     {
-        currentPos = std::string(1, currentRow + 'a') + std::to_string(currentCol + 1);
+        currentPos = std::string(1, currentRow + BASE_LETTER_ASCII_VALUE) + std::to_string(currentCol + 1);
         if (board->getPiece(currentPos) != nullptr) 
         {  
             return false;

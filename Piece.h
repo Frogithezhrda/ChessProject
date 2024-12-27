@@ -8,6 +8,10 @@ enum Pieces {PawnName = 'p', RookName = 'r', QueenName = 'q', KingName = 'k', Kn
 #define BLACK 'b'
 #define WHITE 'w'
 #define KING 'k'
+
+#define BASE_LETTER_ASCII_VALUE 'a'
+#define BASE_NUM_ASCII_VALUE '1'
+
 class Board;
 class Player;
 

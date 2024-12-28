@@ -18,6 +18,7 @@ public:
 	input: none
 	*/
 	Place();
+
 	/*
 	name: CONSTRUCTOR
 	input: a refrense to a string that represents the location on the board
@@ -36,8 +37,21 @@ public:
 	description: this functions tell if there is a piece in the current place
 	*/
 	bool hasPiece() const;
-
+	
+	/*
+	name: activepiece
+	input: none
+	output: none
+	description: this functions sets field "hasPiece" to true
+	*/
 	void activePiece();
+
+	/*
+	name: deactivepiece
+	input: none
+	output: none
+	description: this functions sets field "hasPiece" to false
+	*/
 	void deactivePiece();
 
 	/*

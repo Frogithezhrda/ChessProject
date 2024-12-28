@@ -36,17 +36,34 @@ public:
 
 	/*
 	name: isChecked
-	input: a refrence to the src, a refrence to the dest, a pointer to the board, and a pointer to the opp
+	input: none
 	output: true is the player is checked, and false otherwise
 	description: this functions tells if the player is checked, or not.
 	*/
-
 	bool isChecked() const;
-
+	
+	/*
+	name: ismate
+	input: none
+	output: true is the player is mate, and false otherwise
+	description: this functions tells if the player is mate, or not.
+	*/
 	bool isMate() const;
 
+	/*
+	name: activatecheck
+	input: none
+	output: none
+	description: this functions labels the player as checkable
+	*/
 	void activateCheck();
-
+	
+	/*
+	name: deactivatecheck
+	input: none
+	output: none
+	description: this functions delabels the player as checkable
+	*/
 	void deactivateCheck();
 
 	/*
@@ -56,6 +73,7 @@ public:
 	description: this functions returns a reference to the players pieces
 	*/
 	King* getKing() const;
+
 private:
 	char _playerColor;//the players color (W/B)
 	bool _isChecked;//is he checked or not (true == checked)

@@ -49,6 +49,7 @@ public:
 	*/
 	virtual ~Manager();
 
+
 	void handleConsoleMode();
 
 	/*
@@ -124,6 +125,12 @@ public:
 	*/
 	int manageMove(const std::string& src, const std::string& dest);
 
+	/*
+	name: isvalidinput
+	input: a refrence to a string that represents a move
+	output: a bool
+	description: this function tells if the given input is valid or not
+	*/
 	bool isValidMoveInput(const std::string& move);
 
 	bool isDiscoveredAttack(const std::string& src, const std::string& dest);

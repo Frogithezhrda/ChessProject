@@ -32,10 +32,30 @@ public:
 	void activePiece();
 	void deactivePiece();
 
+	/*
+	name: setlocation
+	input: a refrence to a string that represents a location
+	output: none
+	description: this function sets the location if the place
+	*/
 	void setLocation(const std::string& location);
 
+	/*
+	name: getrow
+	input: none
+	output: a char
+	description: this function returns the row of the place
+	*/
 	char getRow() const;
+
+	/*
+	name: getline
+	input: none
+	output: a char
+	description: this function returns the line of the place
+	*/
 	char getLine() const;
+
 	/*
 	name: getLocation 
 	input: none
@@ -52,6 +72,7 @@ public:
 	description: sets a new location for the currentPlace
 	*/
 	void setPiece(const char pieceName);
+
 	/*
 	name: getCurrentPiece
 	input: none

@@ -1,17 +1,12 @@
 #pragma once
 #include "Piece.h"
 #include "King.h"
+
 #define LAST_ROW_INDEX '8'
 #define FIRST_ROW_INDEX '1'
 #define WHITE_KING_LOCATION "d1"
 #define BLACK_KING_LOCATION "d8"
 
-/*
-	name:
-	input:
-	output:
-	description:
-	*/
 
 class Player//represents the player
 {

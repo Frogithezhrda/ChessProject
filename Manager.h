@@ -49,7 +49,12 @@ public:
 	*/
 	virtual ~Manager();
 
-
+	/*
+	name: handleConsoleMode
+	input: none
+	output:none
+	description: this is handling the console gamemode basic console moves etc..
+	*/
 	void handleConsoleMode();
 
 	/*
@@ -133,12 +138,28 @@ public:
 	*/
 	bool isValidMoveInput(const std::string& move);
 
+	/*
+	name: isDiscoveredAttack
+	input: src, dest
+	output: if the attack was a discovered attack or not
+	description: if the move resulted in a discovered attack than it will return true
+	*/
 	bool isDiscoveredAttack(const std::string& src, const std::string& dest);
 
+	/*
+	name: getErrorCode
+	input: none
+	output: error code
+	description: returns the code of the game result
+	*/
 	int getErrorCode() const;
 
-	bool isWhiteTurn() const;
-
+	/*
+	name: handleGraphicsMode
+	input: Pipe
+	output: none
+	description: this is handling the graphics gamemode basic graphics moves etc..
+	*/
 	void handleGraphicsMode(Pipe& pipe);
 
 

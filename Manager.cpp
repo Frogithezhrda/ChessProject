@@ -2,11 +2,6 @@
 
 
 
-bool Manager::isWhiteTurn() const
-{
-	return _isWhiteTurn;
-}
-
 void Manager::handleGraphicsMode(Pipe& pipe)
 {
 	char msgToGraphics[BUFFER];

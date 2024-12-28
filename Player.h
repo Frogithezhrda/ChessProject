@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "Piece.h"
 #include "King.h"
 
@@ -78,4 +77,5 @@ private:
 	char _playerColor;//the players color (W/B)
 	bool _isChecked;//is he checked or not (true == checked)
 	King* _king;//a pointer to DA king (tomking ofc)
+
 };

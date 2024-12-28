@@ -68,8 +68,8 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
     {
         return NotValidMove;
     }
-    if ((this->getPieceColor() == WHITE && this->getCurrentPlace().getLine() == '2') ||
-        (this->getPieceColor() == BLACK && this->getCurrentPlace().getLine() == '7'))
+    if ((this->getPieceColor() == WHITE && this->getCurrentPlace().getLine() == SECOND_ROW) ||
+        (this->getPieceColor() == BLACK && this->getCurrentPlace().getLine() == SECOND_FROM_LAST_ROW))
     {
         if (((this->getPieceColor() == WHITE && differenceVertical == -2) ||
             (this->getPieceColor() == BLACK && differenceVertical == 2)) && differenceHorizontal == 0)

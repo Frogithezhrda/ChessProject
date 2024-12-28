@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
 #define EMPTY_PLACE '#'
-#define WHITE 'b'
+#define WHITE 'w'
 #define BLACK 'b'
+#define SECOND_ROW 2
+#define SECOND_FROM_LAST_ROW 7
 
 class Place
 {

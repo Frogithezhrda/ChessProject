@@ -2,6 +2,10 @@
 #include "Board.h"
 #define LAST_ROW_INDEX '8'
 #define FIRST_ROW_INDEX '1'
+#define WHITE_KING_LOCATION "d1"
+#define BLACK_KING_LOCATION "d8"
+#define SECOND_ROW 2
+#define SECOND_FROM_LAST_ROW 7
 
 Player::Player()
 {
@@ -16,8 +20,8 @@ Player::Player(const char color, const Board* board)
 	//currently Player
     this->_playerColor = color;
     char row = (this->_playerColor == WHITE) ? FIRST_ROW_INDEX : LAST_ROW_INDEX;
-    int pawnRow = (this->_playerColor == WHITE) ? 2 : 7;
-    Piece* piece = this->_playerColor == WHITE ? board->getPiece("d1") : board->getPiece("d8");
+    int pawnRow = (this->_playerColor == WHITE) ? SECOND_ROW : SECOND_FROM_LAST_ROW;
+    Piece* piece = this->_playerColor == WHITE ? board->getPiece(WHITE_KING_LOCATION) : board->getPiece(BLACK_KING_LOCATION);
     this->_king = (King*)(piece);
 	this->_isChecked = false;
 

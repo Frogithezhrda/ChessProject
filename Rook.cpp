@@ -18,8 +18,8 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
         pieceColor = EMPTY_PLACE;
     }
     //checking if its within line or row
-    if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
-        (currentRow == dest.getRow() || currentLine == dest.getLine()) && isClearPath(dest, this->getCurrentPlace(), board))
+    if (isClearPath(dest, this->getCurrentPlace(), board) && !code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
+        (currentRow == dest.getRow() || currentLine == dest.getLine()))
     {
         //setting the board
         if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != KING)

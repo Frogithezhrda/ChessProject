@@ -210,14 +210,14 @@ int Manager::manageMove(const std::string& src, const std::string& dest)
 	Place destPlace = Place(dest, pieceChar);
 	Place srcPlace = (pieceAtSrc != nullptr) ? pieceAtSrc->getCurrentPlace() : Place();
 	int code = 0;
-
+	//checking if valid pos
 	if (!this->_board->isValidPosition(src))
 	{
 		delete pieceAtDest;
 		delete pieceAtSrc;
 		return NotValidIndex;
 	}
-
+	//cehcking if piece at src ok
 	if (!pieceAtSrc || pieceAtSrc->getPieceColor() != (_isWhiteTurn ? WHITE : BLACK))
 	{
 		delete pieceAtDest;
@@ -247,12 +247,11 @@ int Manager::manageMove(const std::string& src, const std::string& dest)
 		{
 			this->_board->setBoard(src, destPlace);
 		}
-		//
-
 		if (std::tolower(pieceAtSrc->getType()) == KING)
 		{
 			getCurrentPlayer()->getKing()->setCurrentPlace(srcPlace);
 		}
+		//moving back
 		pieceAtSrc->move(srcPlace, this->_board, getCurrentPlayer(), getOpponentPlayer());
 		this->_board->setBoard(dest, srcPlace);
 		if (pieceChar != EMPTY_PLACE)
@@ -282,6 +281,7 @@ bool Manager::isValidMoveInput(const std::string& move)
 	char destRow = ' ';
 	char srcLine = ' ';
 	char destLine = ' ';
+	//checking if length is ok
 	if (move.length() != LENGTH)
 	{
 		return false;
@@ -299,15 +299,18 @@ bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest
 	Place srcPlace = srcPiece ? srcPiece->getCurrentPlace() : Place();
 	Place destPlace(dest, destPiece ? destPiece->getType() : EMPTY_PLACE);
 	bool discoveredAttack = false;
-	this->_board->setBoard(src, destPlace);
+	//this->_board->setBoard(src, destPlace);
 	if (srcPiece)
 	{
 		srcPiece->setCurrentPlace(destPlace);
 	}
+	//checking if still in check
 	_isWhiteTurn = !_isWhiteTurn;
 	discoveredAttack = isStillChecked();
 	_isWhiteTurn = !_isWhiteTurn;
+	//
 	this->_board->setBoard(dest, srcPlace);
+	//settingg to the src location
 	if (srcPiece)
 	{
 		srcPiece->setCurrentPlace(srcPlace);
@@ -316,6 +319,7 @@ bool Manager::isDiscoveredAttack(const std::string& src, const std::string& dest
 	{
 		this->_board->setPieceAtBoard(dest, destPiece);
 	}
+	//freeing memory
 	delete destPiece;
 	delete srcPiece;
 	return discoveredAttack;

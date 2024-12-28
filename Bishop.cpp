@@ -1,4 +1,6 @@
 #include "Bishop.h"
+#include "Board.h"
+#include "Player.h"
 
 Bishop::Bishop(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? BishopName : std::toupper(BishopName)), firstPlace)
 {

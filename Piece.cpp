@@ -60,18 +60,22 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 {
 	char destPieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
-	if (dest.getLocation() == this->getCurrentPlace().getLocation())
-	{
-		return SameDestSrc; 
-	}
+	//checking if this is a valid position
 	if (!board->isValidPosition(dest.getLocation()))
 	{
 		return NotValidIndex;
 	}
+	//checking if they are on the same dest and src
+	if (dest.getLocation() == this->getCurrentPlace().getLocation())
+	{
+		return SameDestSrc; 
+	}
+	//checking that he actually takes a piece:)
 	if (this->getCurrentPlace().getCurrentPiece() == EMPTY_PLACE)
 	{
 		return NotPlayerPiece;
 	}
+	//checking that he doesnt try and eat the same piece color
 	if (dest.hasPiece() && destPieceColor == this->getPieceColor())
 	{
 		return AlreadyHasPiece;

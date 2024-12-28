@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include "Place.h"
 #include "Piece.h"
-#include <string>
 #include "Rook.h"
+#include "Bishop.h"
 #include "Pawn.h"
 #include "Knight.h"
-#include "Bishop.h"
 #include "King.h"
 #include "Queen.h"
 
@@ -22,7 +22,6 @@
 #define WHITE 'w'
 #define BOARD_SIZE 8
 #define A_ASCII_VALUE 97
-
 
 class Board//represents the gameboard
 {

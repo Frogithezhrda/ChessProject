@@ -77,7 +77,13 @@ public:
 	description: this function returns the board (?)
 	*/
 	Place* getBoard() const;
-
+	
+	/*
+	name: isValidPoisitio
+	input: a refrense to a string
+	output: the board
+	description: this function tells if the position is valid
+	*/
 	bool isValidPosition(const std::string& position) const;
 
 private:

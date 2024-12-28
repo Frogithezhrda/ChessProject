@@ -79,9 +79,9 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
             middlePiece = board->getPiece(middlePosition);
             if (middlePiece != nullptr)
             {
+                delete middlePiece;
                 return NotValidMove;
             }
-            delete middlePiece;
             if ((std::abs(int(dest.getRow()) - int(kingRow)) == 1) && (std::abs(int(dest.getLine()) - int(kingLine)) == 1))
             {
                 return CheckMove;

@@ -21,7 +21,7 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
     if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
         (currentRow == dest.getRow() || currentLine == dest.getLine()) && isClearPath(dest, this->getCurrentPlace(), board))
     {
-        if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != 'k')
+        if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != KING)
         {
             board->setBoard(dest.getLocation(), Place(dest.getLocation(), EMPTY_PLACE));
         }
@@ -61,8 +61,9 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
         {
             currentPos = std::string(currentRow + std::to_string(i + 1));
             currentPiece = board->getPiece(currentPos);
-            if (currentPiece != nullptr && std::tolower(currentPiece->getType()) != 'k')  // check if the square is occupied
+            if (currentPiece != nullptr && std::tolower(currentPiece->getType()) != KING)  // check if the square is occupied
             {
+                delete currentPiece;
                 return false;
             }
             delete currentPiece;
@@ -76,6 +77,7 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
             currentPiece = board->getPiece(currentPos);
             if (currentPiece != nullptr)
             {
+                delete currentPiece;
                 return false;
             }
             delete currentPiece;

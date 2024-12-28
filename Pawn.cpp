@@ -29,8 +29,8 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
 
     if (differenceHorizontal == 1 || differenceHorizontal == -1)
     {
-        if ((this->getPieceColor() == 'w' && differenceVertical == -1) ||
-            (this->getPieceColor() == 'b' && differenceVertical == 1))
+        if ((this->getPieceColor() == WHITE && differenceVertical == -1) ||
+            (this->getPieceColor() == BLACK && differenceVertical == 1))
         {
             if (dest.hasPiece())
             {
@@ -48,8 +48,8 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
         return NotValidMove; 
     }
 
-    if ((this->getPieceColor() == 'w' && differenceVertical == -1) ||
-        (this->getPieceColor() == 'b' && differenceVertical == 1))
+    if ((this->getPieceColor() == WHITE && differenceVertical == -1) ||
+        (this->getPieceColor() == BLACK && differenceVertical == 1))
     {
         if (!dest.hasPiece()) 
         {
@@ -68,11 +68,11 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
     {
         return NotValidMove;
     }
-    if ((this->getPieceColor() == 'w' && this->getCurrentPlace().getLine() == '2') ||
-        (this->getPieceColor() == 'b' && this->getCurrentPlace().getLine() == '7'))
+    if ((this->getPieceColor() == WHITE && this->getCurrentPlace().getLine() == '2') ||
+        (this->getPieceColor() == BLACK && this->getCurrentPlace().getLine() == '7'))
     {
-        if (((this->getPieceColor() == 'w' && differenceVertical == -2) ||
-            (this->getPieceColor() == 'b' && differenceVertical == 2)) && differenceHorizontal == 0)
+        if (((this->getPieceColor() == WHITE && differenceVertical == -2) ||
+            (this->getPieceColor() == BLACK && differenceVertical == 2)) && differenceHorizontal == 0)
         {
             middleRow = currentLine + (differenceVertical / 2) * -1;
             middlePosition = std::string(1, currentRow) + middleRow;

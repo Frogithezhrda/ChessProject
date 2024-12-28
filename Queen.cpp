@@ -1,6 +1,6 @@
 #include "Queen.h"
 
-Queen::Queen(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? QueenName : std::toupper(QueenName)), firstPlace)
+Queen::Queen(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == WHITE ? QueenName : std::toupper(QueenName)), firstPlace)
 {
 
 }

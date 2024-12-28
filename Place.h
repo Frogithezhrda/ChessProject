@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #define EMPTY_PLACE '#'
+#define WHITE 'b'
+#define BLACK 'b'
 
 class Place
 {

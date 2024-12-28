@@ -1,6 +1,6 @@
 #include "Rook.h"
 
-Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == 'w' ? RookName : std::toupper(RookName)), firstPlace)
+Rook::Rook(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (pieceColor == WHITE ? RookName : std::toupper(RookName)), firstPlace)
 {
 
 }
@@ -10,7 +10,7 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
 {
     char currentRow = this->getCurrentPlace().getRow();
     char currentLine = this->getCurrentPlace().getLine();
-    char pieceColor = islower(dest.getCurrentPiece()) ? 'w' : 'b';
+    char pieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
     int code = isBasicValid(dest, board, currentPlayer);
 
     if (dest.getCurrentPiece() == EMPTY_PLACE)

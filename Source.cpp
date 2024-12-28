@@ -33,19 +33,26 @@ int main()
 void handleMainGame(Manager* manager)
 {
 	char type = ' ';
-	std::cout << "For Console Game - 'c', For Graphic Game 'g': " << std::endl;
-	std::cin >> type;
-	if (std::tolower(type) == CONSOLE)
+	try
 	{
-		manager->handleConsoleMode();
+		std::cout << "For Console Game - 'c', For Graphic Game 'g': " << std::endl;
+		std::cin >> type;
+		if (std::tolower(type) == CONSOLE)
+		{
+			manager->handleConsoleMode();
+		}
+		else if (std::tolower(type) == GRAPHICS)
+		{
+			handleGraphics(manager);
+		}
+		else
+		{
+			std::cerr << "Invalid input. Exiting program." << std::endl;
+		}
 	}
-	else if (std::tolower(type) == GRAPHICS)
+	catch (const std::exception& exception)
 	{
-		handleGraphics(manager);
-	}
-	else
-	{
-		std::cerr << "Invalid input. Exiting program." << std::endl;
+		std::cerr << "Unknown Exception." << std::endl;
 	}
 }
 

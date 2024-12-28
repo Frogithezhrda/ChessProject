@@ -3,6 +3,9 @@
 #include "Board.h"
 #include "Player.h"
 
+#define ALLOWED_BIG_STEP 2
+#define ALLOWED_SMALL_STEP 1
+
 class Knight : public Piece
 {
 public:

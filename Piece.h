@@ -26,7 +26,6 @@ public:
 
 	/*
 	name: DESTRUCTOR
-	input: a refrense to a string that represents the location on the board
 	*/
 	virtual ~Piece();
 

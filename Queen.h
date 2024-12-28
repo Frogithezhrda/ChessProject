@@ -15,6 +15,11 @@ public:
 	Queen(const char pieceColor, const Place& firstPlace);
 
 	/*
+	name: DESTRUCTOR
+	*/
+	virtual ~Queen();
+
+	/*
 	name: isValidMove
 	input: a refrence to a place(dest), a pointer to the board, a pointer to a player, and a pointer to the opp player.
 	output: a num that represents the validility
@@ -22,7 +27,8 @@ public:
 	*/
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 
-	virtual ~Queen();
+
+
 private:
 
 };

@@ -13,6 +13,10 @@ public:
 	Rook(const char pieceColor, const Place& firstPlace);
 
 	/*
+	name: DESTRUCTOR
+	*/
+	virtual ~Rook();
+	/*
 	name: move
 	input: a refrence to a place
 	output: none
@@ -28,7 +32,7 @@ public:
 	*/
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 
-	virtual ~Rook();
+
 private:
 
 };

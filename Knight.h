@@ -13,6 +13,9 @@ public:
 	*/
 	Knight(const char pieceColor, const Place& firstPlace);
 
+	/*
+	name: DESTRUCTOR
+	*/
 	virtual ~Knight();
 
 	/*

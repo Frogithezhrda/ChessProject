@@ -76,7 +76,8 @@ bool Manager::isStillChecked()
 	{
 		for (j = 0; j < BOARD_SIZE; j++)
 		{
-			position = std::string(1, 'a' + j) + std::to_string(i + 1);
+			//creating a position
+			position = std::string(1, BASE_LETTER_ASCII_VALUE + j) + std::to_string(i + 1);
 			piece = this->_board->getPiece(position);
 
 			if (piece && piece->getPieceColor() != (_isWhiteTurn ? WHITE : BLACK))
@@ -100,6 +101,7 @@ int Manager::getErrorCode() const
 
 void Manager::printTurn() const
 {
+	//pritning turn
 	if (_isWhiteTurn)
 	{
 		std::cout << "Whites turn! " << std::endl;

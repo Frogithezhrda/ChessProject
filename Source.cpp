@@ -34,9 +34,12 @@ void handleGraphics(Manager* manager);
 
 int main()
 {
+	//creating a random using time
 	srand(time_t(NULL));
+	//creating manager
 	Manager* manager = new Manager(INIT_STRING);
 	handleMainGame(manager);
+	//cleaning manager
 	delete manager;
 	manager = nullptr;
 	return 0;
@@ -75,7 +78,7 @@ void handleGraphics(Manager* manager)
 	bool isConnect = p.connect();
 	std::string ans = "";
 	char msgToGraphics[BUFFER];
-
+	//starting the graphic.exe if its in the same folder
 	std::cout << "Starting Graphics.exe Just Put It In The Same Folder As The Game" << std::endl;//starting  graphics
 	system("start chessGraphics.exe");
 

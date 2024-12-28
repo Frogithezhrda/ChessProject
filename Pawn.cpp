@@ -53,8 +53,8 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
         return NotValidMove; 
     }
     //checking for moving forward
-    if ((this->getPieceColor() == WHITE && differenceVertical == BACK_STEP) ||
-        (this->getPieceColor() == BLACK && differenceVertical == STEP))
+    if (differenceHorizontal == 0 && ((this->getPieceColor() == WHITE && differenceVertical == BACK_STEP) ||
+        (this->getPieceColor() == BLACK && differenceVertical == STEP)))
     {
         if (!dest.hasPiece()) 
         {

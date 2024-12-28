@@ -59,11 +59,11 @@ Piece* Board::getPiece(const std::string& pieceLocation) const
 					case KingName://if the piece is a king
 						piece = new King(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
-					case QueenName://if the piece is a queen
-						piece = new Queen(std::islower(pieceLetter) ? WHITE : BLACK, *place);
-						break;
 					case BishopName://if the piece is a bishop
 						piece = new Bishop(std::islower(pieceLetter) ? WHITE : BLACK, *place);
+						break;
+					case QueenName://if the piece is a queen
+						piece = new Queen(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 				}
 				return piece;//returning tthe piece :)

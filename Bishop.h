@@ -18,6 +18,7 @@ public:
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 
 	bool isClearPath(const Place& dest, const Place& src, const Board* board) const;
+	virtual ~Bishop();
 private:
 };
 #endif

@@ -5,6 +5,8 @@ Queen::Queen(const char pieceColor, const Place& firstPlace) : Piece(pieceColor,
 
 }
 
+Queen::~Queen() {}
+
 int Queen::isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const
 {
 	Rook rook = Rook(this->getPieceColor(), this->getCurrentPlace());

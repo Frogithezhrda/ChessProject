@@ -15,6 +15,7 @@ public:
 	*/
 	virtual int isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const override;
 
+	virtual ~Knight();
 private:
 	/*
 	name: move

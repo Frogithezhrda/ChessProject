@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Board.h"
+#include "Pipe.h"
 
 #define WHITE_PLAYER 0
 #define BLACK_PLAYER 1
@@ -10,15 +11,20 @@
 #define COLUM_INDEX 0
 #define EMPTY_PLACE '#'
 
+#define QUIT "quit"
+
 #define DEST_INDEX 0
 #define SRC_INDEX 2
 
 #define NUM_OF_CHARS_IN_LOCATION 2
 
+#define BUFFER 1024
+
 #define SRC_ROW_INDEX 0
 #define DEST_ROW 2
 #define SRC_LINE 3
 #define DEST_LINE 1
+#define LENGTH 4
 
 #define BASE_LETTER_ASCII_VALUE 'a'
 
@@ -44,6 +50,8 @@ public:
 	*/
 	virtual ~Manager();
 
+	void handleConsoleMode();
+
 	/*
 	name: handleConsole
 	input: move to handle
@@ -58,7 +66,7 @@ public:
 	output: none
 	description: this function prints whos turn it is 
 	*/
-	void printTurn(bool isWhiteTurn) const;
+	void printTurn() const;
 
 	/*
 	name: getBoard
@@ -75,7 +83,7 @@ public:
 	output: a pointer to a player
 	description: this function returuns a pointer to the current player
 	*/
-	Player* getCurrentPlayer(const bool isWhiteTurn);
+	Player* getCurrentPlayer();
 
 	/*
 	name: getOpponentPlayer
@@ -83,7 +91,7 @@ public:
 	output: a pointer to the opp player
 	description: this function returuns a pointer to the opp player
 	*/
-	Player* getOpponentPlayer(const bool isWhiteTurn);
+	Player* getOpponentPlayer();
 
 	/*
 	name: getWhitePlayer
@@ -107,7 +115,7 @@ public:
 	output: a player
 	description: this function resturns if a player is  checked
 	*/
-	bool isStillChecked(const bool isWhiteMove);
+	bool isStillChecked();
 
 	/*
 	name: manageMove
@@ -115,15 +123,18 @@ public:
 	output: a player
 	description: this function resturns if a player is  checked
 	*/
-	int manageMove(const std::string& src, const std::string& dest, const bool isWhiteTurn);
+	int manageMove(const std::string& src, const std::string& dest);
 
 	bool isValidMoveInput(const std::string& move);
 
-	bool isDiscoveredAttack(const std::string& src, const std::string& dest, bool isWhiteTurn);
+	bool isDiscoveredAttack(const std::string& src, const std::string& dest);
 
 	int getErrorCode() const;
 
 	bool isWhiteTurn() const;
+
+	void handleGraphicsMode(Pipe& pipe);
+
 
 private:
 	/*
@@ -132,7 +143,7 @@ private:
 	output: none
 	description: initializes pieces on the board for the players
 	*/
-	void displayError(int errorCode);
+	void displayError(const int errorCode);
 
 
 	GameState _gameState; //d = draw, w = win, n = normal

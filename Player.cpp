@@ -25,7 +25,6 @@ Player::Player(const char color, const Board* board)
 
 Player::~Player()
 {
-    delete this->_king;
 }
 
 void Player::activateCheck()

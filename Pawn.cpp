@@ -4,6 +4,11 @@ Pawn::Pawn(const char pieceColor, const Place& firstPlace) : Piece(pieceColor, (
 {
 }
 
+
+Pawn::~Pawn()
+{
+
+}
 int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* opponentPlayer) const
 {
     char currentRow = this->getCurrentPlace().getRow();
@@ -15,6 +20,7 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
     int code = isBasicValid(dest, board, player);
     std::string middlePosition = "";
     char middleRow = ' ';
+    Piece* middlePiece = nullptr;
 
     if (code)
     {
@@ -70,11 +76,12 @@ int Pawn::isValidMove(const Place& dest, Board* board, Player* player, Player* o
         {
             middleRow = currentLine + (differenceVertical / 2) * -1;
             middlePosition = std::string(1, currentRow) + middleRow;
-
-            if (board->getPiece(middlePosition) != nullptr)
+            middlePiece = board->getPiece(middlePosition);
+            if (middlePiece != nullptr)
             {
                 return NotValidMove;
             }
+            delete middlePiece;
             if ((std::abs(int(dest.getRow()) - int(kingRow)) == 1) && (std::abs(int(dest.getLine()) - int(kingLine)) == 1))
             {
                 return CheckMove;

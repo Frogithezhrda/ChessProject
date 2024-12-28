@@ -24,7 +24,7 @@ public:
 	/*
 	name: DESTRUCTOR
 	*/
-	~Player();
+	virtual ~Player();
 
 	/*
 	name: getPlayerColor

@@ -34,43 +34,39 @@ Board::~Board()
 }
 Piece* Board::getPiece(const std::string& pieceLocation) const
 {
-	int i = 0;
-	int j = 0;
 	char pieceLetter = ' ';
 	Piece* piece = nullptr;
-	for(i; i < BOARD_SIZE; i++)
+	Place* place = nullptr;
+	int row = pieceLocation[ROW_INDEX] - '1'; 
+	int col = pieceLocation[COLUM_INDEX] - 'a'; 
+
+	if (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE) 
 	{
-		for (j = 0; j < BOARD_SIZE; j++)
-		{
-			if (this->_board[i][j].getLocation() == pieceLocation)
-			{
-				pieceLetter = this->_board[i][j].getCurrentPiece();
+		place = &_board[row][col];
+	}
+				pieceLetter = place->getCurrentPiece();
 				switch (std::tolower(pieceLetter))
 				{
 					case PawnName:
-						piece = new Pawn(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
+						piece = new Pawn(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 					case KnightName:
-						piece = new Knight(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
+						piece = new Knight(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 					case RookName:
-						piece = new Rook(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
+						piece = new Rook(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 					case KingName:
-						piece = new King(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
+						piece = new King(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 					case QueenName:
-						piece = new Queen(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
+						piece = new Queen(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 					case BishopName:
-						piece = new Bishop(std::islower(pieceLetter) ? WHITE : BLACK, this->_board[i][j]);
+						piece = new Bishop(std::islower(pieceLetter) ? WHITE : BLACK, *place);
 						break;
 				}
 				return piece;
-			}
-		}
-	}
-	return nullptr;
 }
 void Board::printBoard() const
 {
@@ -149,25 +145,15 @@ bool Board::isValidPosition(const std::string& position) const
 
 void Board::setPieceAtBoard(const std::string& dest, Piece* piece)
 {
-	int i = 0;
-	int j = 0;
-	if (!isValidPosition(dest))
+	Place* place = nullptr;
+	int row = dest[ROW_INDEX] - '1';
+	int col = dest[COLUM_INDEX] - 'a';
+
+	if (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE) 
 	{
-		return;
+		place = &_board[row][col];
+		place->setPiece(piece->getType());
+		place->activePiece();
 	}
 
-	for (i; i < BOARD_SIZE; i++)
-	{
-		for (j = 0; j < BOARD_SIZE; j++)
-		{
-			if (this->_board[i][j].getLocation() == dest)
-			{
-				this->_board[i][j].setPiece(piece->getType()); 
-
-				this->_board[i][j].activePiece();
-
-				return;
-			}
-		}
-	}
 }

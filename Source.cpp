@@ -13,7 +13,7 @@ in order to read and write information from and to the Backend
 #define DELAY 5000
 #define CONSOLE 'c'
 #define GRAPHICS 'g'
-#define INIT_STRING "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"
+#define INIT_STRING "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"//the board
 #define TRY_AGAIN "0"
 
 void handleMainGame(Manager* manager);
@@ -35,7 +35,7 @@ void handleMainGame(Manager* manager)
 	char type = ' ';
 	try
 	{
-		std::cout << "For Console Game - 'c', For Graphic Game 'g': " << std::endl;
+		std::cout << "For Console Game - 'c', For Graphic Game 'g': " << std::endl;//choice between graphic and conole
 		std::cin >> type;
 		if (std::tolower(type) == CONSOLE)
 		{

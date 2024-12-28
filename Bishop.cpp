@@ -19,16 +19,16 @@ int Bishop::isValidMove(const Place& dest, Board* board, Player* currentPlayer, 
     char pieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
     int code = isBasicValid(dest, board, currentPlayer);
 
-    if (dest.getCurrentPiece() == EMPTY_PLACE)
+    if (dest.getCurrentPiece() == EMPTY_PLACE)//if the destenation is empty, we will set the piece color to #
     {
         pieceColor = EMPTY_PLACE;
     }
-
-    if (abs(currentRow - destRow) != abs(currentColumn - destColumn))
+    
+    if (abs(currentRow - destRow) != abs(currentColumn - destColumn))//if dest isnt diagonally to src, then invalid move.
     {
         return NotValidMove;
     }
-    if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) && isClearPath(dest, this->getCurrentPlace(), board))
+    if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) && isClearPath(dest, this->getCurrentPlace(), board))//if we got an valid code and path is clear and if
     {
 
         if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != KING)

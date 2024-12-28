@@ -16,7 +16,20 @@ in order to read and write information from and to the Backend
 #define INIT_STRING "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"//the board
 #define TRY_AGAIN "0"
 
+/*
+	name: handlemaingame
+	input: a pointer to the manager
+	output: none
+	description: this function handles the main game(asks the player if them want console or graphics and ect)
+*/
 void handleMainGame(Manager* manager);
+
+/*
+	name: handlegraphics
+	input: a pointer to the manager
+	output: none
+	description: this function handles the graphics
+*/
 void handleGraphics(Manager* manager);
 
 int main()

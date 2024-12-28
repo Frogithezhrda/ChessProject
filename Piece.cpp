@@ -4,6 +4,7 @@
 
 Piece::Piece(const char pieceColor, const char type, const Place& firstPlace)
 {
+	//stearting piece colors and type
 	this->_pieceColor = pieceColor;
 	this->_type = type;
 	this->_currentPlace = firstPlace;
@@ -44,7 +45,7 @@ int Piece::move(const Place& dest, Board* board, Player* player, Player* opponen
 		if (std::tolower(dest.getCurrentPiece()) != KING)//if cant eat the king
 		{
 			this->setCurrentPlace(dest);
-
+			//moving the players king
 			if (std::tolower(this->_type) == KING && this->getPieceColor() == player->getPlayerColor())
 			{
 				player->getKing()->setCurrentPlace(dest);

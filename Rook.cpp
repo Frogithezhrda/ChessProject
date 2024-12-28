@@ -11,24 +11,27 @@ int Rook::isValidMove(const Place& dest, Board* board, Player* currentPlayer, Pl
     char currentRow = this->getCurrentPlace().getRow();
     char currentLine = this->getCurrentPlace().getLine();
     char pieceColor = islower(dest.getCurrentPiece()) ? WHITE : BLACK;
-    int code = isBasicValid(dest, board, currentPlayer);
-
+    int code = isBasicValid(dest, board, currentPlayer); //getting the code
+    //checking if its a empty place
     if (dest.getCurrentPiece() == EMPTY_PLACE)
     {
         pieceColor = EMPTY_PLACE;
     }
-    
+    //checking if its within line or row
     if (!code && (!dest.hasPiece() || pieceColor != this->getPieceColor()) &&
         (currentRow == dest.getRow() || currentLine == dest.getLine()) && isClearPath(dest, this->getCurrentPlace(), board))
     {
+        //setting the board
         if (pieceColor != EMPTY_PLACE && std::tolower(dest.getCurrentPiece()) != KING)
         {
             board->setBoard(dest.getLocation(), Place(dest.getLocation(), EMPTY_PLACE));
         }
+        //checking for checks
         if (dest.getRow() == opponentPlayer->getKing()->getCurrentPlace().getRow() || dest.getLine() == opponentPlayer->getKing()->getCurrentPlace().getLine())
         {
             if (isClearPath(opponentPlayer->getKing()->getCurrentPlace(), dest, board))
             {
+                //activating a check
                 opponentPlayer->activateCheck();
                 return CheckMove;
             }
@@ -59,6 +62,8 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
     {
         for (i = startRow + 1; i < endRow; i++)
         {
+            //checking the current piece
+            //for each piece if its a clear path
             currentPos = std::string(currentRow + std::to_string(i + 1));
             currentPiece = board->getPiece(currentPos);
             if (currentPiece != nullptr && std::tolower(currentPiece->getType()) != KING)  // check if the square is occupied
@@ -73,6 +78,7 @@ bool Rook::isClearPath(const Place& dest, const Place& src, const Board* board) 
     {
         for (i = startLine + 1; i < endLine; i++)
         {
+            //checking currentPiece
             currentPos = std::string(std::string(1, (char)i) + src.getLine());  // hell
             currentPiece = board->getPiece(currentPos);
             if (currentPiece != nullptr)

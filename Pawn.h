@@ -3,6 +3,11 @@
 #include "Board.h"
 #include "Player.h"
 
+#define STEP 1
+#define BACK_STEP -1
+#define BIG_STEP 2
+#define BACK_BIG_STEP -2
+
 class Pawn : public Piece
 {
 public:

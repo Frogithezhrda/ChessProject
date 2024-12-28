@@ -3,6 +3,9 @@
 #pragma once
 #include "Piece.h"
 
+#define STEP 1
+#define BACK_STEP -1
+
 class Bishop : public Piece
 {
 public:

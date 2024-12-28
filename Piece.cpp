@@ -72,7 +72,7 @@ int Piece::isBasicValid(const Place& dest, Board* board, Player* player) const
 		return SameDestSrc; 
 	}
 	//checking that he actually takes a piece:)
-	if (this->getCurrentPlace().getCurrentPiece() == EMPTY_PLACE)
+	if (this->getCurrentPlace().getCurrentPiece() == EMPTY_PLACE && dest.getCurrentPiece() != KING)
 	{
 		return NotPlayerPiece;
 	}

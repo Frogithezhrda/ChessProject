@@ -9,9 +9,11 @@ Board::Board(const std::string& initBoard)
 	//initialzing Places with correct locations
 	for (i; i >= 0; i--)
 	{
+		//allocating memory
 		this->_board[i] = new Place[BOARD_SIZE];
 		for(j = 0; j < BOARD_SIZE; j++)
 		{
+			//
 			this->_board[i][j] = Place(char(j + A_ASCII_VALUE) + std::to_string(i + 1), initBoard[i * BOARD_SIZE + j]);
 			if (initBoard[i * BOARD_SIZE + j] != EMPTY_PLACE)
 			{
@@ -147,14 +149,16 @@ bool Board::isValidPosition(const std::string& position) const
 
 void Board::setPieceAtBoard(const std::string& dest, Piece* piece)
 {
+	int i = 0;
+	int j = 0;
 	if (!isValidPosition(dest))
 	{
 		return;
 	}
 
-	for (int i = 0; i < BOARD_SIZE; ++i)
+	for (i; i < BOARD_SIZE; i++)
 	{
-		for (int j = 0; j < BOARD_SIZE; ++j)
+		for (j = 0; j < BOARD_SIZE; j++)
 		{
 			if (this->_board[i][j].getLocation() == dest)
 			{

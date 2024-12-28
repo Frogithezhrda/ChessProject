@@ -1,8 +1,4 @@
 #include "Place.h"
-#include <string>
-#define EMPTY_PLACE '#'
-#define ROW_INDEX 1
-#define COLUM_INDEX 0
 
 Place::Place()
 {

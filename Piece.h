@@ -20,13 +20,12 @@ class Piece//represents a piece on the board
 public:
 	/*
 	name: CONSTRUCTOR
-	input: pieceColor - the color of the piece(B/W). type
+	input: the piece color, its type, and a place of ots location
 	*/
 	Piece(const char pieceColor, const char type, const Place& firstPlace);
 
 	/*
 	name: DESTRUCTOR
-	input: a refrense to a string that represents the location on the board
 	*/
 	virtual ~Piece();
 
@@ -40,7 +39,7 @@ public:
 
 	/*
 	name: isValidMove
-	input: a refrence to a place
+	input: a refrence to a place(dest), a pointer to the board, a pointer to a player, and a pointer to the opp player.
 	output: a num that represents the validility
 	description: this function tells if the move is valid or not and why
 	*/

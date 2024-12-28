@@ -11,7 +11,7 @@ public:
 	Queen(const char pieceColor, const Place& firstPlace);
 	/*
 	name: isValidMove
-	input: a refrence to a place
+	input: a refrence to a place(dest), a pointer to the board, a pointer to a player, and a pointer to the opp player.
 	output: a num that represents the validility
 	description: this function tells if the move is valid or not and why
 	*/

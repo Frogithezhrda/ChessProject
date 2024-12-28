@@ -23,6 +23,9 @@
 #define BOARD_SIZE 8
 #define A_ASCII_VALUE 97
 
+#define SECOND_ROW 2
+#define SECOND_FROM_LAST_ROW 7
+
 class Board//represents the gameboard
 {
 public:

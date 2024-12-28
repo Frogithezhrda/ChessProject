@@ -1,11 +1,5 @@
 #include "Player.h"
 #include "Board.h"
-#define LAST_ROW_INDEX '8'
-#define FIRST_ROW_INDEX '1'
-#define WHITE_KING_LOCATION "d1"
-#define BLACK_KING_LOCATION "d8"
-#define SECOND_ROW 2
-#define SECOND_FROM_LAST_ROW 7
 
 Player::Player()
 {

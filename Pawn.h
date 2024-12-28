@@ -6,6 +6,10 @@
 class Pawn : public Piece
 {
 public:
+	/*
+	name: CONSTRUCTOR
+	input: the piece color, and a place of ots location
+	*/
 	Pawn(const char pieceColor, const Place& firstPlace);
 
 	/*

@@ -8,7 +8,12 @@
 class Queen : public Piece
 {
 public:
+	/*
+	name: CONSTRUCTOR
+	input: the piece color, and a place of ots location
+	*/
 	Queen(const char pieceColor, const Place& firstPlace);
+
 	/*
 	name: isValidMove
 	input: a refrence to a place(dest), a pointer to the board, a pointer to a player, and a pointer to the opp player.

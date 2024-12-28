@@ -6,8 +6,13 @@
 class Rook : public Piece
 {
 public:
+	/*
+	name: CONSTRUCTOR
+	input: the piece color, and a place of ots location
+	*/
 	Rook(const char pieceColor, const Place& firstPlace);
-		/*
+
+	/*
 	name: move
 	input: a refrence to a place
 	output: none

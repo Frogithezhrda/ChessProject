@@ -20,7 +20,7 @@ class Piece//represents a piece on the board
 public:
 	/*
 	name: CONSTRUCTOR
-	input: pieceColor - the color of the piece(B/W). type
+	input: the piece color, its type, and a place of ots location
 	*/
 	Piece(const char pieceColor, const char type, const Place& firstPlace);
 

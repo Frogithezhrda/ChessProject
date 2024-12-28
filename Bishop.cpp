@@ -74,7 +74,7 @@ bool Bishop::isClearPath(const Place& dest, const Place& src, const Board* board
     int currentRow = srcRow + rowStep;
     int currentCol = srcCol + colStep;
     Piece* piece = nullptr;
-    if (abs(srcRow - destRow) != abs(srcCol - destCol)) 
+    if (abs(srcRow - destRow) != abs(srcCol - destCol))//if they arnt in alahcson to each other, then its no even relevent.
     {
         return false;  
     }

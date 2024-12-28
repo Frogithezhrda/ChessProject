@@ -28,6 +28,7 @@ char Piece::getType() const
 {
 	return this->_type;
 }
+
 void Piece::setCurrentPlace(const Place& dest)
 {
 	this->_currentPlace.setLocation(dest.getLocation());
@@ -37,10 +38,10 @@ void Piece::setCurrentPlace(const Place& dest)
 int Piece::move(const Place& dest, Board* board, Player* player, Player* opponentPlayer)
 {
 	int moveCode = isValidMove(dest, board, player, opponentPlayer);
-	if (moveCode == CheckMove || moveCode == GoodMove)
+	if (moveCode == CheckMove || moveCode == GoodMove)//if the move is valid...
 	{
-		//cant eat the king
-		if (std::tolower(dest.getCurrentPiece()) != KING)
+		
+		if (std::tolower(dest.getCurrentPiece()) != KING)//if cant eat the king
 		{
 			this->setCurrentPlace(dest);
 

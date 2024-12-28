@@ -37,22 +37,22 @@ void handleMainGame(Manager* manager)
 	{
 		std::cout << "For Console Game - 'c', For Graphic Game 'g': " << std::endl;//choice between graphic and conole
 		std::cin >> type;
-		if (std::tolower(type) == CONSOLE)
+		if (std::tolower(type) == CONSOLE)//if the player chode console, 
 		{
-			manager->handleConsoleMode();
+			manager->handleConsoleMode();//call the console
 		}
-		else if (std::tolower(type) == GRAPHICS)
+		else if (std::tolower(type) == GRAPHICS)//if the player chose graphics
 		{
-			handleGraphics(manager);
+			handleGraphics(manager);//call the menegar
 		}
-		else
+		else//else
 		{
-			std::cerr << "Invalid input. Exiting program." << std::endl;
+			std::cerr << "Invalid input. Exiting program." << std::endl;//error message
 		}
 	}
 	catch (const std::exception& exception)
 	{
-		std::cerr << "Unknown Exception." << std::endl;
+		std::cerr << "Unknown Exception." << std::endl;//exeptions
 	}
 }
 
@@ -63,30 +63,27 @@ void handleGraphics(Manager* manager)
 	std::string ans = "";
 	char msgToGraphics[BUFFER];
 
-	std::cout << "Starting Graphics.exe Just Put It In The Same Folder As The Game" << std::endl;
+	std::cout << "Starting Graphics.exe Just Put It In The Same Folder As The Game" << std::endl;//starting  graphics
 	system("start chessGraphics.exe");
 
-	while (!isConnect)
+	while (!isConnect)//if graphics dident connect
 	{
 		std::cout << "cant connect to graphics" << std::endl;
 		std::cout << "Do you try to connect again or exit? (0-try again, 1-exit)" << std::endl;
 		std::cin >> ans;
 
-		if (ans == TRY_AGAIN)
+		if (ans == TRY_AGAIN)//if they wanted to try again
 		{
 			std::cout << "trying connect again.." << std::endl;
 			Sleep(DELAY);
 			isConnect = p.connect();
 		}
-		else 
+		else //if they dednt, close the pipe
 		{
 			p.close();
 			return;
 		}
 	}
-
-	// msgToGraphics should contain the board string accord the protocol
-	// YOUR CODE
 
 	strcpy_s(msgToGraphics, INIT_STRING); // just example...
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string

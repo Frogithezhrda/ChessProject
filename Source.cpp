@@ -8,7 +8,6 @@ in order to read and write information from and to the Backend
 #include <iostream>
 #include <thread>
 #include "Manager.h"
-#include <crtdbg.h>
 
 #define BUFFER 1024
 #define DELAY 5000
@@ -20,14 +19,14 @@ in order to read and write information from and to the Backend
 void handleMainGame(Manager* manager);
 void handleGraphics(Manager* manager);
 
-void main()
+int main()
 {
 	srand(time_t(NULL));
 	Manager* manager = new Manager(INIT_STRING);
 	handleMainGame(manager);
 	delete manager;
 	manager = nullptr;
-	printf("%d", _CrtDumpMemoryLeaks());
+	return 0;
 }
 
 

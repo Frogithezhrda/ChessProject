@@ -36,7 +36,7 @@ public:
 	/*
 	name: DESTRUCTOR
 	*/
-	~Board();
+	virtual ~Board();
 	
 	/*
 	name: printBoard
@@ -46,12 +46,30 @@ public:
 	*/
 	void printBoard() const;
 
-
+	/*
+	name: setboard
+	input: a refrence to a string,(src). and a refrence to a string(dest)
+	output: none
+	description: this function sets the board by given locations, (moves whats at src to dest)
+	*/
 	void setBoard(const std::string& src, const Place& dest);
 
+	/*
+	name: setpieceatboard
+	input: a refrence to a string,(dest). and a pointer to a piece
+	output: none
+	description: this function inits a piece at given location at the board
+	*/
 	void setPieceAtBoard(const std::string& dest, Piece* piece);
 
+	/*
+	name: getPiece
+	input: a refrence to a string
+	output: a pinter to apiiece
+	description: this function returns a pointer to the piece that is in the given location
+	*/
 	Piece* getPiece(const std::string& pieceLocation) const;
+
 	/*
 	name: getBoard
 	input: none

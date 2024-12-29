@@ -13,7 +13,7 @@ in order to read and write information from and to the Backend
 #define DELAY 5000
 #define CONSOLE 'c'
 #define GRAPHICS 'g'
-#define INIT_STRING "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"//the board
+#define INIT_STRING "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR0"//the board
 #define TRY_AGAIN "0"
 
 /*
